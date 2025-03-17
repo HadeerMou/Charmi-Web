@@ -1,0 +1,105 @@
+.head {
+  margin: 10px 0px 20px 0px;
+}
+.productsTable table {
+  background: var(--color-white);
+  width: 100%;
+  border-radius: var(--card-border-radius);
+  padding: var(--card-padding);
+  text-align: center;
+  box-shadow: var(--box-shadow);
+  transition: all 300ms ease;
+}
+.productsTable table:hover {
+  box-shadow: none;
+}
+.productsTable table thead {
+  height: 30px;
+}
+.productsTable table tbody td {
+  height: 3.5rem;
+  color: var(--color-dark-variant);
+  margin-bottom: 30px;
+}
+.productsTable table tbody {
+  margin: 200px 0px;
+  padding: 20px;
+  background-color: var(--color-background);
+}
+
+table i {
+  font-size: 15px;
+  cursor: pointer;
+}
+.pages .no {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: fit-content;
+  margin: 30px auto;
+}
+.no h3 {
+  font-size: 13px;
+  padding: 3px 6px;
+  background-color: var(--color-white);
+  border-radius: var(--border-radius-1);
+  border: 1px solid var(--color-dark);
+}
+.previous {
+  font-size: 16px;
+}
+.no h3:first-child,
+.no h3:last-child {
+  background-color: transparent;
+  border: none;
+}
+
+.productsTable table button {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border: none;
+  padding: 7px 15px;
+  border-radius: var(--card-border-radius);
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+@media (max-width: 480px) {
+  .middle-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+  }
+  .productSection {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0px 20px;
+  }
+  .productsTable table {
+    width: 100%;
+    gap: 20px;
+  }
+  .productsTable table thead {
+    font-size: 10px;
+  }
+  .productsTable table tbody tr td {
+    font-size: 8px;
+    line-height: 25px;
+  }
+  .productsTable {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 300px;
+  }
+  .productSection {
+    display: flex;
+    flex-direction: column;
+    max-width: 300px;
+  }
+  .pages .no * {
+    font-size: 8px;
+  }
+}

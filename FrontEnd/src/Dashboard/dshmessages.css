@@ -1,0 +1,131 @@
+:root {
+  --color-white: #fff;
+}
+* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  appearance: 0;
+  border: 0;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+a {
+  text-decoration: none;
+}
+.middle-container a {
+  text-decoration: none;
+}
+.head {
+  padding: 8px 0px;
+  margin-bottom: 20px;
+}
+.middle-container main .messageContainer {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 0.8rem;
+  background-color: var(--color-background);
+  border: 0.1px solid rgba(83, 83, 83, 0.226);
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  padding: 0.8rem;
+  transition: 300ms all ease;
+  margin-bottom: 6px;
+}
+.dshcontainer main .messageContainer:hover {
+  background-color: var(--color-white);
+  cursor: pointer;
+}
+.messageContainer .name h3 {
+  font-size: 16px;
+}
+.messageContainer .img {
+  width: 40px;
+  border-radius: 100%;
+  background-color: rgba(49, 49, 49, 0.925);
+}
+.messageContainer .message {
+  margin-left: 1%;
+}
+.messageContainer .no {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  margin-right: 5px;
+  gap: 10px;
+  font-size: 10px;
+}
+.messageContainer .no span {
+  background-color: rgb(253, 129, 129);
+  border-radius: 100%;
+  padding: 5px 10px;
+  color: white;
+}
+.file {
+  border-radius: 3px;
+  padding: 5px;
+}
+.edit-category-modal {
+  padding: 20px;
+}
+
+@media (max-width: 700px) {
+  .wrap-container {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping */
+    width: 100%; /* Ensure it takes the full width of the container */
+  }
+  .middle-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%; /* Ensure it scales down on smaller screens */
+  }
+
+  .middle-container main {
+    width: 100%; /* Adjust width to fit smaller screens */
+    max-width: 100%;
+  }
+
+  .middle-container main a {
+    width: 100%; /* Adjust to full width */
+    margin-bottom: 10px; /* Add margin to separate the elements */
+  }
+
+  #sidebar {
+    display: none;
+  }
+
+  .menu-icon {
+    display: inline;
+  }
+
+  .sidebar-title > span {
+    display: inline;
+  }
+  .messageContainer .name h3 {
+    font-size: 12px;
+  }
+  .message p {
+    font-size: 8px;
+  }
+  .no p {
+    font-size: 6px;
+  }
+  .messageContainer .no span {
+    padding: 3px 7px;
+    font-size: 8px;
+  }
+}
+.wrap-container {
+  display: flex;
+}
+.middle-container {
+  display: flex;
+  flex-direction: column;
+  width: 1300px;
+}
+.middle-container main {
+  width: 90%;
+}

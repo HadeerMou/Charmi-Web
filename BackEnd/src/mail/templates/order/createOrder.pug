@@ -1,0 +1,73 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    style.
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #f7f7f7;
+      }
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #ffffff;
+        padding: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        color: #333;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+      }
+      th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+      p {
+        margin-bottom: 10px;
+      }
+  body(style="color: #1e1e23")
+    div(style=`
+      border-top-left-radius: 8px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 0px;
+    `)
+      div(style="margin: 24px; margin-top: 0")
+        center
+          h1(style="margin-top: 0") Order Confirmed
+        p Dear #{user.name},
+        p Your order has been successfully created and is now being processed. Here are the details of your order:
+
+        table
+          tr
+            th Product
+            th Quantity
+            th Price
+          each item in order.items
+            tr
+              td #{item.name}
+              td #{item.quantity}
+              td EGP#{(item.price * item.quantity).toFixed(2)}
+
+        p Total Amount: #{order.totalAmount.toFixed(2)} EGP
+
+        p We will keep you updated on the progress of your order. If you have any questions or concerns, please feel free to contact our customer support.
+
+        p Thank you for choosing us!
+
+      div(style="margin: 24px; margin-bottom: 8px")
+        h4(style="margin: 0") Best regards,
+        h4(style="margin: 0") Charmi.

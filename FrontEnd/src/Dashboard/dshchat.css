@@ -1,0 +1,95 @@
+.main .content {
+  display: flex;
+  gap: 1rem;
+  margin: 20px 0px;
+  padding: 20px 8px;
+}
+.messageContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.head {
+  padding: 20px 8px 10px 8px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  border-bottom: 1px solid rgba(0, 0, 0, 0.096);
+}
+.main .head img,
+img {
+  width: 2.2rem;
+}
+.head h3 {
+  font-size: 12px;
+  font-weight: 500;
+}
+.top {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.top h3 {
+  font-size: 12px;
+}
+.top p {
+  font-size: 9px;
+}
+.message {
+  display: flex;
+  margin-top: 8px;
+}
+.sendCont {
+  max-width: fit-content;
+  bottom: 3rem;
+  padding: 20px 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.sendCont textarea {
+  height: 200px;
+  width: 800px;
+  border-radius: 10px;
+  padding: 20px;
+  font-size: 16px;
+  background-color: var(--color-light);
+}
+.sendCont .bottom {
+  padding: 10px;
+}
+.sendCont .bottom button {
+  padding: 10px;
+  background-color: rgb(203, 54, 54);
+  color: white;
+  border-radius: 6px;
+  width: 90px;
+  font-weight: bold;
+  cursor: pointer;
+  height: 50px;
+  transition: 600ms all ease;
+}
+.sendCont .bottom button:hover {
+  background-color: rgb(227, 153, 153);
+}
+@media (max-width: 480px) {
+  .main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .main .send {
+    max-width: 100%;
+  }
+  .main .send textarea {
+    width: 330px;
+    height: 150px;
+  }
+  .main .send button {
+    padding: 6px;
+    width: 65px;
+    height: 33px;
+    font-size: 12px;
+  }
+}

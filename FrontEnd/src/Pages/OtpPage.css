@@ -1,0 +1,40 @@
+.codeRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px auto;
+}
+.codeRow p {
+  font-size: 50px;
+  color: white;
+}
+.codeRow .otpInput {
+  width: 60px;
+  height: 65px;
+  font-size: 25px;
+  text-align: center;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  margin: 5px;
+}
+.otpInput:focus {
+  border: 2px solid #161616;
+}
+.navigateto {
+  margin: auto auto;
+}
+.navigateto a {
+  color: white !important;
+}
+
+/* Remove arrows from number inputs */
+.otpInput::-webkit-outer-spin-button,
+.otpInput::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.otpInput[type="number"] {
+  -moz-appearance: textfield;
+}

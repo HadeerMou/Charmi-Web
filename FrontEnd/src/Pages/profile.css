@@ -1,0 +1,219 @@
+.profile {
+  display: flex;
+  margin-left: 30px;
+}
+.persinfo {
+  margin-left: 50px;
+  padding: 30px;
+  width: 70%;
+}
+.infos,
+.passinfo {
+  margin-bottom: 50px;
+}
+.infos p {
+  background-color: rgba(243, 245, 247, 0.918);
+  border-radius: 5px;
+  width: 50%;
+  padding: 10px 0px 10px 20px;
+  border: 0.8px solid rgba(0, 0, 0, 0.473);
+  text-align: left;
+}
+.infos .all {
+  color: #000;
+  cursor: pointer;
+}
+.infos .all:hover {
+  color: #ff0000;
+  cursor: pointer;
+}
+.addp {
+  height: 80px;
+}
+.addp i {
+  color: #000;
+  margin-right: 10px;
+}
+.addp i:last-child,
+.profdata i {
+  float: right;
+  cursor: pointer;
+  color: #000;
+  margin-right: 10px;
+}
+
+.passinfo button {
+  margin-top: 8px;
+  padding: 13px 15px;
+  border-radius: 50px;
+  background-color: rgba(255, 238, 0, 0.973);
+  font-weight: bold;
+}
+.ordersinfo {
+  margin-left: 30px;
+  padding: 30px;
+  width: 70%;
+}
+.ordersinfo .ordersContainer {
+  background-color: rgb(239, 243, 242);
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  margin-bottom: 10px;
+  padding: 3px 8px;
+  border-radius: 5px;
+  transition: 300ms all ease;
+}
+.ordersinfo .ordersContainer:hover {
+  background-color: rgba(255, 255, 255, 0.911);
+}
+.ordersinfo .ordersContainer img {
+  width: 50px;
+  background-color: #000000c7;
+}
+.ordersContainer .orderno h3 {
+  font-size: 12px;
+}
+.ordersContainer .no {
+  margin-left: auto;
+  margin-right: 10px;
+}
+.ordersinfo .ordersContainer .orderprice p {
+  color: red !important;
+  font-weight: 600;
+}
+.welcome {
+  padding: 30px;
+  font-weight: bold;
+  margin-left: 6%;
+}
+
+.profile .left {
+  padding: 10px 60px;
+  display: flex;
+  flex-direction: column;
+}
+
+.lists {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin-left: 8%;
+}
+
+.image {
+  background-color: aqua;
+  padding: 50px;
+  max-width: 7%;
+  border-radius: 100%;
+}
+.username h2 {
+  margin-top: 30px;
+  font-weight: bold;
+  font-size: 20px;
+}
+.username h3 {
+  color: #00000085;
+  font-size: 16px;
+}
+.options {
+  margin-left: -30px;
+}
+.options ul {
+  list-style: none;
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 30px;
+}
+.options ul li {
+  width: 100% !important;
+  padding: 15px 10px;
+  background-color: rgba(244, 246, 248, 0.425);
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.13);
+  border-radius: 3px;
+  cursor: pointer;
+}
+.options ul li:hover {
+  background-color: rgba(0, 0, 0, 0.753);
+  color: white;
+}
+
+.details .img {
+  width: 10%;
+}
+.details .img img {
+  width: 100%;
+  height: auto;
+}
+
+.orderDetails {
+  padding: 20px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+.orderItem {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+}
+
+.product-img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.close-btn {
+  margin-top: 10px;
+  padding: 8px 12px;
+  background: red;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .profile {
+    flex-direction: column;
+    align-items: center;
+    margin-left: 0;
+  }
+  .persinfo,
+  .ordersinfo {
+    width: 100%;
+    margin-left: 0;
+    padding: 20px;
+  }
+
+  .lists {
+    align-items: center;
+    margin-left: 0;
+  }
+
+  .options ul {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .options ul li {
+    padding: 10px;
+    font-size: 14px;
+    text-align: center;
+    align-items: center;
+  }
+  .infos p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
+  }
+}

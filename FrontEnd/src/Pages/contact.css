@@ -1,0 +1,127 @@
+@media (max-width: 700) {
+  .logo {
+    width: 10px;
+  }
+  .mainlinks i {
+    font-size: 15px;
+  }
+  svg {
+    width: 15px;
+  }
+  .entry {
+    width: 90%;
+    margin-left: 20%;
+  }
+  .entry h1 {
+    font-size: 18px;
+  }
+}
+.entry h1 {
+  font-size: 30px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+.flbottom {
+  padding: 10px;
+  margin-left: 40px;
+}
+#fu {
+  font-weight: bold;
+}
+.reach {
+  margin-top: 3%;
+}
+.reach * {
+  display: inline;
+  margin-right: 10px;
+  font-size: large;
+}
+.reach a {
+  text-decoration: underline;
+}
+.contactsection {
+  font-size: 20px;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 80px 0px;
+}
+.webvideo {
+  margin-top: 40px;
+}
+.question {
+  font-size: 25px;
+  max-width: 90%;
+}
+textarea {
+  border: #000 solid 1px;
+  max-width: 90%;
+}
+.contactsection button {
+  margin-top: 2rem;
+  padding: 20px 30px;
+  background-color: #000000;
+  color: rgb(255, 255, 255);
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: bold;
+  box-shadow: 5px 5px 5px #5e5e5e;
+  cursor: pointer;
+}
+.contactsection button:hover {
+  background-color: #e2e0ca85;
+  color: #000;
+  transition: all 1s ease;
+}
+.comment {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 50px;
+  align-items: center;
+}
+.comment h3 {
+  max-width: 50rem;
+  text-align: center;
+}
+#cm {
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 5px;
+  font-size: 20px;
+  padding: 20px;
+}
+#Sendbtn {
+  border-radius: 8px;
+  padding: 15px 30px;
+  background-color: rgb(206, 20, 20);
+  border: rgb(239, 36, 36) solid;
+  color: white;
+  font-weight: bold;
+  box-shadow: 2px 4px 8px #0000009e;
+  transition: 600ms all ease;
+}
+#Sendbtn:hover {
+  background-color: rgb(185, 93, 93);
+  border-color: rgb(185, 93, 93);
+  color: black;
+}
+
+@media (max-width: 800px) {
+  #contact_form {
+    width: 80vw;
+  }
+}
+.reach a {
+  color: #000;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+@media (min-width: 900px) and (max-width: 1500px) {
+  .webvideo video {
+    height: 1080px;
+    width: 1600px;
+  }
+}

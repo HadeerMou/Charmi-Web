@@ -1,0 +1,42 @@
+.abtit {
+  text-align: center;
+  padding: 90px 0px;
+  font-weight: bold;
+  font-size: 50px;
+}
+.chtitle {
+  font-weight: bold;
+}
+.vision {
+  text-align: center;
+  padding-top: 90px;
+  font-weight: bold;
+  font-size: 50px;
+}
+.brief {
+  width: 80%;
+  padding: 40px 0px;
+  max-width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  align-items: center;
+}
+.brief p {
+  max-width: 700px;
+}
+.choose {
+  text-align: center;
+  padding: 20px 0px;
+  font-weight: bold;
+  font-size: 50px;
+}
+.choosecont {
+  text-align: center;
+}
+
+@media (min-width: 900px) and (max-width: 1500px) {
+  .webvideo video {
+    height: 1080px;
+    width: 1600px;
+  }
+}

@@ -1,0 +1,130 @@
+.customers {
+  width: 90%;
+}
+.customers h2 {
+  margin-bottom: 1rem;
+  font-size: 28px;
+  font-weight: bold;
+  padding: 10px;
+  color: var(--color-dark);
+}
+.customers {
+  margin-top: 2rem;
+}
+
+.customers table {
+  background: var(--color-white);
+  width: 100%;
+  border-radius: var(--card-border-radius);
+  padding: var(--card-padding);
+  text-align: center;
+  box-shadow: var(--box-shadow);
+  transition: all 300ms ease;
+}
+.customers table:hover {
+  box-shadow: none;
+}
+.customers table thead tr th {
+  margin-top: 20px !important;
+  color: var(--color-dark) !important;
+}
+.customers table tbody td {
+  height: 3rem;
+  border-bottom: 2px dotted var(--color-light);
+  color: var(--color-dark-variant);
+}
+.customers table tbody tr:last-child td {
+  border: none;
+}
+.customers a {
+  text-align: center;
+  display: block;
+  margin: 1rem auto;
+  color: var(--color-primary);
+}
+.customers table tbody td .nametd {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.customers table tbody td .img {
+  width: 8%;
+}
+.customers table tbody td img {
+  width: 100%;
+  height: auto;
+}
+.toaddproduct {
+  margin: 30px auto;
+  max-width: fit-content;
+}
+.addprod {
+  background-color: white;
+  border-radius: var(--card-border-radius);
+  padding: 10px;
+  border: 1px solid rgba(128, 128, 128, 0.379);
+}
+
+.customers table button {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border: none;
+  padding: 7px 15px;
+  border-radius: var(--card-border-radius);
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+/* create user page */
+.create-user-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.create-user-form input,
+.createcity input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid var(--color-light);
+  border-radius: var(--card-border-radius);
+}
+.create-user-form button,
+.createcity button {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: none;
+  border-radius: var(--card-border-radius);
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  cursor: pointer;
+}
+.edit-user-modal {
+  padding: 20px;
+}
+/* Responsive */
+
+@media (max-width: 480px) {
+  .middle-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+  }
+  .customers {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0px 20px;
+  }
+  .customers table {
+    width: 100%;
+    gap: 20px;
+  }
+  .customers table tbody tr td {
+    font-size: 10px;
+    padding: 15px;
+    line-height: 25px;
+  }
+}

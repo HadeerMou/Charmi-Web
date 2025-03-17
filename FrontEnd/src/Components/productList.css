@@ -1,0 +1,226 @@
+.category-section {
+  overflow: hidden; /* Prevents horizontal overflow issues */
+}
+.scroll-container {
+  width: 100%;
+  overflow-x: auto; /* Enables horizontal scrolling */
+  white-space: nowrap;
+  padding-bottom: 10px; /* Space for the scrollbar */
+}
+.DesignTitle {
+  font-weight: bold;
+  font-size: 50px;
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+.sc1 {
+  background-color: rgba(247, 247, 247, 0.774);
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 30px;
+}
+.webs {
+  width: 100%;
+  height: auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  justify-content: space-around;
+  margin: 0px 10px;
+  gap: 50px 10px;
+  overflow-x: auto;
+}
+/* Hide scrollbar when not needed */
+.scroll-container::-webkit-scrollbar {
+  height: 8px;
+  display: none; /* Hide scrollbar when not needed */
+}
+
+.scroll-container:hover::-webkit-scrollbar {
+  display: block; /* Show scrollbar only when hovered */
+}
+.webs a {
+  text-decoration: none;
+}
+.product {
+  background-color: #f1f1f1;
+  width: 450px;
+  box-shadow: #636161;
+  border-radius: 4px;
+  padding-bottom: 50px;
+}
+.product .img {
+  position: relative;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+}
+.product .img img {
+  width: 100%;
+  height: auto;
+  transition: opacity 0.5s ease-in-out;
+}
+.content {
+  margin: 20px 0px 0px 10px;
+}
+.product h4 {
+  color: rgba(0, 0, 0, 0.856);
+  line-height: 35px;
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+.product p {
+  color: rgb(233, 3, 3);
+  font-size: 18px;
+  font-weight: bold;
+  max-width: 90%;
+  line-height: 22px;
+}
+
+.product a:hover > * {
+  transform: translateY(0px);
+}
+.product a > * {
+  transform: translateY(25px);
+  transition: transform 0.6s;
+}
+.product .img {
+  padding: 6px;
+  height: 550px;
+}
+.product img {
+  height: 100%;
+  width: 100%;
+  border-radius: 4px;
+  margin: auto;
+  display: block;
+  position: relative;
+  cursor: pointer;
+}
+.product .content h4 {
+  font-size: 19px;
+}
+.more {
+  display: flex;
+  margin: 30px;
+  float: right;
+}
+.more a {
+  align-items: center;
+  display: flex;
+  color: #00000096;
+  text-decoration: none;
+  cursor: pointer;
+}
+.more i {
+  font-size: 35px;
+}
+.showmore {
+  margin-top: 5px;
+  font-size: 18px;
+  font-weight: bold;
+  margin-right: 5px;
+}
+.arrow {
+  font-size: 40px;
+}
+.bottom {
+  margin: 30px 0px;
+  align-items: center;
+}
+.bottom i {
+  font-size: 26px;
+  background-color: #353432;
+  padding: 8px 10px;
+  border-radius: 100%;
+  color: white;
+  margin-right: 10px;
+  cursor: pointer;
+}
+.bottom button {
+  font-size: 18px;
+  background-color: #353432;
+  padding: 10px;
+  border-radius: 40px;
+  color: white;
+}
+@media (min-width: 1200px) and (max-width: 1800px) {
+  .webs {
+    width: 100%;
+    height: auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    justify-content: space-around;
+    margin: 0px 10px;
+    gap: 20px 5px;
+  }
+  .product {
+    background-color: #f1f1f1;
+    width: 360px;
+    box-shadow: #636161;
+    border-radius: 4px;
+    padding-bottom: 0px;
+  }
+  .product .img {
+    padding: 0px;
+    height: auto;
+  }
+  .product img {
+    height: 100%;
+    width: 100%;
+    border-radius: 4px;
+  }
+}
+@media (max-width: 480px) {
+  .webs {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-content: space-around;
+    margin: 0px 5px;
+    gap: 0px 0px;
+    align-items: center;
+  }
+  .product {
+    background-color: #f1f1f1;
+    width: 180px;
+    box-shadow: #636161;
+    border-radius: 4px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+  }
+  .product .img {
+    width: 100%; /* Allow it to take full width of the parent container */
+    height: auto; /* Maintain aspect ratio of the image */
+  }
+  .product .content h3 {
+    font-size: 13px;
+    margin: 2px 0px;
+  }
+  .product .content p {
+    max-width: 100px;
+    font-size: 10px;
+    margin: 0;
+  }
+  .product .content h4 {
+    font-size: 12px;
+    margin: 0;
+  }
+  .product .bottom {
+    margin: 5px 0px;
+  }
+  .product .bottom button {
+    margin: 0;
+    font-size: 10px;
+  }
+  .sc1 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+  .home-page .sc1 .DesignTitle {
+    font-size: 18px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+}

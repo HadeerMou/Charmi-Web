@@ -1,0 +1,237 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Users{
+  id         Int                   @id @default(autoincrement())
+  createdAt  DateTime              @default(now())
+  username   String                @unique
+  email      String                @unique
+  password   String
+  phone      String                @unique
+  deletedAt  DateTime?  
+  orders                           Orders[]  
+  UserAddresses                    UserAddresses[]     
+  carts                            Carts?
+}
+
+
+model OtpCodes {
+  id         Int         @id @default(autoincrement())
+  hashedCode String?     
+  input      String      
+  expiresAt  DateTime    
+  isVerified Boolean     @default(false)
+  userType   String      
+  createdAt  DateTime    @default(now()) 
+}
+
+model Address{
+  id                          Int          @id @default(autoincrement())
+  buildingNumber             String   
+  streetName                 String           @db.VarChar(255)      
+  districtId                 String
+  countryId                  Int
+  cityId                     Int
+  apartmentNumber            String?
+  postalCode                 Int?
+  deletedAt                  DateTime?        
+  createdAt                  DateTime         
+  updatedAt                  DateTime 
+  isDefault                  Boolean    
+  City                        Cities           @relation(fields: [cityId], references: [id], onDelete: NoAction)
+  District                    District         @relation(fields: [districtId], references: [district_id], onDelete: NoAction)    
+  orders                      Orders[]
+  UserAddresses               UserAddresses[]
+}
+
+
+model UserAddresses {
+  id         Int                @id @default(autoincrement())
+  userId    Int
+  addressId Int
+  isDefault Boolean            @default(false)
+  createdAt DateTime           @default(now())
+  updatedAt DateTime           
+  
+  Users      Users     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  Addresses  Address @relation(fields: [addressId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, addressId])
+}
+
+model District {
+  district_id            String      @id 
+  zoneId                 String      
+  zoneName               String      
+  zoneOtherName          String      
+  districtName           String      
+  districtOtherName      String      
+  pickupAvailability     Boolean    
+  dropOffAvailability    Boolean     
+  cityId                 Int         
+  City                   Cities      @relation(fields: [cityId], references: [id])
+  Addresses              Address[]
+}
+
+model Cities {
+  id           Int            @id @default(autoincrement())
+  name         String         
+  code         String?
+  countryId   Int?
+  deletedAt   DateTime?      
+  createdAt   DateTime       @default(now())
+
+  Countries    Countries?     @relation(fields: [countryId], references: [id], onDelete: NoAction)
+  ShippingFees ShippingFees[]
+  Addresses    Address[]
+  Districts    District[]
+}
+
+model ShippingFees {
+  id        Int              @id @default(autoincrement())
+  cityId   Int
+  fee       Float
+  deletedAt DateTime?        
+  createdAt DateTime         @default(now()) 
+  Cities    Cities           @relation(fields: [cityId], references: [id], onDelete: Cascade)
+
+  @@unique([cityId])
+}
+
+model Countries {
+  id         Int                 @id @default(autoincrement())
+  name       String             
+  deletedAt DateTime? 
+  createdAt DateTime              @default(now()) 
+
+  Cities     Cities[]
+} 
+
+model Products{
+  id                  Int     @id @default(autoincrement())
+  name                String
+  description         String
+  price               Decimal    @db.Decimal(10, 2)
+  quantity            Int
+  categoryId          Int
+  status            productStatus  @default(ACTIVE)
+  createdAt  DateTime              @default(now())
+  deletedAt  DateTime?             
+  category            Category    @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  productImages       productImages[]
+  productModel        productModel?  @relation(name: "ProductsModel")
+  cartItems           cartItems[]
+  orderItems         orderItems[]
+}
+
+enum productStatus {
+  ACTIVE
+  OUTOFSTOCK
+}
+
+model productImages{
+  id               Int         @id @default(autoincrement())
+  productId        Int
+  createdAt  DateTime              @default(now())
+  deletedAt  DateTime?             
+  isDefault        Boolean    @default(false)
+  imagePath        String
+  Products         Products     @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+model productModel{
+  id               Int         @id @default(autoincrement())
+  productId        Int          @unique
+  createdAt  DateTime              @default(now())
+  deletedAt  DateTime?             
+  modelPath        String
+  Products    Products    @relation(name: "ProductsModel", fields: [productId], references: [id], onDelete: Cascade)
+}
+
+model Category{
+  id           Int            @id @default(autoincrement())
+  name         String
+  imagePath    String
+  products     Products[]   
+  createdAt  DateTime              @default(now()) 
+  deletedAt  DateTime?             
+}
+
+model Carts{
+  id         Int                @id @default(autoincrement())
+  userId     Int                @unique
+  Users      Users              @relation(fields: [userId], references: [id], onDelete: Cascade)  
+  cartItems  cartItems[]
+  createdAt  DateTime              @default(now())
+  deletedAt  DateTime?             
+}
+
+model cartItems{
+  quantity      Int
+  productId     Int
+  createdAt     DateTime              @default(now())
+  deletedAt     DateTime?             
+  cartId        Int    
+  Products      Products   @relation(fields: [productId], references: [id], onDelete: Cascade)
+  Carts         Carts      @relation(fields: [cartId], references: [id], onDelete: Cascade)
+
+  @@unique([cartId, productId])
+}
+
+enum AdminRole {
+    NormalAdmin
+    SuperAdmin
+}
+model Admins{
+  id            Int               @id @default(autoincrement())
+  email         String            @unique
+  password      String
+  createdAt     DateTime          @default(now())
+  deletedAt     DateTime? 
+  adminRole     AdminRole?        @default(SuperAdmin)
+}
+
+enum  OrderStatus  {
+  PENDING
+  DELIVERED
+  CANCELLED
+}
+
+model Orders{
+  id            Int             @id  @default(autoincrement())
+  createdAt     DateTime        @default(now())
+  deletedAt     DateTime? 
+  userId        Int
+  addressId     Int
+  shipping      Int
+  total         Int        
+  status        OrderStatus     @default(PENDING)
+  user          Users           @relation(fields: [userId], references: [id])
+  address       Address         @relation(fields: [addressId], references: [id])
+  orderItems    orderItems[]
+}
+
+model orderItems{
+  id            Int              @id  @default(autoincrement())
+  orderId       Int
+  productId     Int
+  quantity      Int
+  price         Int          
+  createdAt     DateTime         @default(now())
+  deletedAt     DateTime?  
+  order         Orders           @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product       Products         @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
