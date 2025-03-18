@@ -49,7 +49,7 @@ function OtpPage() {
   const handleVerifyOtp = async () => {
     try {
       const response = await axios.post(`${API_BASE_URL}/auth/verifyotp`, {
-        email,
+        input: email,
         otp: otp.join(""), // Convert array to string
         userType: "USER", // Required header
       });
@@ -62,6 +62,9 @@ function OtpPage() {
       // Store user info in localStorage
       localStorage.setItem("user", JSON.stringify(user)); // Save user details
       localStorage.setItem("token", token); // Save authentication token
+      console.log("Email:", email);
+      console.log("OTP Sent:", otp.join(""));
+      console.log("API URL:", API_BASE_URL);
 
       alert("OTP Verified Successfully!");
 
@@ -71,7 +74,8 @@ function OtpPage() {
         navigate("/signup");
       }
     } catch (err) {
-      alert("Invalid OTP. Please try again.");
+      console.error("Error verifying OTP:", err.response?.data || err.message);
+      alert(err.response?.data?.message || "Invalid OTP. Please try again.");
     }
   };
 
