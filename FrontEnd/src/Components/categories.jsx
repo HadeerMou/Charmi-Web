@@ -22,43 +22,39 @@ function Categories({ addToCart }) {
         const categoryResponse = await axios.get(`${API_BASE_URL}/category`);
         const productResponse = await axios.get(`${API_BASE_URL}/products`);
 
-        if (!Array.isArray(productResponse.data)) {
-          console.error(
-            "Expected an array for products but got:",
-            productResponse.data
-          );
-          return;
+        if (categoryResponse.data && productResponse.data) {
+          setCategories(categoryResponse.data);
+
+          let categoryProducts = {};
+          for (const category of categoryResponse.data) {
+            // Get first 4 products for each category
+            const filteredProducts = productResponse.data
+              .filter((product) => product.categoryId === category.id)
+              .slice(0, 4);
+
+            // Fetch images for each product
+            const productsWithImages = await Promise.all(
+              filteredProducts.map(async (product) => {
+                const imageResponse = await axios.get(
+                  `${API_BASE_URL}/product-images/product/${product.id}`
+                );
+
+                const images =
+                  imageResponse.data && imageResponse.data.length > 0
+                    ? imageResponse.data.map(
+                        (img) => `https://${img.imagePath}`
+                      )
+                    : ["/path/to/default/image.jpg"];
+
+                return { ...product, images };
+              })
+            );
+
+            categoryProducts[category.id] = productsWithImages;
+          }
+
+          setProductsByCategory(categoryProducts);
         }
-
-        setCategories(categoryResponse.data);
-
-        let categoryProducts = {};
-        for (const category of categoryResponse.data) {
-          // Get first 4 products for each category
-          const filteredProducts = productResponse.data
-            .filter((product) => product.categoryId === category.id)
-            .slice(0, 4);
-
-          // Fetch images for each product
-          const productsWithImages = await Promise.all(
-            filteredProducts.map(async (product) => {
-              const imageResponse = await axios.get(
-                `${API_BASE_URL}/product-images/product/${product.id}`
-              );
-
-              const images =
-                imageResponse.data && imageResponse.data.length > 0
-                  ? imageResponse.data.map((img) => `https://${img.imagePath}`)
-                  : ["/path/to/default/image.jpg"];
-
-              return { ...product, images };
-            })
-          );
-
-          categoryProducts[category.id] = productsWithImages;
-        }
-
-        setProductsByCategory(categoryProducts);
       } catch (error) {
         console.error("Error loading categories and products:", error);
       } finally {

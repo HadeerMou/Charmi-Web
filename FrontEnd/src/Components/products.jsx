@@ -14,16 +14,10 @@ export default function Products({ showProducts }) {
     axios
       .get(`${API_BASE_URL}/category`)
       .then((response) => {
-        if (Array.isArray(response.data)) {
-          setCategories(response.data);
-        } else {
-          console.error("Expected an array but got:", response.data);
-          setCategories([]);
-        }
+        setCategories(response.data);
       })
       .catch((error) => {
         console.error("Error fetching categories:", error);
-        setCategories([]);
       });
   }, []);
 
