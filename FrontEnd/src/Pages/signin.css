@@ -62,7 +62,7 @@
 .navto {
   display: flex;
   gap: 2rem;
-  margin: 0px 0px 0px 100px;
+  margin: 0px 0px 0px 15%;
   color: #ffffff50;
 }
 .navto h5 {
@@ -74,7 +74,7 @@
   color: rgba(255, 0, 0, 0.678);
 }
 .forgotpass {
-  margin: 0px 0px 20px 100px;
+  margin: 0px 0px 20px 15%;
   font-size: 16px;
 }
 
@@ -89,7 +89,7 @@
   }
   .loginContainer {
     padding: 70px 0px;
-    max-width: 80%;
+    max-width: 90%;
   }
   .inputs {
     display: flex;
@@ -132,8 +132,17 @@
     color: rgb(187, 10, 10) !important;
     font-weight: bold;
     font-size: 10px;
+    margin-bottom: 10px;
   }
   .navigateto h5 {
     font-size: 12px;
+  }
+  .forgotpass {
+    margin-bottom: 10px;
+  }
+  .forgotpass a,
+  .navto a,
+  .navto h5 {
+    font-size: 10px;
   }
 }

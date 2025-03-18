@@ -38,3 +38,26 @@
 .otpInput[type="number"] {
   -moz-appearance: textfield;
 }
+
+@media screen and (max-width: 768px) {
+  .codeRow .otpInput {
+    width: 50px;
+    height: 55px;
+    font-size: 22px;
+    margin: 4px;
+  }
+}
+
+/* Make it responsive for mobile screens */
+@media screen and (max-width: 480px) {
+  .codeRow {
+    gap: 5px;
+  }
+
+  .codeRow .otpInput {
+    width: 40px;
+    height: 45px;
+    font-size: 18px;
+    margin: 3px;
+  }
+}
