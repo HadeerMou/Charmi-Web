@@ -13,7 +13,6 @@ function Home({
   addToCart,
   totalQuantity,
 }) {
-  console.log("addToCart in Home:", addToCart);
 
   return (
     <>
