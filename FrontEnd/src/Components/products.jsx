@@ -14,10 +14,16 @@ export default function Products({ showProducts }) {
     axios
       .get(`${API_BASE_URL}/category`)
       .then((response) => {
-        setCategories(response.data);
+        if (Array.isArray(response.data)) {
+          setCategories(response.data);
+        } else {
+          console.error("Expected an array but got:", response.data);
+          setCategories([]);
+        }
       })
       .catch((error) => {
         console.error("Error fetching categories:", error);
+        setCategories([]);
       });
   }, []);
 
@@ -26,39 +32,42 @@ export default function Products({ showProducts }) {
       {showProducts && (
         <section>
           <div className="pr">
-            {categories.map((category) => (
-              <div
-                key={category.id}
-                className="col d-flex flex-column mb-3 w-25">
-                <a className="text-decoration-none text-dark">
-                  <div
-                    className="box"
-                    onClick={() =>
-                      navigate("/categoryPage", {
-                        state: {
-                          categoryId: category.id,
-                          categoryName: category.name,
-                        },
-                      })
-                    }>
-                    <div className="boximg">
-                      {category.imagePath ? (
-                        <img
-                          src={"https://" + category.imagePath}
-                          className="card-img-top"
-                          alt={category.name}
-                        />
-                      ) : (
-                        <p>No Image Available</p>
-                      )}
+            {Array.isArray(categories) &&
+              categories.map((category) => (
+                <div
+                  key={category.id}
+                  className="col d-flex flex-column mb-3 w-25"
+                >
+                  <a className="text-decoration-none text-dark">
+                    <div
+                      className="box"
+                      onClick={() =>
+                        navigate("/categoryPage", {
+                          state: {
+                            categoryId: category.id,
+                            categoryName: category.name,
+                          },
+                        })
+                      }
+                    >
+                      <div className="boximg">
+                        {category.imagePath ? (
+                          <img
+                            src={"https://" + category.imagePath}
+                            className="card-img-top"
+                            alt={category.name}
+                          />
+                        ) : (
+                          <p>No Image Available</p>
+                        )}
+                      </div>
+                      <div className="card-body text-center">
+                        <h5 className="card-title">{category.name}</h5>
+                      </div>
                     </div>
-                    <div className="card-body text-center">
-                      <h5 className="card-title">{category.name}</h5>
-                    </div>
-                  </div>
-                </a>
-              </div>
-            ))}
+                  </a>
+                </div>
+              ))}
           </div>
           <hr id="hr" />
         </section>
