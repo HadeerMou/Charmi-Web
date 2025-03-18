@@ -21,6 +21,25 @@ function Categories({ addToCart }) {
       try {
         const categoryResponse = await axios.get(`${API_BASE_URL}/category`);
         const productResponse = await axios.get(`${API_BASE_URL}/products`);
+        console.log("Category API Response:", categoryResponse.data);
+        console.log("Product API Response:", productResponse.data);
+        // Ensure response is an array before proceeding
+        if (!Array.isArray(categoryResponse.data)) {
+          console.error(
+            "Expected categories to be an array but got:",
+            categoryResponse.data
+          );
+          return;
+        }
+
+        if (!Array.isArray(productResponse.data)) {
+          console.error(
+            "Expected products to be an array but got:",
+            productResponse.data
+          );
+          return;
+        }
+        setCategories(categoryResponse.data);
 
         if (categoryResponse.data && productResponse.data) {
           setCategories(categoryResponse.data);
@@ -122,6 +141,7 @@ function Categories({ addToCart }) {
 
             <div className="more">
               <a
+                href="#"
                 onClick={() =>
                   navigate("/categorypage", {
                     state: {

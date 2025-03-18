@@ -47,7 +47,7 @@ function App() {
   const [cart, setCart] = useState([]); // State for cart items
   const [isCartVisible, setIsCartVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false); // State to track loading status
-  const totalQuantity = cart.reduce(
+  const totalQuantity = cart?.reduce(
     (acc, item) => acc + (item.quantity || 0),
     0
   );
