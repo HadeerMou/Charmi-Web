@@ -57,7 +57,7 @@ export class AddressService {
   private async makeAddressUnDefault(user_id: number) {
     await prisma.userAddresses.updateMany({
       where: {
-        userId: user_id,
+        userId: Number(user_id),
       },
       data: {
         isDefault: false,
