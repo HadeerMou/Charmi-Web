@@ -80,6 +80,36 @@ function Profile({
 
     fetchLocationNames();
   }, [userAddress]); // Runs when userAddress changes
+  
+  useEffect(() => {
+    const fetchDefaultAddress = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) return;
+
+        const userId = localStorage.getItem("userId"); // Ensure userId exists
+        if (!userId) return;
+
+        const response = await axios.get(
+          `${API_BASE_URL}/address/user/${userId}/default`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (response.data) {
+          setUserAddress(response.data); // Update the state with the default address
+          localStorage.setItem("userAddress", JSON.stringify(response.data)); // Store in local storage
+        }
+      } catch (error) {
+        console.error("Error fetching default address:", error);
+      }
+    };
+
+    fetchDefaultAddress();
+  }, []);
 
   // Fetch product details when orders are available
   useEffect(() => {
