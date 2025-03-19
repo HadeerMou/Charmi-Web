@@ -12,12 +12,26 @@ import { UpdateUserDto } from './dto/updateUser.dto';
 @Injectable()
 export class UsersService {
   async create(user: CreateUserDto) {
-    const existingUser = await prisma.users.findUnique({
-      where: { email: user.email },
+    const existingUser = await prisma.users.findFirst({
+      where: {
+        OR: [
+          { email: user.email },
+          { username: user.username },
+          { phone: user.phone },
+        ],
+      },
     });
 
     if (existingUser) {
-      throw new BadRequestException('User already exists');
+      if (existingUser.email === user.email) {
+        throw new BadRequestException('Email already exists');
+      }
+      if (existingUser.username === user.username) {
+        throw new BadRequestException('Username already exists');
+      }
+      if (existingUser.phone === user.phone) {
+        throw new BadRequestException('Phone number already exists');
+      }
     }
 
     user.password = await bcrypt.hash(user.password, 10);
