@@ -119,14 +119,19 @@ export class AddressService {
     await this.makeAddressUnDefault(userId);
 
     return await prisma.userAddresses.update({
-      where: { userId_addressId: { userId, addressId } },
+      where: {
+        userId_addressId: {
+          userId: Number(userId),
+          addressId: Number(addressId),
+        },
+      },
       data: { isDefault: true },
     });
   }
 
   async removeDefaultAddress(userId: number) {
     return await prisma.userAddresses.updateMany({
-      where: { userId, isDefault: true },
+      where: { userId: Number(userId), isDefault: true },
       data: { isDefault: false },
     });
   }
