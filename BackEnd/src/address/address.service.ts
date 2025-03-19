@@ -118,7 +118,7 @@ export class AddressService {
   async setDefaultAddress(userId: number, addressId: number) {
     await this.makeAddressUnDefault(userId);
 
-    return await prisma.userAddresses.update({
+    const updatedAddress = await prisma.userAddresses.update({
       where: {
         userId_addressId: {
           userId: Number(userId),
@@ -127,6 +127,8 @@ export class AddressService {
       },
       data: { isDefault: true },
     });
+    console.log('Updated Address:', updatedAddress); // Log response
+    return updatedAddress;
   }
 
   async removeDefaultAddress(userId: number) {
