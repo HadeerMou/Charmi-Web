@@ -100,10 +100,8 @@ function Profile({
         );
         console.log("Default Address Response:", response.data); // Debugging
 
-        if (response.data) {
-          setUserAddress(response.data); // Update the state with the default address
-          localStorage.setItem("userAddress", JSON.stringify(response.data)); // Store in local storage
-        }
+        setUserAddress(response.data); // Update the state with the default address
+        localStorage.setItem("userAddress", JSON.stringify(response.data)); // Store in local storage
       } catch (error) {
         console.error("Error fetching default address:", error);
       }
@@ -231,14 +229,13 @@ function Profile({
                 onClick={() => navigate("/profile/address")}
               ></i>
             </p>
-            <a
+            <Link
+              to="/profile/addresses"
+              state={{ userAddress }}
               className="all"
-              onClick={() =>
-                navigate("/profile/addresses", { state: { userAddress } })
-              }
             >
               {translations.alladdresses}
-            </a>
+            </Link>
           </div>
         </div>
         <div
