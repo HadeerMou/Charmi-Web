@@ -100,8 +100,15 @@ function Profile({
         );
         console.log("Default Address Response:", response.data); // Debugging
 
-        setUserAddress(response.data); // Update the state with the default address
-        localStorage.setItem("userAddress", JSON.stringify(response.data)); // Store in local storage
+        if (response.data && response.data.Addresses) {
+          setUserAddress(response.data.Addresses); // Store the correct address object
+          localStorage.setItem(
+            "userAddress",
+            JSON.stringify(response.data.Addresses)
+          ); // Store in local storage
+        } else {
+          console.error("No address found in response.");
+        }
       } catch (error) {
         console.error("Error fetching default address:", error);
       }
