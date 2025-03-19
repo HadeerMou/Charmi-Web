@@ -80,7 +80,7 @@ function Profile({
 
     fetchLocationNames();
   }, [userAddress]); // Runs when userAddress changes
-  
+
   useEffect(() => {
     const fetchDefaultAddress = async () => {
       try {
@@ -98,6 +98,7 @@ function Profile({
             },
           }
         );
+        console.log("Default Address Response:", response.data); // Debugging
 
         if (response.data) {
           setUserAddress(response.data); // Update the state with the default address
