@@ -192,7 +192,7 @@ function UserAddresses({
       alert("You are not logged in. Please log in and try again.");
       return;
     }
-    let addressId;
+    let addressId = null;
 
     try {
       if (modalType === "edit" && selectedAddress) {
@@ -203,12 +203,18 @@ function UserAddresses({
             headers: { Authorization: `Bearer ${token}` },
           }
         );
+        addressId = selectedAddress.addressId;
       } else {
-        await axios.post(`${API_BASE_URL}/address`, addressData, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const response = await axios.post(
+          `${API_BASE_URL}/address`,
+          addressData,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        addressId = response.data.addressId;
       }
-      if (isDefault) {
+      if (isDefault && addressId) {
         const userId = localStorage.getItem("userId"); // Assuming you store userId locally
         if (!userId) {
           alert("User ID not found.");
