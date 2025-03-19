@@ -71,7 +71,7 @@ function OtpPage() {
       if (from === "forgot-password") {
         navigate(`/reset-password?email=${encodeURIComponent(email)}`);
       } else {
-        navigate("/signup");
+        navigate("/user-login");
       }
     } catch (err) {
       console.error("Error verifying OTP:", err.response?.data || err.message);
