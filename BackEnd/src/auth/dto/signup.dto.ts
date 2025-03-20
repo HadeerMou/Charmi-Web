@@ -18,7 +18,7 @@ export class signUpDto {
 export const signUpSchema = Joi.object<signUpDto>({
   email: Joi.string().email().trim().required(),
   password: Joi.string()
-    .min(8)
+    .min(6)
     .max(20)
     /* .pattern(
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>_-]).{8,20}$/,

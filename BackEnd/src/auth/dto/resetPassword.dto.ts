@@ -13,7 +13,7 @@ export class ResetPasswordDTO {
 export const ResetPasswordDTOSchema = Joi.object<ResetPasswordDTO>().keys({
   otp: Joi.string().required(),
   email: Joi.string().email().required(),
-  newPassword: Joi.string().min(8).max(20).required(),
+  newPassword: Joi.string().min(6).max(20).required(),
   /* .pattern(
       new RegExp(
         '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*(),.?":{}|<>]).{8,20}$',
