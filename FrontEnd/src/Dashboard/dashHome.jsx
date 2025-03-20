@@ -41,14 +41,18 @@ function DashHome() {
       });
 
       if (response.data) {
-        setOrders(response.data);
+        const filteredOrders = response.data.filter(
+          (order) => users[order.userId]
+        );
+
+        setOrders(filteredOrders);
 
         // Count order statuses
-        const totalOrders = response.data.length;
-        const deliveredOrders = response.data.filter(
+        const totalOrders = filteredOrders.length;
+        const deliveredOrders = filteredOrders.filter(
           (order) => order.status.toLowerCase() === "delivered"
         ).length;
-        const cancelledOrders = response.data.filter(
+        const cancelledOrders = filteredOrders.filter(
           (order) => order.status.toLowerCase() === "cancelled"
         ).length;
         const pendingOrders = totalOrders - (deliveredOrders + cancelledOrders);
@@ -76,7 +80,9 @@ function DashHome() {
 
       const usersMap = {};
       response.data.data.forEach((user) => {
-        usersMap[user.id] = user;
+        if (!user.DeletedAt) {
+          usersMap[user.id] = user;
+        }
       });
 
       setUsers(usersMap);
@@ -84,15 +90,17 @@ function DashHome() {
       console.error("Error fetching users:", error);
     }
   };
-
+  useEffect(() => {
+    fetchUsers();
+  }, []);
   useEffect(() => {
     fetchOrders();
-    fetchUsers();
     fetchProducts();
-  }, []);
+  }, [users]);
 
   // Get Recent Orders (Sort by Date & Take the Latest 5)
   const recentOrders = [...orders]
+    .filter((order) => users[order.userId])
     .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
     .slice(0, 5);
 
@@ -104,23 +112,26 @@ function DashHome() {
       return total + convertAmount(price * quantity);
     }, 0);
   };
-  const recentUpdates = recentOrders.map((order) => {
-    const user = users[order.userId] || { username: "Unknown" };
-    let message = "";
+  const recentUpdates = recentOrders
+    .map((order) => {
+      const user = users[order.userId] || { username: "Unknown" };
+      if (!user) return null;
+      let message = "";
 
-    if (order.status.toLowerCase() === "delivered") {
-      message = `${user.username} received their order successfully.`;
-    } else if (order.status.toLowerCase() === "cancelled") {
-      message = `${user.username} cancelled their order.`;
-    } else {
-      message = `${user.username} has a pending order.`;
-    }
+      if (order.status.toLowerCase() === "delivered") {
+        message = `${user.username} received their order successfully.`;
+      } else if (order.status.toLowerCase() === "cancelled") {
+        message = `${user.username} cancelled their order.`;
+      } else {
+        message = `${user.username} has a pending order.`;
+      }
 
-    return {
-      message,
-      time: "Just now", // Replace with actual time logic if needed
-    };
-  });
+      return {
+        message,
+        time: "Just now", // Replace with actual time logic if needed
+      };
+    })
+    .filter((update) => update !== null);
 
   return (
     <>

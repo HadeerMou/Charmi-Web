@@ -83,7 +83,7 @@ function DshUsers() {
 
   // Delete user
   const handleDelete = async (id) => {
-    const confirmDelete = window.confirm(`${translations.deletUser}`);
+    const confirmDelete = window.confirm(`${translations.deleteUser}`);
     if (!confirmDelete) return;
     try {
       const token = localStorage.getItem("token"); // Get token from storage

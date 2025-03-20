@@ -49,7 +49,10 @@ function DshOrders() {
       console.log("Orders Data:", response.data); // Check API response
 
       if (response.data && response.data) {
-        setOrders(response.data); // Ensure correct data is set
+        const validOrders = response.data.filter(
+          (order) => users[order.userId]
+        );
+        setOrders(validOrders); // Ensure correct data is set
       } else {
         console.log("No orders found in response");
       }
@@ -79,7 +82,9 @@ function DshOrders() {
       // Convert array into object for quick lookup
       const usersMap = {};
       response.data.data.forEach((user) => {
-        usersMap[user.id] = user;
+        if (!user.deletedAt) {
+          usersMap[user.id] = user;
+        }
       });
 
       setUsers(usersMap);
@@ -97,19 +102,21 @@ function DshOrders() {
         headers: { Authorization: `Bearer ${token}` }, // Include token in request
       });
 
-      console.log("Fetched Products:", response.data); // Debugging
       setProducts(response.data);
     } catch (error) {
       console.error("Error fetching products:", error);
-      setProducts([]); // Fallback to prevent undefined errors
+      setProducts([]);
     }
   };
-
   useEffect(() => {
-    fetchOrders();
     fetchUsers();
-    fetchProducts();
   }, []);
+  useEffect(() => {
+    if (Object.keys(users).length > 0) {
+      fetchOrders();
+      fetchProducts();
+    }
+  }, [users]);
 
   const getProductInfo = (productId) => {
     return products.find((product) => product.id === productId) || {};
