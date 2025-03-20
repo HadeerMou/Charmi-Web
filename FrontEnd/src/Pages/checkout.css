@@ -38,14 +38,6 @@ body {
 .col-75 {
   padding: 0 16px;
 }
-.addressB {
-  background-color: rgb(153, 7, 7);
-  font-size: 18px;
-  padding: 10px;
-  border-radius: 5px;
-  color: white;
-  margin: 15px 0px;
-}
 
 .checkcontainer {
   background-color: #f2f2f2;

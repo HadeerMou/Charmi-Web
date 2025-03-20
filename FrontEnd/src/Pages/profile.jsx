@@ -27,6 +27,7 @@ function Profile({
   const navigate = useNavigate();
   const [userAddress, setUserAddress] = useState(null);
   const [selectedOrder, setSelectedOrder] = useState(null); // Store selected order
+  const [cancelingOrder, setCancelingOrder] = useState(null);
   const { products, fetchProductDetails } = useProducts();
   const { orders, fetchOrders } = useOrders();
   const { selectedCurrency, convertAmount } = useCurrency();
@@ -116,6 +117,41 @@ function Profile({
 
     fetchDefaultAddress();
   }, []);
+  const handleCancelOrder = async (orderId) => {
+    const confirmCancel = window.confirm(
+      "Are you sure you want to cancel this order?"
+    );
+
+    if (!confirmCancel) return;
+    try {
+      setCancelingOrder(orderId);
+      const token = localStorage.getItem("token");
+      if (!token) {
+        console.error("No token found. Please log in.");
+        return;
+      }
+
+      const response = await axios.post(
+        `${API_BASE_URL}/orders/${orderId}/cancel`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setSelectedOrder((prevOrder) =>
+        prevOrder ? { ...prevOrder, status: "CANCELLED" } : null
+      );
+
+      if (response.status === 201) {
+        alert("Order has been cancelled successfully.");
+        fetchOrders(); // Refresh order list after cancellation
+      }
+    } catch (error) {
+      alert("Failed to cancel the order. Please try again.");
+    }
+  };
 
   // Fetch product details when orders are available
   useEffect(() => {
@@ -231,10 +267,6 @@ function Profile({
               {userAddress
                 ? `${userAddress.streetName}, ${locationNames.district}, ${locationNames.city}, ${locationNames.country}`
                 : "No address found"}
-              <i
-                class="fa-solid fa-pen-to-square"
-                onClick={() => navigate("/profile/address")}
-              ></i>
             </p>
             <Link
               to="/profile/addresses"
@@ -286,6 +318,32 @@ function Profile({
                       {translations.timeword}:{" "}
                       {new Date(order.createdAt).toLocaleString()}
                     </p>
+                  </div>
+                  <div className="status">
+                    <p>
+                      <span
+                        className={
+                          order.status === "CANCELLED"
+                            ? "text-danger"
+                            : "text-success"
+                        }
+                      >
+                        {order.status || ""}
+                      </span>
+                    </p>
+                  </div>
+                  <div className="cancel">
+                    {order.status !== "CANCELLED" && (
+                      <button
+                        className="cancel-order-btn"
+                        onClick={(e) => {
+                          e.stopPropagation(); // Prevent selecting the order
+                          handleCancelOrder(order.id);
+                        }}
+                      >
+                        {translations.updateStatus}
+                      </button>
+                    )}
                   </div>
                 </div>
               );

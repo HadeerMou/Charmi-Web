@@ -108,6 +108,7 @@ const translations = {
     totalOrders: "Total Orders",
     deliveredorders: "Delivered Orders",
     cancelledorders: "Cancelled Orders",
+    cancelled: "Cancelled",
     new: "New",
     price: "Price",
     showmore: "Show more",
@@ -194,7 +195,7 @@ const translations = {
     editUser: "Edit User",
     cancel: "Cancel",
     update: "Update",
-    updateStatus: "Update Status",
+    updateStatus: "Cancel Order",
     confirmOrd: "Confirm Order",
     editProd: "Edit Product",
     creatProd: "Create Product",
@@ -207,6 +208,9 @@ const translations = {
     deleteCountry: "Are you sure yo want to delete this country?",
     deleteProd: "Are you sure you want to delete this product?",
     deleteFee: "Are you sure you want to delete this fee?",
+    nodefadd:
+      "No default address found. Please select an address before proceeding.",
+    crtadd: "No default address found. Please set one in your profile.",
   },
   ar: {
     english: "إنجليزي",
@@ -313,6 +317,7 @@ const translations = {
     totalOrders: "إجمال الطلبات",
     deliveredorders: "الطلبات المُسلَّمة",
     cancelledorders: "الطلبات الملغاة",
+    cancelled: "ملغاة",
     new: "جديد",
     showmore: "عرض المزيد",
     totalpayment: "مجموع المدفوعات",
@@ -397,7 +402,7 @@ const translations = {
     editUser: "تعديل المستخدم",
     cancel: "إلغاء",
     update: "تحديث",
-    updateStatus: "تحديث الحالة",
+    updateStatus: "إلغاء الطلب",
     confirmOrd: "تأكيد الطلب",
     editProd: "تعديل الطلب",
     creatProd: "إنشاء المنتج",
@@ -410,6 +415,10 @@ const translations = {
     deleteCountry: "هل أنت متأكد أنك تريد حذف هذا البلد؟",
     deleteProd: "هل أنت متأكد أنك تريد حذف هذا المنتج؟",
     deleteFee: "هل أنت متأكد أنك تريد حذف هذه الرسوم؟",
+    nodefadd:
+      "لم يتم العثور على عنوان افتراضي. يُرجى تحديد عنوان قبل المتابعة.",
+    crtadd:
+      "لم يتم العثور على عنوان افتراضي. يُرجى تحديد عنوان في ملفك الشخصي.",
   },
 };
 

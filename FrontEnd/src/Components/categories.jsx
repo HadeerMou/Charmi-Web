@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { useCurrency } from "../CurrencyContext";
 import axios from "axios";
-import Header from "./header";
 
 function Categories({ addToCart }) {
   const { translations } = useTranslation();

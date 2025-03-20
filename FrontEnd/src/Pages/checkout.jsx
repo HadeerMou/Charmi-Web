@@ -15,6 +15,11 @@ export default function Checkout() {
   const [countryName, setCountryName] = useState("");
   const [cityName, setCityName] = useState("");
   const [districtName, setDistrictName] = useState("");
+  const [locationNames, setLocationNames] = useState({
+    country: "",
+    city: "",
+    district: "",
+  });
 
   const [formData, setFormData] = useState({
     firstname: "",
@@ -44,59 +49,63 @@ export default function Checkout() {
     }
   };
 
-  const fetchDefaultAddress = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      const userId = localStorage.getItem("userId");
-
-      if (!token || !userId) {
-        alert("Unauthorized: Please log in again");
-        return;
-      }
-
-      const response = await axios.get(
-        `${API_BASE_URL}/address/user/${userId}`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-
-      const defaultAddr = response.data.find((address) => address.isDefault);
-      console.log("API Response:", response.data);
-
-      if (defaultAddr) {
-        setDefaultAddress(defaultAddr);
-        setDefaultAddressId(defaultAddr.id);
-        console.log("Fetched Default Address:", defaultAddr);
-
-        // Fetch names for city, country, and district
-        const country = await fetchLocationName(
-          defaultAddr.Addresses.countryId,
-          "country"
-        );
-        const city = await fetchLocationName(
-          defaultAddr.Addresses.cityId,
-          "cities"
-        );
-        const district = await fetchLocationName(
-          defaultAddr.Addresses.districtId,
-          "district"
-        );
-
-        setCountryName(country);
-        setCityName(city);
-        setDistrictName(district);
-        console.log("Fetched Names:", { country, city, district });
-      } else {
-        alert("No default address found. Please set one in your profile.");
-        navigate("/profile");
-      }
-    } catch (error) {
-      console.error("Error fetching default address:", error);
-    }
-  };
-
   useEffect(() => {
+    const fetchDefaultAddress = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const userId = localStorage.getItem("userId");
+
+        if (!token || !userId) {
+          alert("Unauthorized: Please log in again");
+          return;
+        }
+
+        const response = await axios.get(
+          `${API_BASE_URL}/address/user/${userId}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+
+        const defaultAddr = response.data.find((address) => address.isDefault);
+        if (!defaultAddr) {
+          alert(`${translations.crtadd}`);
+          navigate("/profile");
+          return;
+        }
+
+        const { countryId, cityId, districtId } = defaultAddr.Addresses;
+        const locationResponses = await Promise.all([
+          axios.get(`${API_BASE_URL}/country/${countryId}`),
+          axios.get(`${API_BASE_URL}/cities/${cityId}`),
+          axios.get(`${API_BASE_URL}/district/${districtId}`),
+        ]);
+
+        const locationData = {
+          country: locationResponses[0].data.name,
+          city: locationResponses[1].data.name,
+          district: locationResponses[2].data.districtName,
+        };
+
+        setDefaultAddress(defaultAddr);
+        setLocationNames(locationData);
+
+        setFormData((prev) => ({
+          ...prev,
+          firstname: defaultAddr.fullName || "",
+          email: defaultAddr.email || "",
+          address: `${defaultAddr.Addresses.buildingNumber}, ${defaultAddr.Addresses.streetName}`,
+          country: locationData.country,
+          city: locationData.city,
+          district: locationData.district,
+          building: defaultAddr.Addresses.buildingNumber || "",
+          apartment: defaultAddr.Addresses.apartmentNumber || "",
+        }));
+      } catch (error) {
+        console.error("Error fetching default address:", error);
+      }
+    };
+
     fetchDefaultAddress();
   }, []);
 
@@ -122,30 +131,23 @@ export default function Checkout() {
         apartment: defaultAddress.Addresses.apartmentNumber || "",
       }));
     }
-    console.log("Updated Default Address:", defaultAddress);
   }, [defaultAddress, countryName, cityName, districtName]);
 
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData({
-      ...formData,
-      [name]: type === "checkbox" ? checked : value,
-    });
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!defaultAddressId) {
-      alert(
-        "No default address found. Please select an address before proceeding."
-      );
+    if (!defaultAddress) {
+      alert(`${translations.nodefadd}`);
       return;
     }
 
     try {
       const token = localStorage.getItem("token");
-
       const orderData = {
         total: totalPrice,
         addressId: defaultAddress.Addresses.id,
@@ -156,15 +158,11 @@ export default function Checkout() {
         })),
       };
 
-      console.log("Final Address ID:", defaultAddressId);
-      console.log("Order Payload:", JSON.stringify(orderData, null, 2));
-
-      const response = await axios.post(`${API_BASE_URL}/orders`, orderData, {
+      await axios.post(`${API_BASE_URL}/orders`, orderData, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
-      console.log("Order placed", response.data);
-      alert(`${translations.successOrder}`);
+      alert(translations.successOrder);
       localStorage.removeItem("cart");
       navigate("/order-success", { state: { cart: [], totalPrice: 0 } });
     } catch (error) {

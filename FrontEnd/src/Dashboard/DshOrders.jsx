@@ -114,10 +114,14 @@ function DshOrders() {
   const getProductInfo = (productId) => {
     return products.find((product) => product.id === productId) || {};
   };
-  const totalPrice = orders.reduce((acc, order) => {
-    return (
-      acc + calculateTotalPrice(order.orderItems, getProductInfo, convertAmount)
-    );
+  const totalPrice = filteredOrders.reduce((acc, order) => {
+    const orderTotal = order.orderItems.reduce((orderAcc, item) => {
+      const product = getProductInfo(item.productId);
+      if (!product || !product.price) return orderAcc; // Skip if product data is missing
+      const convertedPrice = convertAmount(product.price, selectedCurrency);
+      return orderAcc + convertedPrice * item.quantity;
+    }, 0);
+    return acc + orderTotal;
   }, 0);
 
   const updateOrderStatus = async (orderId, newStatus) => {
@@ -334,19 +338,23 @@ function DshOrders() {
                           <h3>
                             {" "}
                             {selectedCurrency === "egp" ? "£" : "$"}
-                            {parseInt(totalPrice)}
+                            {parseInt(
+                              order.orderItems.reduce((orderTotal, item) => {
+                                const product = getProductInfo(item.productId);
+                                if (!product || !product.price)
+                                  return orderTotal; // Skip missing products
+                                const convertedPrice = convertAmount(
+                                  product.price,
+                                  selectedCurrency
+                                );
+                                return (
+                                  orderTotal + convertedPrice * item.quantity
+                                );
+                              }, 0)
+                            )}
                           </h3>
                         </div>
                         <div className="button">
-                          <button
-                            className="orderdetail"
-                            onClick={() =>
-                              updateOrderStatus(order.id, "received")
-                            }
-                          >
-                            {translations.updateStatus}
-                          </button>
-                          <hr />
                           <button
                             className="confirmOrder"
                             onClick={() => confirmOrder(order.id)}

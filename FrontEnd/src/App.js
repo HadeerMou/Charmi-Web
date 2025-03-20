@@ -5,16 +5,14 @@ import Cart from "./Components/cart";
 import "./App.css";
 import { TranslationProvider } from "./TranslationContext";
 import About from "./Pages/About";
-import { Routes, Route, Router } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home";
 import Contact from "./Pages/contact";
 import Checkout from "./Pages/checkout";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ProductView from "./Pages/productView";
 import Dshproducts from "./Dashboard/dshproducts";
-import DshChat from "./Dashboard/DshChat";
 import DshUsers from "./Dashboard/DshUsers";
-import DshMessages from "./Dashboard/DshMessages";
 import DshOrders from "./Dashboard/DshOrders";
 import "./Dashboard/dash.css";
 import Dashboard from "./Dashboard/dashboard";
@@ -25,9 +23,7 @@ import Signup from "./Pages/signup";
 import { CurrencyProvider } from "./CurrencyContext";
 import OtpPage from "./Pages/OtpPage";
 import EmailInput from "./Pages/emailinput";
-import ForgetPass from "./Pages/ResetPass";
 import ResetPass from "./Pages/ResetPass";
-import Address from "./Pages/address";
 import DshCities from "./Dashboard/DshCities";
 import DshCountries from "./Dashboard/DshCountries";
 import DshCategories from "./Dashboard/DshCategories";
@@ -212,7 +208,6 @@ function App() {
           <Route path="/email-verification" element={<EmailInput />} />
           <Route path="/forgot-password" element={<EmailInput />} />
           <Route path="/reset-password" element={<ResetPass />} />
-          <Route path="/profile/address" element={<Address />} />
           <Route
             path="/profile/addresses"
             element={

@@ -179,6 +179,19 @@
   border-radius: 5px;
   cursor: pointer;
 }
+.cancel-order-btn {
+  font-size: 10px;
+  background-color: red;
+  color: white;
+  padding: 8px 10px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.cancel-order-btn:hover {
+  background-color: darkred;
+}
 
 @media screen and (max-width: 768px) {
   .profile {

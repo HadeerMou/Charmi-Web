@@ -43,10 +43,8 @@
   text-decoration: none;
 }
 .product {
-  background-color: #f1f1f1;
   width: 450px;
   box-shadow: #636161;
-  border-radius: 4px;
   padding-bottom: 50px;
 }
 .product .img {
@@ -61,18 +59,17 @@
   transition: opacity 0.5s ease-in-out;
 }
 .content {
-  margin: 20px 0px 0px 10px;
+  margin-top: 20px;
 }
 .product h4 {
-  color: rgba(0, 0, 0, 0.856);
   line-height: 35px;
-  font-size: 30px;
+  font-size: 13px;
   font-weight: bold;
   margin-bottom: 20px;
 }
 .product p {
   color: rgb(233, 3, 3);
-  font-size: 18px;
+  font-size: 13px;
   font-weight: bold;
   max-width: 90%;
   line-height: 22px;
@@ -98,9 +95,7 @@
   position: relative;
   cursor: pointer;
 }
-.product .content h4 {
-  font-size: 19px;
-}
+
 .more {
   display: flex;
   margin: 30px;
@@ -125,25 +120,18 @@
 .arrow {
   font-size: 40px;
 }
-.bottom {
-  margin: 30px 0px;
-  align-items: center;
-}
-.bottom i {
-  font-size: 26px;
-  background-color: #353432;
-  padding: 8px 10px;
-  border-radius: 100%;
-  color: white;
-  margin-right: 10px;
-  cursor: pointer;
-}
 .bottom button {
-  font-size: 18px;
+  font-size: 12px;
   background-color: #353432;
-  padding: 10px;
+  padding: 12px 15px;
   border-radius: 40px;
   color: white;
+  transition: ease-in-out all 0.4s;
+}
+.bottom button:hover {
+  background-color: white;
+  color: #353432;
+  border: solid 1px  #353432;
 }
 @media (min-width: 1200px) and (max-width: 1800px) {
   .webs {
@@ -156,10 +144,8 @@
     gap: 20px 5px;
   }
   .product {
-    background-color: #f1f1f1;
     width: 360px;
     box-shadow: #636161;
-    border-radius: 4px;
     padding-bottom: 0px;
   }
   .product .img {
@@ -169,7 +155,6 @@
   .product img {
     height: 100%;
     width: 100%;
-    border-radius: 4px;
   }
 }
 @media (max-width: 480px) {
