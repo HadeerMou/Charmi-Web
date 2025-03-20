@@ -182,7 +182,7 @@ const translations = {
     orderdate: "Order Date",
     product: "Product",
     deleteAdd: "Are you sure you want to delete this address?",
-    shippingAdd: "Shiحping Address",
+    shippingAdd: "Shipping Address",
     fullName: "Full Name",
     checkoutCon: "Continue to checkout",
     orderSum: "Order Summary",
