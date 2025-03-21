@@ -149,7 +149,12 @@ export default function Cart({
         )}
       </div>
       <div className="cart-footer">
-        <button onClick={(handleCheckout, toggleCartVisibility)}>
+        <button
+          onClick={() => {
+            handleCheckout();
+            toggleCartVisibility();
+          }}
+        >
           {translations.checkout}
         </button>
       </div>
