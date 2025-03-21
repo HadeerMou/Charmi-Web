@@ -67,7 +67,10 @@ function ProductView({
           <div className="content mt-3">
             <h4>{product.name}</h4>
             <p className="desc">{product.description}</p>
-            <p className="price">{product.price} EGP</p>
+            <p className="price">
+              {selectedCurrency === "egp" ? "E£" : "$"}
+              {convertAmount(product.price).toFixed(2)}
+            </p>
             <div className="productIcon">
               <i
                 className="bi bi-cart-plus"
