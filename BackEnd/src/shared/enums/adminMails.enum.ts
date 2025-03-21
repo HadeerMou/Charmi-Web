@@ -1,3 +1,3 @@
 export enum AdminMails {
-  Expansion = 'hadeermohammed412@gmail.com',
+  Expansion = '1998.sudik@gmail.com',
 }
