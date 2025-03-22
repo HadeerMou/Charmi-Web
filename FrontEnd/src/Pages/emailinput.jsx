@@ -3,10 +3,11 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./signin.css";
 import logo from "../logo.png";
+import { useTranslation } from "../TranslationContext";
 
 function EmailInput() {
   const API_BASE_URL = process.env.REACT_APP_API_URL;
-
+  const { translations } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation(); // Get the current URL
   const [input, setInput] = useState("");
@@ -78,17 +79,22 @@ function EmailInput() {
     <div className="loginContainer">
       <div className="logintop">
         <img className="noaclogo" src={logo} alt="Logo" />
-        <h1>{isForgotPassword ? "Forget Password" : "Email Verification"}</h1>
-        <h5>Please Enter Your Email</h5>
+        <h1>
+          {isForgotPassword
+            ? `${translations.forgot}`
+            : `${translations.emailveri}`}
+        </h1>
+        <h5>{translations.enteremail}</h5>
       </div>
       <div className="inputs">
         <label className="label" htmlFor="email">
-          Email
+          {translations.email}
         </label>
         <input
           className="input"
           type="email"
           name="email"
+          placeholder={translations.email}
           value={input}
           onChange={(e) => setInput(e.target.value)}
           required
@@ -97,7 +103,7 @@ function EmailInput() {
       {error && <p className="error">{error}</p>}
       <div className="loginbutton">
         <button onClick={handleInput} disabled={loading}>
-          {loading ? "Sending..." : "Send Code"}
+          {loading ? `${translations.sending}` : `${translations.sendcode}`}
         </button>
       </div>
     </div>

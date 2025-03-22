@@ -101,7 +101,9 @@ function Categories({ addToCart }) {
                     <div className="content">
                       <h3>{product.name}</h3>
                       <p>
-                        {selectedCurrency === "egp" ? "E£" : "$"}
+                        {selectedCurrency === "egp"
+                          ? `${translations.egp}`
+                          : "$"}
                         {convertAmount(product.price).toFixed(2)}
                       </p>
                       <h4 className="text-success">{translations.prodOndm}</h4>

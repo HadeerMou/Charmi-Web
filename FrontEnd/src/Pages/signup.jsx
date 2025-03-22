@@ -3,9 +3,11 @@ import "./signin.css";
 import logo from "../logo.png";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useTranslation } from "../TranslationContext";
 
 function Signup({ handleVerifyOtp }) {
   const navigate = useNavigate();
+  const { translations } = useTranslation();
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -62,11 +64,11 @@ function Signup({ handleVerifyOtp }) {
     <div class="loginContainer">
       <div className="logintop">
         <img class="noaclogo" src={logo} alt="Logo" />
-        <h1>Welcome to Charmi</h1>
-        <h2>Sign up</h2>
+        <h1>{translations.title}</h1>
+        <h2>{translations.signup}</h2>
       </div>
       <form onSubmit={handleSubmit} className="inputs">
-        <label className="label">Username</label>
+        <label className="label">{translations.username}</label>
         <input
           className="input"
           type="text"
@@ -75,7 +77,7 @@ function Signup({ handleVerifyOtp }) {
           onChange={handleChange}
           required
         />
-        <label className="label">Email</label>
+        <label className="label">{translations.email}</label>
         <input
           className="input"
           type="email"
@@ -84,7 +86,7 @@ function Signup({ handleVerifyOtp }) {
           onChange={handleChange}
           required
         />
-        <label className="label">Password</label>
+        <label className="label">{translations.password}</label>
         <input
           className="input"
           type="password"
@@ -93,7 +95,7 @@ function Signup({ handleVerifyOtp }) {
           onChange={handleChange}
           required
         />
-        <label className="label">phone</label>
+        <label className="label">{translations.number}</label>
         <input
           className="input"
           type="tel"
@@ -104,20 +106,20 @@ function Signup({ handleVerifyOtp }) {
         {error && <p className="error">{error}</p>}
         <div className="loginbutton">
           <button type="submit" disabled={loading}>
-            {loading ? "Signing up..." : "Sign Up"}
+            {loading ? `${translations.signing}` : `${translations.signup}`}
           </button>
         </div>
       </form>
       <div className="forgotpass">
         <a href="" onClick={() => navigate("/forgot-password")}>
-          Forgot your password?
+          {translations.forgot}
         </a>
       </div>
 
       <div className="navto">
-        <h5>Already Have an Account? </h5>
+        <h5>{translations.haveacc}</h5>
         <a href="" onClick={() => navigate("/user-login")}>
-          Sign in
+          {translations.signin}
         </a>
       </div>
     </div>

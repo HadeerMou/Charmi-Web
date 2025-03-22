@@ -256,7 +256,9 @@ function DashHome() {
                           {formattedDate} {formattedTime}
                         </td>
                         <td>
-                          {selectedCurrency === "egp" ? "£" : "$"}
+                          {selectedCurrency === "egp"
+                            ? `${translations.egp}`
+                            : "$"}
                           {parseInt(totalPrice)}
                         </td>
                         <td className={`status ${order.status.toLowerCase()}`}>

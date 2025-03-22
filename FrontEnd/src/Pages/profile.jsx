@@ -309,7 +309,7 @@ function Profile({
                   <div className="orderprice">
                     <p className="text-muted">
                       {translations.totalPrice}:{" "}
-                      {selectedCurrency === "egp" ? "£" : "$"}{" "}
+                      {selectedCurrency === "egp" ? `${translations.egp}` : "$"}{" "}
                       {totalOrderPrice.toFixed(2)}
                     </p>
                   </div>
@@ -358,7 +358,7 @@ function Profile({
               </h2>
               <p>
                 <strong>{translations.totalPrice}:</strong>{" "}
-                {selectedCurrency === "egp" ? "£" : "$"}
+                {selectedCurrency === "egp" ? `${translations.egp}` : "$"}
                 {convertAmount(
                   selectedOrder?.orderItems?.reduce(
                     (sum, item) =>
@@ -396,7 +396,9 @@ function Profile({
                       </p>
                       <p>
                         <strong>{translations.price}:</strong>{" "}
-                        {selectedCurrency === "egp" ? "£" : "$"}{" "}
+                        {selectedCurrency === "egp"
+                          ? `${translations.egp}`
+                          : "$"}{" "}
                         {convertAmount(item.price).toFixed(2)}
                       </p>
                     </div>

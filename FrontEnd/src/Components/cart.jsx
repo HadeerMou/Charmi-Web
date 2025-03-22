@@ -117,7 +117,7 @@ export default function Cart({
                 />
                 <div className="name">{productInfo?.name}</div>
                 <div className="total-price">
-                  {selectedCurrency === "egp" ? "£" : "$"}
+                  {selectedCurrency === "egp" ? `${translations.egp}` : "$"}
                   {(convertedPrice * (item.quantity || 0)).toFixed(2)}
                 </div>
                 <div className="quantity">

@@ -3,6 +3,7 @@ import "./checkout.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useTranslation } from "../TranslationContext";
+import { useCurrency } from "../CurrencyContext";
 
 export default function Checkout() {
   const API_BASE_URL = process.env.REACT_APP_API_URL;
@@ -15,6 +16,7 @@ export default function Checkout() {
   const [countryName, setCountryName] = useState("");
   const [cityName, setCityName] = useState("");
   const [districtName, setDistrictName] = useState("");
+  const { selectedCurrency, convertAmount } = useCurrency();
   const [locationNames, setLocationNames] = useState({
     country: "",
     city: "",
@@ -294,7 +296,9 @@ export default function Checkout() {
               <p className="prodOrd" key={item.productId}>
                 <img src={item.image} alt={item.name} />{" "}
                 <span className="price">
-                  {item.name} x {item.quantity} - ${item.price * item.quantity}
+                  {item.name} x {item.quantity} -{" "}
+                  {selectedCurrency === "egp" ? `${translations.egp}` : "$"}
+                  {convertAmount(item.price).toFixed(2)} * {item.quantity}
                 </span>
               </p>
             ))}

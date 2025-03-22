@@ -68,7 +68,7 @@ function ProductView({
             <h4>{product.name}</h4>
             <p className="desc">{product.description}</p>
             <p className="price">
-              {selectedCurrency === "egp" ? "E£" : "$"}
+              {selectedCurrency === "egp" ? `${translations.egp}` : "$"}
               {convertAmount(product.price).toFixed(2)}
             </p>
             <div className="productIcon">
@@ -272,7 +272,7 @@ function ProductView({
           </div>
           <p className="prdes">{product.description}</p>
           <p class="price">
-            {selectedCurrency === "egp" ? "E£" : "$"}
+            {selectedCurrency === "egp" ? `${translations.egp}` : "$"}
             {convertAmount(product.price).toFixed(2)}
           </p>
           <div class="productviewbuttom">

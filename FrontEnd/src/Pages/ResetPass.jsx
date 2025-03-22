@@ -3,10 +3,11 @@ import "./signin.css";
 import logo from "../logo.png";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
+import { useTranslation } from "../TranslationContext";
 
 function ResetPass() {
   const API_BASE_URL = process.env.REACT_APP_API_URL;
-
+  const { translations } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
   const [password, setPassword] = useState("");
@@ -66,14 +67,14 @@ function ResetPass() {
     <div className="loginContainer">
       <div className="logintop">
         <img className="noaclogo" src={logo} alt="Logo" />
-        <h1>Reset Password</h1>
-        <p>Enter a new password to update your password</p>
+        <h1>{translations.resetpass}</h1>
+        <p>{translations.enterpass}</p>
       </div>
       <div className="inputs">
         <input
           className="input"
           type="password"
-          placeholder="New Password"
+          placeholder={translations.newpass}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
@@ -81,7 +82,7 @@ function ResetPass() {
         <input
           className="input"
           type="password"
-          placeholder="Confirm New Password"
+          placeholder={translations.confirmnewpass}
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
@@ -89,7 +90,7 @@ function ResetPass() {
       {error && <p className="error">{error}</p>}
       <div className="loginbutton">
         <button onClick={handleResetPassword} disabled={loading}>
-          {loading ? "Updating..." : "Continue"}
+          {loading ? `${translations.updating}` : `${translations.update}`}
         </button>
       </div>
       <br />

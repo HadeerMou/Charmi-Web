@@ -74,6 +74,7 @@ function Header({
           <div className="d-flex align-items-center">
             <div className="curr">
               <select
+                className="sel"
                 name="curr"
                 id="currsel"
                 value={selectedCurrency}

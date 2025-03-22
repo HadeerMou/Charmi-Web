@@ -106,7 +106,7 @@ function ProductList({ addToCart }) {
               <div className="content">
                 <h3>{product.name}</h3>
                 <p>
-                  {selectedCurrency === "egp" ? "E£" : "$"}
+                  {selectedCurrency === "egp" ? `${translations.egp}` : "$"}
                   {product.price && !isNaN(product.price)
                     ? convertAmount(Number(product.price)).toFixed(2)
                     : "N/A"}

@@ -344,7 +344,9 @@ function DshOrders() {
                           </h3>
                           <h3>
                             {" "}
-                            {selectedCurrency === "egp" ? "£" : "$"}
+                            {selectedCurrency === "egp"
+                              ? `${translations.egp}`
+                              : "$"}
                             {parseInt(
                               order.orderItems.reduce((orderTotal, item) => {
                                 const product = getProductInfo(item.productId);
