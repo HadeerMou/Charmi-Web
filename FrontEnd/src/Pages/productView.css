@@ -90,11 +90,13 @@ img:hover {
 
 .productss::-webkit-scrollbar {
   height: 8px; /* Adjust scrollbar height */
+  display: none;
 }
 
 .productss::-webkit-scrollbar-thumb {
   background-color: #888; /* Scrollbar color */
   border-radius: 4px;
+  
 }
 
 .productss::-webkit-scrollbar-track {

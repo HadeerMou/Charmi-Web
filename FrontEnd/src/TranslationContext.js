@@ -226,6 +226,9 @@ const translations = {
     confirmnewpass: "Confirm New Password",
     updating: "Updating...",
     emailveri: "Email Verification",
+    receivedorder: "received their order successfully.",
+    cancelledorder: "cancelled their order.",
+    pendingorder: "has a pending order.",
   },
   ar: {
     english: "إنجليزي",
@@ -449,6 +452,9 @@ const translations = {
     confirmnewpass: "تأكيد كلمة المرور الجديدة",
     updating: "جاري التحديث...",
     emailveri: "التحقق من البريد الإلكتروني",
+    receivedorder: "لقد تلقى طلبهم بنجاح",
+    cancelledorder: "تم إلغاء طلبهم",
+    pendingorder: "لديه طلب قيد التنفيذ",
   },
 };
 

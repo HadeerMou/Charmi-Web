@@ -2,6 +2,7 @@
   overflow: hidden; /* Prevents horizontal overflow issues */
 }
 .scroll-container {
+  scrollbar-width: none;
   width: 100%;
   overflow-x: auto; /* Enables horizontal scrolling */
   white-space: nowrap;
@@ -131,7 +132,7 @@
 .bottom button:hover {
   background-color: white;
   color: #353432;
-  border: solid 1px  #353432;
+  border: solid 1px #353432;
 }
 @media (min-width: 1200px) and (max-width: 1800px) {
   .webs {

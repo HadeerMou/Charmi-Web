@@ -13,7 +13,8 @@ function Signin({ userType }) {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleLogin = async () => {
+  const handleLogin = async (e) => {
+    e.preventDefault();
     setError(""); // Reset errors
 
     try {
@@ -79,7 +80,7 @@ function Signin({ userType }) {
         <h1>{translations.title}</h1>
         <h2>{translations.signin}</h2>
       </div>
-      <div className="inputs">
+      <form onSubmit={handleLogin} className="inputs">
         <label className="label" htmlFor="">
           {translations.email}
         </label>
@@ -98,23 +99,36 @@ function Signin({ userType }) {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-      </div>
-      {error && <p className="error">{error}</p>}
-      <div className="loginbutton">
-        <button onClick={handleLogin}>{translations.signin}</button>
-      </div>
-      <br />
-      <div className="forgotpass">
-        <a href="" onClick={() => navigate("/forgot-password")}>
-          {translations.forgot}
-        </a>
-      </div>
-      <div className="navto">
-        <h5>{translations.noacc}</h5>
-        <a href="" onClick={() => navigate("/signup")}>
-          {translations.signup}
-        </a>
-      </div>
+
+        {error && <p className="error">{error}</p>}
+        <div className="loginbutton">
+          <button type="submit">{translations.signin}</button>
+        </div>
+        <br />
+        <div className="forgotpass">
+          <a
+            href=""
+            onClick={(e) => {
+              e.preventDefault();
+              navigate("/forgot-password");
+            }}
+          >
+            {translations.forgot}
+          </a>
+        </div>
+        <div className="navto">
+          <h5>{translations.noacc}</h5>
+          <a
+            href=""
+            onClick={(e) => {
+              e.preventDefault();
+              navigate("/signup");
+            }}
+          >
+            {translations.signup}
+          </a>
+        </div>
+      </form>
     </div>
   );
 }

@@ -25,6 +25,7 @@ function Signup({ handleVerifyOtp }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    document.activeElement.blur();
     setLoading(true);
     setError("");
 

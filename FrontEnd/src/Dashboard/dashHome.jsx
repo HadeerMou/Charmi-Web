@@ -112,23 +112,30 @@ function DashHome() {
       return total + convertAmount(price * quantity);
     }, 0);
   };
-  const recentUpdates = recentOrders
+  const recentUpdates = [...recentOrders]
+    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) // Sort by newest first
+    .slice(0, 6)
     .map((order) => {
       const user = users[order.userId] || { username: "Unknown" };
       if (!user) return null;
       let message = "";
 
       if (order.status.toLowerCase() === "delivered") {
-        message = `${user.username} received their order successfully.`;
+        message = `${user.username} ${translations.receivedorder}`;
       } else if (order.status.toLowerCase() === "cancelled") {
-        message = `${user.username} cancelled their order.`;
+        message = `${user.username} ${translations.cancelledorder}`;
       } else {
-        message = `${user.username} has a pending order.`;
+        message = `${user.username} ${translations.pendingorder}`;
       }
 
       return {
         message,
-        time: "Just now", // Replace with actual time logic if needed
+        time: new Date(order.createdAt).toLocaleDateString("en-US", {
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: true,
+        }),
       };
     })
     .filter((update) => update !== null);
