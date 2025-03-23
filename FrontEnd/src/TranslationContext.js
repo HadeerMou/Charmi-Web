@@ -229,6 +229,7 @@ const translations = {
     receivedorder: "received their order successfully.",
     cancelledorder: "cancelled their order.",
     pendingorder: "has a pending order.",
+    productmodel: "product Model",
   },
   ar: {
     english: "إنجليزي",
@@ -455,6 +456,7 @@ const translations = {
     receivedorder: "لقد تلقى طلبهم بنجاح",
     cancelledorder: "تم إلغاء طلبهم",
     pendingorder: "لديه طلب قيد التنفيذ",
+    productmodel: "نموذج المنتج",
   },
 };
 

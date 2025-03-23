@@ -270,11 +270,13 @@ function Dshproducts() {
                     <th className="P.Id">{translations.pn}</th>
                     <th className="">{translations.productImage}</th>
                     <th className="prodname">{translations.prodname}</th>
+                    <th className="prodname">{translations.prodname}</th>
+                    <th className="desc">{translations.description}</th>
                     <th className="desc">{translations.description}</th>
                     <th className="price">{translations.price}</th>
                     <th className="">{translations.quantity}</th>
                     <th className="categoryid">{translations.categoryId}</th>
-                    <th>product Model</th>
+                    <th>{translations.productmodel}</th>
                     <th>{translations.action}</th>
                   </tr>
                 </thead>
