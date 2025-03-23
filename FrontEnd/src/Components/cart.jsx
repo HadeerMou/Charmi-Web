@@ -16,7 +16,7 @@ export default function Cart({
 }) {
   const navigate = useNavigate();
   const { selectedCurrency, convertAmount } = useCurrency();
-  const { translations } = useTranslation();
+  const { translations, language } = useTranslation();
   const API_BASE_URL = process.env.REACT_APP_API_URL;
 
   const handleCheckout = () => {
@@ -115,7 +115,11 @@ export default function Cart({
                   src={`https://${productInfo?.image}`}
                   alt={productInfo?.name || "Product"}
                 />
-                <div className="name">{productInfo?.name}</div>
+                <div className="name">
+                  {language === "ar"
+                    ? productInfo?.nameAr
+                    : productInfo?.nameEn}
+                </div>
                 <div className="total-price">
                   {selectedCurrency === "egp" ? `${translations.egp}` : "$"}
                   {(convertedPrice * (item.quantity || 0)).toFixed(2)}

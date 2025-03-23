@@ -18,7 +18,7 @@ function ProductView({
   totalQuantity,
 }) {
   const API_BASE_URL = process.env.REACT_APP_API_URL;
-  const { translations } = useTranslation();
+  const { translations, language } = useTranslation();
   const location = useLocation();
   const { selectedCurrency, convertAmount } = useCurrency();
   const [productImages, setProductImages] = useState([]);
@@ -59,14 +59,17 @@ function ProductView({
                   ? images[1]
                   : images[0]
               }
-              alt={product.name}
               onMouseEnter={() => setHoveredProduct(product.id)}
               onMouseLeave={() => setHoveredProduct(null)}
             />
           </div>
           <div className="content mt-3">
-            <h4>{product.name}</h4>
-            <p className="desc">{product.description}</p>
+            <h4>{language === "ar" ? product.nameAr : product.nameEn}</h4>
+            <p className="desc">
+              {language === "ar"
+                ? product.descriptionAr
+                : product.descriptionEn}
+            </p>
             <p className="price">
               {selectedCurrency === "egp" ? `${translations.egp}` : "$"}
               {convertAmount(product.price).toFixed(2)}
@@ -170,7 +173,7 @@ function ProductView({
     if (productId) {
       fetchProductDetails();
     }
-  }, [productId]);
+  }, [productId, language]);
 
   // Fetch product images
   const fetchProductImages = async (productId) => {
@@ -264,13 +267,17 @@ function ProductView({
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
         >
-          <img src={bigImage} alt={product.name} />
+          <img src={bigImage} />
         </div>
         <div class="des">
           <div class="line">
-            <h4 className="prname">{product.name}</h4>
+            <h4 className="prname">
+              {language === "ar" ? product.nameAr : product.nameEn}
+            </h4>
           </div>
-          <p className="prdes">{product.description}</p>
+          <p className="prdes">
+            {language === "ar" ? product.descriptionAr : product.descriptionEn}
+          </p>
           <p class="price">
             {selectedCurrency === "egp" ? `${translations.egp}` : "$"}
             {convertAmount(product.price).toFixed(2)}

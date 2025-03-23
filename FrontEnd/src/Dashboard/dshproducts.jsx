@@ -17,8 +17,10 @@ function Dshproducts() {
   const navigate = useNavigate();
   const editModalRef = useRef(null);
   const [newProduct, setNewProduct] = useState({
-    name: "",
-    description: "",
+    nameEn: "",
+    nameAr: "",
+    descriptionEn: "",
+    descriptionAr: "",
     price: "",
     quantity: "",
     categoryId: "",
@@ -26,8 +28,10 @@ function Dshproducts() {
   });
 
   const [updatedProduct, setUpdatedProduct] = useState({
-    name: "",
-    description: "",
+    nameEn: "",
+    nameAr: "",
+    descriptionEn: "",
+    descriptionAr: "",
     price: "",
     quantity: "",
   });
@@ -92,8 +96,10 @@ function Dshproducts() {
       const productResponse = await axios.post(
         `${API_BASE_URL}/products`,
         {
-          name: newProduct.name,
-          description: newProduct.description,
+          nameEn: newProduct.nameEn,
+          nameAr: newProduct.nameAr,
+          descriptionEn: newProduct.descriptionEn,
+          descriptionAr: newProduct.descriptionAr,
           price: newProduct.price,
           quantity: newProduct.quantity,
           categoryId: newProduct.categoryId,
@@ -146,8 +152,10 @@ function Dshproducts() {
 
       // Reset Form
       setNewProduct({
-        name: "",
-        description: "",
+        nameEn: "",
+        nameAr: "",
+        descriptionEn: "",
+        descriptionAr: "",
         price: "",
         quantity: "",
         categoryId: "",
@@ -179,8 +187,10 @@ function Dshproducts() {
   const handleEditClick = (product) => {
     setEditingProduct(product);
     setUpdatedProduct({
-      name: product.name,
-      description: product.description,
+      nameEn: product.nameEn,
+      nameAr: product.nameAr,
+      descriptionEn: product.descriptionEn,
+      descriptionAr: product.descriptionAr,
       price: product.price,
       quantity: product.quantity,
       categoryId: product.categoryId,
@@ -196,8 +206,10 @@ function Dshproducts() {
 
       // Ensure categoryId is a number or null
       const formattedUpdatedProduct = {
-        name: updatedProduct.name,
-        description: updatedProduct.description,
+        nameEn: updatedProduct.nameEn,
+        nameAr: updatedProduct.nameAr,
+        descriptionEn: updatedProduct.descriptionEn,
+        descriptionAr: updatedProduct.descriptionAr,
         price: updatedProduct.price,
         quantity: updatedProduct.quantity,
         categoryId: updatedProduct.categoryId
@@ -287,8 +299,10 @@ function Dshproducts() {
                           alt={products.name}
                         />
                       </td>
-                      <td>{products.name}</td>
-                      <td>{products.description}</td>
+                      <td>{products.nameEn}</td>
+                      <td>{products.nameAr}</td>
+                      <td>{products.descriptionEn}</td>
+                      <td>{products.descriptionAr}</td>
                       <td>{products.price}</td>
                       <td>{products.quantity}</td>
                       <td>{products.categoryId}</td>
@@ -366,20 +380,39 @@ function Dshproducts() {
                 />
                 <input
                   type="text"
-                  placeholder="Name"
-                  value={newProduct.name}
+                  placeholder="Name in English"
+                  value={newProduct.nameEn}
                   onChange={(e) =>
-                    setNewProduct({ ...newProduct, name: e.target.value })
+                    setNewProduct({ ...newProduct, nameEn: e.target.value })
                   }
                 />
                 <input
                   type="text"
-                  placeholder="Description"
-                  value={newProduct.description}
+                  placeholder="Name in Arabic"
+                  value={newProduct.nameAr}
+                  onChange={(e) =>
+                    setNewProduct({ ...newProduct, nameAr: e.target.value })
+                  }
+                />
+                <input
+                  type="text"
+                  placeholder="Description in English"
+                  value={newProduct.descriptionEn}
                   onChange={(e) =>
                     setNewProduct({
                       ...newProduct,
-                      description: e.target.value,
+                      descriptionEn: e.target.value,
+                    })
+                  }
+                />
+                <input
+                  type="text"
+                  placeholder="Description in Arabic"
+                  value={newProduct.descriptionAr}
+                  onChange={(e) =>
+                    setNewProduct({
+                      ...newProduct,
+                      descriptionAr: e.target.value,
                     })
                   }
                 />
@@ -424,23 +457,45 @@ function Dshproducts() {
                 <h3>{translations.editProd}</h3>
                 <input
                   type="text"
-                  placeholder="Name"
-                  value={updatedProduct.name}
+                  placeholder="Name in English"
+                  value={updatedProduct.nameEn}
                   onChange={(e) =>
                     setUpdatedProduct({
                       ...updatedProduct,
-                      name: e.target.value,
+                      nameEn: e.target.value,
                     })
                   }
                 />
                 <input
                   type="text"
-                  placeholder="Description"
-                  value={updatedProduct.description}
+                  placeholder="Name in Arabic"
+                  value={updatedProduct.nameAr}
                   onChange={(e) =>
                     setUpdatedProduct({
                       ...updatedProduct,
-                      description: e.target.value,
+                      nameAr: e.target.value,
+                    })
+                  }
+                />
+                <input
+                  type="text"
+                  placeholder="Description in English"
+                  value={updatedProduct.descriptionEn}
+                  onChange={(e) =>
+                    setUpdatedProduct({
+                      ...updatedProduct,
+                      descriptionEn: e.target.value,
+                    })
+                  }
+                />
+                <input
+                  type="text"
+                  placeholder="Description in Arabic"
+                  value={updatedProduct.descriptionAr}
+                  onChange={(e) =>
+                    setUpdatedProduct({
+                      ...updatedProduct,
+                      descriptionAr: e.target.value,
                     })
                   }
                 />

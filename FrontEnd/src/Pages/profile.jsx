@@ -20,7 +20,7 @@ function Profile({
 }) {
   const API_BASE_URL = process.env.REACT_APP_API_URL;
 
-  const { translations } = useTranslation();
+  const { translations, language } = useTranslation();
   const [visibleDiv, setVisibleDiv] = useState("first"); // "first" or "second"
   const [userData, setUserData] = useState(null);
   const [error, setError] = useState("");
@@ -388,7 +388,9 @@ function Profile({
                     <div>
                       <p>
                         <strong>{translations.product}:</strong>{" "}
-                        {product?.name || "Unknown"}
+                        {language === "ar"
+                          ? product?.nameAr
+                          : product?.nameEn || "Unknown"}
                       </p>
                       <p>
                         <strong>{translations.quantity}:</strong>{" "}

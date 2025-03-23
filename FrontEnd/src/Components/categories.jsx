@@ -6,7 +6,7 @@ import { useCurrency } from "../CurrencyContext";
 import axios from "axios";
 
 function Categories({ addToCart }) {
-  const { translations } = useTranslation();
+  const { translations, language } = useTranslation();
   const navigate = useNavigate();
   const { selectedCurrency, convertAmount } = useCurrency();
   const [categories, setCategories] = useState([]);
@@ -62,7 +62,7 @@ function Categories({ addToCart }) {
     };
 
     fetchCategoriesAndProducts();
-  }, []);
+  }, [language]);
 
   if (isLoading) {
     return <p>Loading categories and products...</p>;
@@ -74,7 +74,9 @@ function Categories({ addToCart }) {
         {categories.map((category) => (
           <div key={category.id} className="category-section">
             <div className="sc1">
-              <h1 className="DesignTitle">{category.name}</h1>
+              <h1 className="DesignTitle">
+                {language === "ar" ? category.nameAr : category.nameEn}
+              </h1>
             </div>
             <div className="scroll-container">
               <div className="webs">
@@ -99,7 +101,9 @@ function Categories({ addToCart }) {
                       />
                     </div>
                     <div className="content">
-                      <h3>{product.name}</h3>
+                      <h3>
+                        {language === "ar" ? product.nameAr : product.nameEn}
+                      </h3>
                       <p>
                         {selectedCurrency === "egp"
                           ? `${translations.egp}`

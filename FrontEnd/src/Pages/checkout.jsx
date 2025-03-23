@@ -7,7 +7,7 @@ import { useCurrency } from "../CurrencyContext";
 
 export default function Checkout() {
   const API_BASE_URL = process.env.REACT_APP_API_URL;
-  const { translations } = useTranslation();
+  const { translations, language } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
   const { cart, totalPrice } = location.state || { cart: [], totalPrice: 0 };
@@ -296,7 +296,8 @@ export default function Checkout() {
               <p className="prodOrd" key={item.productId}>
                 <img src={item.image} alt={item.name} />{" "}
                 <span className="price">
-                  {item.name} x {item.quantity} -{" "}
+                  {language === "ar" ? item.nameAr : item.nameEn} x{" "}
+                  {item.quantity} -{" "}
                   {selectedCurrency === "egp" ? `${translations.egp}` : "$"}
                   {convertAmount(item.price).toFixed(2)} * {item.quantity}
                 </span>

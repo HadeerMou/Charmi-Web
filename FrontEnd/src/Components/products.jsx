@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function Products({ showProducts }) {
-  const { translations, currentLanguage } = useTranslation();
+  const { translations, language } = useTranslation();
   const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
   const API_BASE_URL = process.env.REACT_APP_API_URL;
@@ -19,7 +19,7 @@ export default function Products({ showProducts }) {
       .catch((error) => {
         console.error("Error fetching categories:", error);
       });
-  }, []);
+  }, [language]);
 
   return (
     <>
@@ -40,7 +40,7 @@ export default function Products({ showProducts }) {
                           state: {
                             categoryId: category.id,
                             categoryName:
-                              currentLanguage === "ar"
+                              language === "ar"
                                 ? category.nameAr
                                 : category.nameEn,
                           },
@@ -60,7 +60,7 @@ export default function Products({ showProducts }) {
                       </div>
                       <div className="card-body text-center">
                         <h5 className="card-title">
-                          {currentLanguage === "ar"
+                          {language === "ar"
                             ? category.nameAr
                             : category.nameEn}
                         </h5>

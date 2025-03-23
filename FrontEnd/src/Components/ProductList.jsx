@@ -6,7 +6,7 @@ import { useCurrency } from "../CurrencyContext";
 import axios from "axios";
 
 function ProductList({ addToCart }) {
-  const { translations } = useTranslation();
+  const { translations, language } = useTranslation();
   const navigate = useNavigate();
   const { selectedCurrency, convertAmount } = useCurrency();
   const [product, setProduct] = useState([]);
@@ -72,7 +72,7 @@ function ProductList({ addToCart }) {
     };
 
     fetchProducts();
-  }, [categoryId]);
+  }, [categoryId, language]);
 
   if (isLoading) {
     return <p>Loading products...</p>;
@@ -104,7 +104,7 @@ function ProductList({ addToCart }) {
                 />
               </div>
               <div className="content">
-                <h3>{product.name}</h3>
+                <h3>{language === "ar" ? product.nameAr : product.nameEn}</h3>
                 <p>
                   {selectedCurrency === "egp" ? `${translations.egp}` : "$"}
                   {product.price && !isNaN(product.price)
