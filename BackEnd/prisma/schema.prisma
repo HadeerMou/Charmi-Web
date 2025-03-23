@@ -116,8 +116,10 @@ model Countries {
 
 model Products {
   id            Int             @id @default(autoincrement())
-  name          String
-  description   String
+  nameEn        String?
+  nameAr        String?
+  descriptionEn String?
+  descriptionAr String?
   price         Decimal         @db.Decimal(10, 2)
   quantity      Int
   categoryId    Int
