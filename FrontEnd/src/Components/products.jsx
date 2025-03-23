@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function Products({ showProducts }) {
-  const { translations } = useTranslation();
+  const { translations, currentLanguage } = useTranslation();
   const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
   const API_BASE_URL = process.env.REACT_APP_API_URL;
@@ -39,7 +39,10 @@ export default function Products({ showProducts }) {
                         navigate("/categoryPage", {
                           state: {
                             categoryId: category.id,
-                            categoryName: category.name,
+                            categoryName:
+                              currentLanguage === "ar"
+                                ? category.nameAr
+                                : category.nameEn,
                           },
                         })
                       }
@@ -56,7 +59,11 @@ export default function Products({ showProducts }) {
                         )}
                       </div>
                       <div className="card-body text-center">
-                        <h5 className="card-title">{category.name}</h5>
+                        <h5 className="card-title">
+                          {currentLanguage === "ar"
+                            ? category.nameAr
+                            : category.nameEn}
+                        </h5>
                       </div>
                     </div>
                   </a>

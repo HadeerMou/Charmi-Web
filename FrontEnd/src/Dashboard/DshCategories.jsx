@@ -14,12 +14,14 @@ function DshCategories() {
   const [editingCategory, setEditingCategory] = useState(null);
   const [showCreateCity, setShowCreateCity] = useState(false);
   const [newCategory, setNewCategory] = useState({
-    name: "",
+    nameEn: "",
+    nameAr: "",
     imageFile: null,
   });
 
   const [updatedCategory, setUpdatedCategory] = useState({
-    name: "",
+    nameEn: "",
+    nameAr: "",
   });
   const editModalRef = useRef(null);
   const { translations } = useTranslation();
@@ -56,7 +58,12 @@ function DshCategories() {
     try {
       const token = localStorage.getItem("token"); // Retrieve token if stored in localStorage
       const formData = new FormData();
-      formData.append("name", newCategory.name);
+      formData.append(
+        "nameEn",
+        newCategory.nameEn,
+        "nameAr",
+        newCategory.nameAr
+      );
       if (newCategory.imageFile) {
         formData.append("imageFile", newCategory.imageFile);
       }
@@ -68,7 +75,8 @@ function DshCategories() {
       setCategory([...category, response.data]);
 
       setNewCategory({
-        name: "",
+        nameEn: "",
+        nameAr: "",
         imageFile: null,
       });
 
@@ -99,7 +107,7 @@ function DshCategories() {
   // Open edit modal
   const handleEditClick = (category) => {
     setEditingCategory(category);
-    setUpdatedCategory({ name: category.name });
+    setUpdatedCategory({ nameEn: category.nameEn, nameAr: category.nameAr });
     setTimeout(() => {
       editModalRef.current?.scrollIntoView({ behavior: "smooth" });
     }, 200);
@@ -113,7 +121,7 @@ function DshCategories() {
 
       const response = await axios.put(
         `${API_BASE_URL}/category/${editingCategory.id}`,
-        { name: updatedCategory.name }, // Send only the name as JSON
+        { nameEn: updatedCategory.nameEn, nameAr: updatedCategory.nameAr }, // Send only the name as JSON
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -158,7 +166,8 @@ function DshCategories() {
               <div className="messageContainer" key={cat.id}>
                 <div className="name">
                   <h3>{cat.id}</h3>
-                  <h3>{cat.name}</h3>
+                  <h3>{cat.nameEn}</h3>
+                  <h3>{cat.nameAr}</h3>
                   {cat.imagePath ? (
                     <img
                       src={"https://" + cat.imagePath}
@@ -191,12 +200,23 @@ function DshCategories() {
                 <h3>Create New category</h3>
                 <input
                   type="text"
-                  placeholder="Category name"
-                  value={newCategory.name}
+                  placeholder="Category name in English"
+                  value={newCategory.nameEn}
                   onChange={(e) =>
                     setNewCategory({
                       ...newCategory,
-                      name: e.target.value,
+                      nameEn: e.target.value,
+                    })
+                  }
+                />
+                <input
+                  type="text"
+                  placeholder="Category name in Arabic"
+                  value={newCategory.nameAr}
+                  onChange={(e) =>
+                    setNewCategory({
+                      ...newCategory,
+                      nameAr: e.target.value,
                     })
                   }
                 />
@@ -217,12 +237,23 @@ function DshCategories() {
                 <h3>Edit category</h3>
                 <input
                   type="text"
-                  placeholder="Category name"
-                  value={updatedCategory.name}
+                  placeholder="Category name in English"
+                  value={updatedCategory.nameEn}
                   onChange={(e) =>
                     setUpdatedCategory({
                       ...updatedCategory,
-                      name: e.target.value,
+                      nameEn: e.target.value,
+                    })
+                  }
+                />
+                <input
+                  type="text"
+                  placeholder="Category name in Arabic"
+                  value={updatedCategory.nameAr}
+                  onChange={(e) =>
+                    setUpdatedCategory({
+                      ...updatedCategory,
+                      nameAr: e.target.value,
                     })
                   }
                 />
