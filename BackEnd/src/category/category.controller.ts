@@ -58,13 +58,19 @@ export class CategoryController {
 
   @ApiParam({ name: 'id', required: true })
   @ApiBody({
-    schema: { type: 'object', properties: { name: { type: 'string' } } },
+    schema: {
+      type: 'object',
+      properties: { nameEn: { type: 'string' }, nameAr: { type: 'string' } },
+    },
   })
   @UseGuards(AuthGuard, RolesGuard)
   @Roles(Role.Admin)
   @Put(':id')
-  async update(@Param('id') id: string, @Body() body: { name: string }) {
-    return await this.categoryService.update(+id, body.name);
+  async update(
+    @Param('id') id: string,
+    @Body() body: { nameEn: string; nameAr: string },
+  ) {
+    return await this.categoryService.update(+id, body.nameEn, body.nameAr);
   }
 
   @ApiParam({ name: 'id', required: true })

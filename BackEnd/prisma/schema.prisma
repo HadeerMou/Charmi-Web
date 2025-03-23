@@ -156,7 +156,8 @@ model productModel {
 
 model Category {
   id        Int        @id @default(autoincrement())
-  name      String
+  nameEn    String?
+  nameAr    String?
   imagePath String
   createdAt DateTime   @default(now())
   deletedAt DateTime?

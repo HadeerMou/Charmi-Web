@@ -52,7 +52,8 @@ export class CategoryService {
 
       return await prisma.category.create({
         data: {
-          name: categoryDto.name,
+          nameEn: categoryDto.nameEn,
+          nameAr: categoryDto.nameAr,
           imagePath: imagePath,
         },
       });
@@ -75,13 +76,14 @@ export class CategoryService {
     });
   }
 
-  async update(id: number, name: string) {
+  async update(id: number, nameEn: string, nameAr: string) {
     const category = await prisma.category.update({
       where: {
         id: id,
       },
       data: {
-        name,
+        nameEn,
+        nameAr,
       },
     });
 
