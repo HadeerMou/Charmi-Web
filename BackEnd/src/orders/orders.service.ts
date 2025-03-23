@@ -65,7 +65,7 @@ export class OrdersService {
 
         if (product.quantity < item.quantity) {
           throw new BadRequestException(
-            `Insufficient quantity for product ${product.name}`,
+            `Insufficient quantity for product ${product.nameEn}`,
           );
         }
 
@@ -151,7 +151,7 @@ export class OrdersService {
           }
 
           return {
-            name: product.name,
+            name: product.nameEn,
             price: item.price,
             quantity: item.quantity,
           };
