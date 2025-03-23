@@ -14,22 +14,26 @@ function ProductList({ addToCart }) {
   const location = useLocation();
   const API_BASE_URL = process.env.REACT_APP_API_URL;
   const [hoveredProduct, setHoveredProduct] = useState(null); // Track hovered product ID
+  const [categoryName, setCategoryName] = useState("All Products");
 
   // Retrieve category info from state or localStorage
   const categoryId =
     location.state?.categoryId || localStorage.getItem("categoryId") || null;
-  const categoryName =
-    location.state?.categoryName ||
-    localStorage.getItem("categoryName") ||
-    "All Products";
 
   useEffect(() => {
     if (categoryId) {
-      localStorage.setItem("categoryId", categoryId);
-      localStorage.setItem("categoryName", categoryName);
+      axios
+        .get(`${API_BASE_URL}/category/${categoryId}`)
+        .then((response) => {
+          setCategoryName(
+            language === "ar" ? response.data.nameAr : response.data.nameEn
+          );
+        })
+        .catch((error) =>
+          console.error("Error fetching category name:", error)
+        );
     } else {
-      localStorage.removeItem("categoryId");
-      localStorage.removeItem("categoryName");
+      setCategoryName(translations.allProducts);
     }
 
     const fetchProducts = async () => {

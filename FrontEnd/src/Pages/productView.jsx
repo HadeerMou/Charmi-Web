@@ -173,7 +173,7 @@ function ProductView({
     if (productId) {
       fetchProductDetails();
     }
-  }, [productId, language]);
+  }, [productId]);
 
   // Fetch product images
   const fetchProductImages = async (productId) => {
