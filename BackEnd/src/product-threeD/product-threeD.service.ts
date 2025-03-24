@@ -114,7 +114,13 @@ export class Product3DService {
       return null; // ✅ Return null instead of throwing an error
     }
 
-    return model;
+    const modelUrl = model.modelPath.startsWith('http')
+      ? model.modelPath
+      : `${process.env.FTP_BASE_URL}/${model.modelPath}`;
+
+    console.log(`✅ Returning model URL: ${modelUrl}`);
+
+    return { modelUrl };
   }
 
   async update(
