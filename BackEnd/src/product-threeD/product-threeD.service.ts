@@ -102,16 +102,16 @@ export class Product3DService {
       );
     }
   }
-
   async findOne(id: number) {
     console.log(`🔍 Searching for 3D model with ID: ${id}`);
-    let model = await prisma.productModel.findUnique({
+
+    const model = await prisma.productModel.findUnique({
       where: { productId: id },
     });
 
     if (!model) {
-      console.log(`⚠️ No 3D model found, creating a new one...`);
-      throw new NotFoundException('No model found for this product');
+      console.log(`⚠️ No 3D model found.`);
+      return null; // ✅ Return null instead of throwing an error
     }
 
     return model;

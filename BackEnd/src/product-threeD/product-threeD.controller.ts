@@ -48,6 +48,8 @@ export class Product3DController {
     @Body() productModel: createProduct3DDto,
     @UploadedFile() modelFile: Express.Multer.File,
   ) {
+    console.log('📥 Received Data:', productModel);
+    console.log('📂 Uploaded File:', modelFile);
     productModel.productId = Number(productModel.productId);
     if (!modelFile) {
       throw new BadRequestException('No model file provided.');
@@ -55,6 +57,8 @@ export class Product3DController {
     const existingModel = await this.product3DService.findOne(
       productModel.productId,
     );
+    console.log('🔍 Checking for existing model:', existingModel);
+
     if (existingModel) {
       throw new BadRequestException(
         'A 3D model already exists for this product. Update the existing model instead.',
