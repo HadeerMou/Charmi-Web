@@ -18,7 +18,7 @@ export class ProductsService {
   }
 
   async findOne(id: number) {
-    return await prisma.products.findUnique({
+    const product = await prisma.products.findUnique({
       include: {
         productImages: true,
         productModel: true,
@@ -27,6 +27,12 @@ export class ProductsService {
         id: id,
       },
     });
+    if (product?.productModel?.modelPath) {
+      product.productModel.modelPath = product.productModel.modelPath
+        .trim()
+        .replace(/\s/g, '%20'); // Fix spaces in URL
+    }
+    return product;
   }
 
   async create(product: createProductDto) {
