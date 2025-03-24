@@ -13,8 +13,9 @@ async function bootstrap() {
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
   const modelDir =
-    process.env.MODEL_STORAGE_PATH || join(__dirname, '..', 'public', 'models');
-  app.use('/models', express.static(modelDir));
+    process.env.MODEL_STORAGE_PATH ||
+    join(__dirname, '..', 'public', 'products');
+  app.use('/products', express.static(modelDir));
 
   const config = new DocumentBuilder()
     .setTitle('Charmi API')
