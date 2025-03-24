@@ -12,6 +12,7 @@ export class ProductsService {
       },
       include: {
         productImages: true,
+        productModel: true,
       },
     });
   }
@@ -20,6 +21,7 @@ export class ProductsService {
     return await prisma.products.findUnique({
       include: {
         productImages: true,
+        productModel: true,
       },
       where: {
         id: id,
