@@ -60,6 +60,7 @@ function Dshproducts() {
             : "/path/to/default/image.jpg";
           const modelUrl =
             productModel.length > 0 ? productModel.modelPath : null;
+          console.log("Product Model Data:", productModel);
 
           return {
             ...product,
@@ -457,6 +458,18 @@ function Dshproducts() {
             {editingProduct && (
               <div ref={editModalRef} className="edit-user-modal">
                 <h3>{translations.editProd}</h3>
+                <input
+                  type="file"
+                  accept=".glb,.gltf"
+                  placeholder="product Model"
+                  value={updatedProduct.modelFile}
+                  onChange={(e) =>
+                    setUpdatedProduct({
+                      ...updatedProduct,
+                      modelFile: e.target.value,
+                    })
+                  }
+                />
                 <input
                   type="text"
                   placeholder="Name in English"

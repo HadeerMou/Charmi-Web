@@ -22,6 +22,7 @@ function ProductDetails() {
     quantity: "",
     categoryId: "",
     imageFile: null, // New field for image
+    modelFile: null,
   });
 
   const [updatedProduct, setUpdatedProduct] = useState({
@@ -30,6 +31,7 @@ function ProductDetails() {
     price: "",
     quantity: "",
     imageFile: null, // New field for image
+    modelFile: null,
   });
 
   const OpenSidebar = () => {
