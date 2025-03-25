@@ -15,7 +15,6 @@ function Signup({ handleVerifyOtp }) {
     phone: "",
   });
   const API_BASE_URL = process.env.REACT_APP_API_URL;
-
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 

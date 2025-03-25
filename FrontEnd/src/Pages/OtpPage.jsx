@@ -3,6 +3,7 @@ import logo from "../logo.png";
 import "./OtpPage.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useTranslation } from "../TranslationContext";
 
 function OtpPage() {
   const API_BASE_URL = process.env.REACT_APP_API_URL;
@@ -11,7 +12,7 @@ function OtpPage() {
   const searchParams = new URLSearchParams(location.search);
   const email = searchParams.get("input");
   const from = searchParams.get("from"); // Capture source (verification or forgot-password)
-
+  const { translations } = useTranslation();
   const navigate = useNavigate();
   const [otp, setOtp] = useState(new Array(6).fill("")); // Store OTP as an array
   const inputsRef = useRef(new Array(6).fill(null));
@@ -71,7 +72,7 @@ function OtpPage() {
       if (from === "forgot-password") {
         navigate(`/reset-password?email=${encodeURIComponent(email)}`);
       } else {
-        navigate("/signup");
+        navigate("/user-login");
       }
     } catch (err) {
       console.error("Error verifying OTP:", err.response?.data || err.message);
@@ -83,8 +84,11 @@ function OtpPage() {
     <div className="loginContainer">
       <div className="logintop">
         <img className="noaclogo" src={logo} alt="Logo" />
-        <h1>Verify your Email Address</h1>
-        <p>Please Enter the 6-digit code we sent to {email}</p>
+        <h1>{translations.verifyemail}</h1>
+        <p>
+          {translations.code} {email}
+        </p>
+        <p>{translations.junk}</p>
       </div>
 
       <div className="codeRow">

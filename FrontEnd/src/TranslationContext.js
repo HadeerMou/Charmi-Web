@@ -230,6 +230,9 @@ const translations = {
     cancelledorder: "cancelled their order.",
     pendingorder: "has a pending order.",
     productmodel: "product Model",
+    junk: "please check your junk mails",
+    code: "Please Enter the 6-digit code we sent to",
+    verifyemail: "Verify your Email Address",
   },
   ar: {
     english: "إنجليزي",
@@ -457,6 +460,9 @@ const translations = {
     cancelledorder: "تم إلغاء طلبهم",
     pendingorder: "لديه طلب قيد التنفيذ",
     productmodel: "نموذج المنتج",
+    junk: "يرجى التحقق من رسائل البريد العشوائي الخاصة بك",
+    code: "الرجاء إدخال الرمز المكون من 6 أرقام الذي أرسلناه إليك",
+    verifyemail: "التحقق من عنوان بريدك الإلكتروني",
   },
 };
 
