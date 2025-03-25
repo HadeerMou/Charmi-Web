@@ -12,7 +12,11 @@ function Signin({ userType }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false); // 👀 State for password visibility
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
   const handleLogin = async (e) => {
     e.preventDefault();
     setError(""); // Reset errors
@@ -93,12 +97,17 @@ function Signin({ userType }) {
         <label className="label" htmlFor="">
           {translations.password}
         </label>
-        <input
-          className="input"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+        <div className="password-wrapper">
+          <input
+            className="input"
+            type={showPassword ? "text" : "password"} // 👀 Toggle type
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <a type="button" onClick={togglePasswordVisibility}>
+            {showPassword ? "👁️" : "🙈"} {/* Show/Hide Icon */}
+          </a>
+        </div>
 
         {error && <p className="error">{error}</p>}
         <div className="loginbutton">

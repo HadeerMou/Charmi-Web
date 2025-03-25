@@ -17,9 +17,14 @@ function Signup({ handleVerifyOtp }) {
   const API_BASE_URL = process.env.REACT_APP_API_URL;
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false); // 👀 State for password visibility
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
   const handleSubmit = async (e) => {
@@ -87,14 +92,19 @@ function Signup({ handleVerifyOtp }) {
           required
         />
         <label className="label">{translations.password}</label>
-        <input
-          className="input"
-          type="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-          required
-        />
+        <div className="password-wrapper">
+          <input
+            className="input"
+            type={showPassword ? "text" : "password"} // 👀 Toggle type
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            required
+          />
+          <a type="button" onClick={togglePasswordVisibility}>
+            {showPassword ? "👁️" : "🙈"} {/* Show/Hide Icon */}
+          </a>
+        </div>
         <label className="label">{translations.number}</label>
         <input
           className="input"
