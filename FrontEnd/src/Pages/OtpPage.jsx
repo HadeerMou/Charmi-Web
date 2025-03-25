@@ -63,16 +63,33 @@ function OtpPage() {
       // Store user info in localStorage
       localStorage.setItem("user", JSON.stringify(user)); // Save user details
       localStorage.setItem("token", token); // Save authentication token
-      console.log("Email:", email);
-      console.log("OTP Sent:", otp.join(""));
-      console.log("API URL:", API_BASE_URL);
 
       alert("OTP Verified Successfully!");
+      const storedData = JSON.parse(localStorage.getItem("signupData"));
+      if (storedData && from === "email-verification") {
+        console.log("Signup Data Retrieved:", storedData);
 
-      if (from === "forgot-password") {
-        navigate(`/reset-password?email=${encodeURIComponent(email)}`);
+        // Final signup request to create the user in the database
+        const signupResponse = await axios.post(
+          `${API_BASE_URL}/auth/signUp`,
+          storedData,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              accept: "*/*",
+              userType: "USER",
+            },
+          }
+        );
+
+        console.log("User Created:", signupResponse.data);
+
+        // Clear stored data
+        localStorage.removeItem("signupData");
+        alert("User created successfully! Please log in.");
+        navigate("/user-login");
       } else {
-        navigate("/signup");
+        navigate(`/reset-password?email=${encodeURIComponent(email)}`);
       }
     } catch (err) {
       console.error("Error verifying OTP:", err.response?.data || err.message);

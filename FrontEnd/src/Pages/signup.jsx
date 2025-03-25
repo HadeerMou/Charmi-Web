@@ -29,8 +29,9 @@ function Signup({ handleVerifyOtp }) {
     setError("");
 
     try {
-      console.log("Sending Data:", formData);
-      console.log("API URL:", API_BASE_URL);
+      // Store form data in localStorage/sessionStorage
+      localStorage.setItem("signupData", JSON.stringify(formData));
+
       const response = await axios.post(
         `${API_BASE_URL}/auth/signUp`,
         formData,
@@ -42,7 +43,6 @@ function Signup({ handleVerifyOtp }) {
           },
         }
       );
-      console.log("Signup successful:", response.data);
       navigate(
         `/email-verification?email=${encodeURIComponent(formData.email)}`
       );
