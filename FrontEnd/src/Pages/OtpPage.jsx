@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import logo from "../logo.png";
 import "./OtpPage.css";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -16,6 +16,22 @@ function OtpPage() {
   const navigate = useNavigate();
   const [otp, setOtp] = useState(new Array(6).fill("")); // Store OTP as an array
   const inputsRef = useRef(new Array(6).fill(null));
+
+  useEffect(() => {
+    inputsRef.current[0]?.focus();
+  }, []);
+
+  const handleResendOtp = async () => {
+    try {
+      await axios.post(`${API_BASE_URL}/auth/sendotp`, {
+        input: email,
+        userType: "USER",
+      });
+      alert("OTP has been resent!");
+    } catch (error) {
+      alert("Failed to resend OTP. Please try again.");
+    }
+  };
 
   // Handle Input Change
   const handleChange = (e, index) => {
@@ -48,6 +64,10 @@ function OtpPage() {
 
   // Verify OTP
   const handleVerifyOtp = async () => {
+    if (otp.includes("")) {
+      alert("Please enter the complete OTP.");
+      return;
+    }
     try {
       const response = await axios.post(`${API_BASE_URL}/auth/verifyotp`, {
         input: email,
@@ -92,6 +112,7 @@ function OtpPage() {
         navigate(`/reset-password?email=${encodeURIComponent(email)}`);
       }
     } catch (err) {
+      setOtp(new Array(6).fill(""));
       console.error("Error verifying OTP:", err.response?.data || err.message);
       alert(err.response?.data?.message || "Invalid OTP. Please try again.");
     }
@@ -126,7 +147,9 @@ function OtpPage() {
       </div>
 
       <div className="navigateto">
-        <a href="">Send Again</a>
+        <a onClick={handleResendOtp} href="">
+          Send Again
+        </a>
       </div>
 
       <div className="loginbutton">

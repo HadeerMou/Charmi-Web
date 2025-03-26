@@ -233,6 +233,8 @@ const translations = {
     junk: "please check your junk mails",
     code: "Please Enter the 6-digit code we sent to",
     verifyemail: "Verify your Email Address",
+    nologged: "You're not logged!",
+    whatsuits: "Choose what suits you to see your account",
   },
   ar: {
     english: "إنجليزي",
@@ -463,6 +465,8 @@ const translations = {
     junk: "يرجى التحقق من رسائل البريد العشوائي الخاصة بك",
     code: "الرجاء إدخال الرمز المكون من 6 أرقام الذي أرسلناه إليك",
     verifyemail: "التحقق من عنوان بريدك الإلكتروني",
+    nologged: "لم يتم تسجيل دخولك!",
+    whatsuits: "اختر ما يناسبك لرؤية حسابك",
   },
 };
 

@@ -4,6 +4,7 @@ import logo from "../logo.png";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useTranslation } from "../TranslationContext";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 function Signin({ userType }) {
   const API_BASE_URL = process.env.REACT_APP_API_URL;
@@ -100,13 +101,13 @@ function Signin({ userType }) {
         <div className="password-wrapper">
           <input
             className="input"
-            type={showPassword ? "text" : "password"} // 👀 Toggle type
+            type={showPassword ? "text" : "password"}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <a type="button" onClick={togglePasswordVisibility}>
-            {showPassword ? "👁️" : "🙈"} {/* Show/Hide Icon */}
-          </a>
+          <span className="password-icon" onClick={togglePasswordVisibility}>
+            {showPassword ? <FaEyeSlash /> : <FaEye />}
+          </span>
         </div>
 
         {error && <p className="error">{error}</p>}

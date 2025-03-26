@@ -4,6 +4,7 @@ import logo from "../logo.png";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useTranslation } from "../TranslationContext";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 function Signup({ handleVerifyOtp }) {
   const navigate = useNavigate();
@@ -101,9 +102,9 @@ function Signup({ handleVerifyOtp }) {
             onChange={handleChange}
             required
           />
-          <a type="button" onClick={togglePasswordVisibility}>
-            {showPassword ? "👁️" : "🙈"} {/* Show/Hide Icon */}
-          </a>
+          <span className="password-icon" onClick={togglePasswordVisibility}>
+            {showPassword ? <FaEyeSlash /> : <FaEye />} {/* 👁️/🙈 Icons */}
+          </span>
         </div>
         <label className="label">{translations.number}</label>
         <input
