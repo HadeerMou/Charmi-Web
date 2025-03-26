@@ -2,13 +2,15 @@
 html,
 body {
   overflow-x: hidden;
-  width: 100vw;
+  width: 100%;
+  max-width: 100%;
   margin: 0;
   padding: 0;
 }
 
 #root {
-  width: 100vw;
+  width: 100%;
+  max-width: 100%;
   overflow-x: hidden;
 }
 

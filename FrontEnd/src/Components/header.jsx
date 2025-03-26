@@ -95,7 +95,7 @@ function Header({
                 <option value="ar">{translations.arabic}</option>
               </select>
             </div>
-            <div className="position-relative me-2">
+            <div className="sear position-relative me-2">
               <i className="bi bi-search position-absolute top-50 start-0 translate-middle-y ps-3"></i>
               <input
                 name="search"

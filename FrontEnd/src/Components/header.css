@@ -100,4 +100,7 @@ a {
   .curr {
     font-size: 10px;
   }
+  .sear {
+    display: none;
+  }
 }
