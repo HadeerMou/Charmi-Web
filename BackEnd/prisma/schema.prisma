@@ -18,6 +18,7 @@ model Users {
   carts         Carts?
   orders        Orders[]
   UserAddresses UserAddresses[]
+  isVerified    Boolean         @default(false)
 }
 
 model OtpCodes {

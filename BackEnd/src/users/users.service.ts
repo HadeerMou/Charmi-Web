@@ -12,6 +12,13 @@ import { UpdateUserDto } from './dto/updateUser.dto';
 @Injectable()
 export class UsersService {
   async create(user: CreateUserDto) {
+    // Check if the OTP was verified
+    const isOtpVerified = await this.isVerified(user.email);
+    if (!isOtpVerified) {
+      throw new BadRequestException(
+        'Email is not verified. Please verify OTP.',
+      );
+    }
     const existingUser = await prisma.users.findFirst({
       where: {
         OR: [
@@ -135,10 +142,14 @@ export class UsersService {
   }
 
   async isVerified(input: string): Promise<boolean> {
+    // Check if the user already exists
+    const user = await prisma.users.findUnique({ where: { email: input } });
+    if (user) return true;
     const otpCodes = await prisma.otpCodes.findFirst({
       where: {
         input,
         userType: 'USER',
+        isVerified: true,
       },
     });
     if (!otpCodes) return false;
