@@ -5,7 +5,7 @@ import Cart from "./Components/cart";
 import "./App.css";
 import { TranslationProvider } from "./TranslationContext";
 import About from "./Pages/About";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigation, useNavigate } from "react-router-dom";
 import Home from "./Pages/Home";
 import Contact from "./Pages/contact";
 import Checkout from "./Pages/checkout";
@@ -43,6 +43,7 @@ function App() {
   const [cart, setCart] = useState([]); // State for cart items
   const [isCartVisible, setIsCartVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false); // State to track loading status
+  const navigate = useNavigate();
   const totalQuantity = cart?.reduce(
     (acc, item) => acc + (item.quantity || 0),
     0
@@ -111,6 +112,21 @@ function App() {
   const toggleProductsVisibility = () => {
     setShowProducts((prevState) => !prevState); // Toggle visibility
   };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token"); // Remove token
+    setCart([]); // Clear cart state in React
+    navigate("/user-login"); // Redirect to login
+  };
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      fetchUserCart();
+    } else {
+      setCart([]); // Ensure cart is empty if no user is logged in
+    }
+  }, []);
 
   return (
     <CurrencyProvider>
