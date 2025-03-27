@@ -86,7 +86,7 @@ function OtpPage() {
 
       alert("OTP Verified Successfully!");
       const storedData = JSON.parse(localStorage.getItem("signupData"));
-      if (storedData && from === "email-verification") {
+      if (storedData && from === "signup") {
         console.log("Signup Data Retrieved:", storedData);
 
         // Final signup request to create the user in the database
