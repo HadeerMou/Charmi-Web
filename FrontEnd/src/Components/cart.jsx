@@ -92,9 +92,18 @@ export default function Cart({
 
   const handleLogout = () => {
     localStorage.removeItem("token"); // Remove token
-    fetchUserCart([]); // Clear cart state in React
+    setCart([]); // Clear cart state in React
     navigate("/user-login"); // Redirect to login
   };
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      fetchUserCart();
+    } else {
+      setCart([]); // Ensure cart is empty if no user is logged in
+    }
+  }, []);
 
   return (
     <div className={`cart-tab ${isCartVisible ? "show" : ""}`}>
