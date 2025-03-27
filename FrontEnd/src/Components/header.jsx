@@ -75,6 +75,7 @@ function Header({
   // Handle Logout
   const handleLogout = () => {
     localStorage.removeItem("token"); // Clear token
+    cart([]);
     navigate("/user-login"); // Redirect to login page
   };
 
