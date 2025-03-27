@@ -18,7 +18,7 @@ function Signup({ handleVerifyOtp }) {
   const API_BASE_URL = process.env.REACT_APP_API_URL;
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [showPassword, setShowPassword] = useState(false); // 👀 State for password visibility
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -49,9 +49,20 @@ function Signup({ handleVerifyOtp }) {
           },
         }
       );
-      navigate(
-        `/email-verification?email=${encodeURIComponent(formData.email)}`
+      // If signup is successful, send OTP automatically
+      await axios.post(
+        `${API_BASE_URL}/auth/sendotp`, // ✅ OTP API endpoint
+        { input: formData.email }, // ✅ Send email as input
+        {
+          headers: {
+            "Content-Type": "application/json",
+            userType: "USER",
+          },
+        }
       );
+
+      // Navigate to OTP verification page with email
+      navigate(`/otp?input=${encodeURIComponent(formData.email)}&from=signup`);
     } catch (err) {
       console.error("Signup error:", err.response?.data || err.message);
       if (err.response?.data?.message === "Email is not verified") {
@@ -69,7 +80,7 @@ function Signup({ handleVerifyOtp }) {
   return (
     <div class="loginContainer">
       <div className="logintop">
-        <img class="noaclogo" src={logo} alt="Logo" />
+        <img className="noaclogo" src={logo} alt="Logo" />
         <h1>{translations.title}</h1>
         <h2>{translations.signup}</h2>
       </div>
@@ -77,7 +88,7 @@ function Signup({ handleVerifyOtp }) {
         <label className="label">{translations.username}</label>
         <input
           className="input"
-          type="text"
+          type=""
           name="username"
           value={formData.username}
           onChange={handleChange}
@@ -95,8 +106,8 @@ function Signup({ handleVerifyOtp }) {
         <label className="label">{translations.password}</label>
         <div className="password-wrapper">
           <input
-            className="input"
-            type={showPassword ? "text" : "password"} // 👀 Toggle type
+            className="passinput"
+            type={showPassword ? "" : "password"} // 👀 Toggle type
             name="password"
             value={formData.password}
             onChange={handleChange}
@@ -116,7 +127,7 @@ function Signup({ handleVerifyOtp }) {
         />
         {error && <p className="error">{error}</p>}
         <div className="loginbutton">
-          <button type="submit" disabled={loading}>
+          <button className="logbutton" type="submit" disabled={loading}>
             {loading ? `${translations.signing}` : `${translations.signup}`}
           </button>
         </div>

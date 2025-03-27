@@ -13,7 +13,7 @@
   width: 90%;
   margin: 20px;
 }
-.loginContainer button {
+.logbutton {
   padding: 15px 80px;
   width: 450px;
   height: 65px;
@@ -49,6 +49,7 @@
   font-size: 20px;
   font-weight: bold;
   margin-left: 2px;
+  margin-top: 2%;
 }
 .input {
   font-size: 16px;
@@ -85,11 +86,11 @@
   width: 100%;
 }
 
-.input {
+.passinput {
   width: 100%;
-  padding-right: 40px; /* Ensures space for the icon */
+  padding: 12px 40px 12px 12px;
   height: 50px; /* Consistent height */
-  border-radius: 8px;
+  border-radius: 8px !important;
   border: 1px solid transparent;
   background-color: rgba(243, 243, 243, 0.795);
   box-sizing: border-box;
@@ -98,8 +99,7 @@
 .password-icon {
   position: absolute;
   right: 15px; /* Ensures proper alignment */
-  top: 50%;
-  transform: translateY(-50%);
+  top: 20%;
   cursor: pointer;
   font-size: 1.2rem;
   color: #555;
@@ -134,7 +134,8 @@
     font-weight: bold;
     margin-left: 2px;
   }
-  .input {
+  .input,
+  .passinput {
     font-size: 12px;
     height: auto;
     width: 100% !important;
@@ -143,9 +144,12 @@
     border-radius: 8px !important;
     border: 1px solid transparent !important;
   }
-  .loginContainer button {
-    padding: 10px 60px;
-    width: 70%;
+  .loginbutton {
+    margin-top: 7%;
+  }
+  .loginbutton {
+    padding: 6px 0px;
+    width: 100%;
     height: auto;
     background-color: rgba(238, 189, 55, 0.945);
     border-radius: 50px;

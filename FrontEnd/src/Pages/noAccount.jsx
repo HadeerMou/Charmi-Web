@@ -13,12 +13,12 @@ function NoAccount() {
       <h1>{translations.nologged}</h1>
       <h2>{translations.whatsuits}</h2>
       <a href="">
-        <button onClick={() => navigate("/user-login")}>
+        <button className="logbutton" onClick={() => navigate("/user-login")}>
           {translations.signin}
         </button>
       </a>
       <a href="">
-        <button onClick={() => navigate("/signup")}>
+        <button className="logbutton" onClick={() => navigate("/signup")}>
           {translations.signup}
         </button>
       </a>

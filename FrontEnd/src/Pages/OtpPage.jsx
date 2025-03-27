@@ -7,7 +7,6 @@ import { useTranslation } from "../TranslationContext";
 
 function OtpPage() {
   const API_BASE_URL = process.env.REACT_APP_API_URL;
-
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const email = searchParams.get("input");
@@ -21,7 +20,8 @@ function OtpPage() {
     inputsRef.current[0]?.focus();
   }, []);
 
-  const handleResendOtp = async () => {
+  const handleResendOtp = async (e) => {
+    e.preventDefault(); // Prevent default anchor behavior
     try {
       await axios.post(`${API_BASE_URL}/auth/sendotp`, {
         input: email,
@@ -108,7 +108,7 @@ function OtpPage() {
         localStorage.removeItem("signupData");
         alert("User created successfully! Please log in.");
         navigate("/user-login");
-      } else {
+      } else if (from === "forgot-password") {
         navigate(`/reset-password?email=${encodeURIComponent(email)}`);
       }
     } catch (err) {
@@ -147,13 +147,15 @@ function OtpPage() {
       </div>
 
       <div className="navigateto">
-        <a onClick={handleResendOtp} href="">
+        <button onClick={handleResendOtp} className="resendOtpButton">
           Send Again
-        </a>
+        </button>
       </div>
 
       <div className="loginbutton">
-        <button onClick={handleVerifyOtp}>Continue</button>
+        <button className="logbutton" onClick={handleVerifyOtp}>
+          Continue
+        </button>
       </div>
     </div>
   );

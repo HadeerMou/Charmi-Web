@@ -101,7 +101,7 @@ function Signin({ userType }) {
         <div className="password-wrapper">
           <input
             className="input"
-            type={showPassword ? "text" : "password"}
+            type={showPassword ? "" : "password"}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
@@ -112,7 +112,7 @@ function Signin({ userType }) {
 
         {error && <p className="error">{error}</p>}
         <div className="loginbutton">
-          <button type="submit">{translations.signin}</button>
+          <button className="logbutton" type="submit">{translations.signin}</button>
         </div>
         <br />
         <div className="forgotpass">

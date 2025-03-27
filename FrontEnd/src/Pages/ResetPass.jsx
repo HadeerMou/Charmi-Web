@@ -50,11 +50,8 @@ function ResetPass() {
       // Clear OTP from sessionStorage after use
       sessionStorage.removeItem("otp");
 
-      // Show success message
-      alert("Password updated successfully! Please log in.");
-
-      // Redirect to login
-      navigate("/user-login");
+      setError("Password updated successfully! Redirecting to login...");
+      setTimeout(() => navigate("/user-login"), 2000);
     } catch (err) {
       console.error("Password Reset Error:", err);
       setError(err.response?.data?.message || "Failed to reset password.");
@@ -89,7 +86,11 @@ function ResetPass() {
       </div>
       {error && <p className="error">{error}</p>}
       <div className="loginbutton">
-        <button onClick={handleResetPassword} disabled={loading}>
+        <button
+          className="logbutton"
+          onClick={handleResetPassword}
+          disabled={loading}
+        >
           {loading ? `${translations.updating}` : `${translations.update}`}
         </button>
       </div>
