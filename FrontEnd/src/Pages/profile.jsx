@@ -88,25 +88,29 @@ function Profile({
         const token = localStorage.getItem("token");
         if (!token) return;
 
-        const userId = localStorage.getItem("userId"); // Ensure userId exists
-        if (!userId) return;
+        const storedAddress = JSON.parse(
+          localStorage.getItem(`userAddress_${userData.id}`)
+        );
+        if (storedAddress) {
+          setUserAddress(storedAddress);
+          return; // Avoid unnecessary API call
+        }
 
         const response = await axios.get(
-          `${API_BASE_URL}/address/user/${userId}/default`,
+          `${API_BASE_URL}/address/user/${userData.id}/default`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           }
         );
-        console.log("Default Address Response:", response.data); // Debugging
 
         if (response.data && response.data.Addresses) {
           setUserAddress(response.data.Addresses); // Store the correct address object
           localStorage.setItem(
-            "userAddress",
+            `userAddress_${userData.id}`,
             JSON.stringify(response.data.Addresses)
-          ); // Store in local storage
+          );
         } else {
           console.error("No address found in response.");
         }
@@ -116,7 +120,7 @@ function Profile({
     };
 
     fetchDefaultAddress();
-  }, []);
+  }, [userData?.id]);
   const handleCancelOrder = async (orderId) => {
     const confirmCancel = window.confirm(
       "Are you sure you want to cancel this order?"
@@ -162,13 +166,16 @@ function Profile({
 
   // Retrieve address from local storage on component mount
   useEffect(() => {
-    const storedAddress = JSON.parse(localStorage.getItem("userAddress"));
+    const storedAddress = JSON.parse(
+      localStorage.getItem(`userAddress_${userData?.id}`)
+    );
     if (storedAddress) {
       setUserAddress(storedAddress);
     }
   }, []);
 
   useEffect(() => {
+    let isMounted = true;
     const fetchProfile = async () => {
       try {
         const token = localStorage.getItem("token");
@@ -177,16 +184,30 @@ function Profile({
             Authorization: `Bearer ${token}`, // Attach token for authentication
           },
         });
-        setUserData(response.data.data);
+        if (isMounted) {
+          setUserData(response.data.data);
+          fetchOrders();
+        }
       } catch (err) {
-        setError("Failed to load profile.");
+        if (isMounted) setError("Failed to load profile.");
         console.error("Profile Fetch Error:", err);
       }
     };
     fetchProfile();
-    fetchOrders(); // Fetch orders when the profile is loaded
     fetchProductDetails();
+    return () => {
+      isMounted = false;
+    };
   }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+    localStorage.removeItem(`userAddress_${userData?.id}`);
+    setUserData(null);
+    setUserAddress(null);
+    navigate("/user-login");
+  };
 
   return (
     <>
@@ -264,7 +285,10 @@ function Profile({
             <h5 className="address">{translations.address}</h5>
             <p className="addp">
               <i class="fa-solid fa-location-dot"></i>
-              {userAddress
+              {userAddress &&
+              locationNames.city &&
+              locationNames.district &&
+              locationNames.country
                 ? `${userAddress.streetName}, ${locationNames.district}, ${locationNames.city}, ${locationNames.country}`
                 : "No address found"}
             </p>
