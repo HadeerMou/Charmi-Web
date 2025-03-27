@@ -87,27 +87,41 @@ function OtpPage() {
       alert("OTP Verified Successfully!");
       const storedData = JSON.parse(localStorage.getItem("signupData"));
       if (storedData && from === "signup") {
-        console.log("Signup Data Retrieved:", storedData);
+        try {
+          // Final signup request to create the user in the database
+          const signupResponse = await axios.post(
+            `${API_BASE_URL}/auth/signUp`,
+            storedData,
+            {
+              headers: {
+                "Content-Type": "application/json",
+                accept: "*/*",
+                userType: "USER",
+              },
+            }
+          );
 
-        // Final signup request to create the user in the database
-        const signupResponse = await axios.post(
-          `${API_BASE_URL}/auth/signUp`,
-          storedData,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              accept: "*/*",
-              userType: "USER",
-            },
+          console.log("User Created:", signupResponse.data);
+
+          // Clear stored data
+          localStorage.removeItem("signupData");
+          alert("User created successfully! Please log in.");
+          navigate("/user-login");
+        } catch (signupError) {
+          // 🔹 If "Email already exists", redirect to login instead of showing an error
+          if (
+            signupError.response?.data?.message.includes("Email already exists")
+          ) {
+            console.log("User already exists, skipping signup.");
+            localStorage.removeItem("signupData");
+            navigate("/user-login");
+          } else {
+            alert(
+              signupError.response?.data?.message ||
+                "Signup failed. Please try again."
+            );
           }
-        );
-
-        console.log("User Created:", signupResponse.data);
-
-        // Clear stored data
-        localStorage.removeItem("signupData");
-        alert("User created successfully! Please log in.");
-        navigate("/user-login");
+        }
       } else if (from === "forgot-password") {
         navigate(`/reset-password?email=${encodeURIComponent(email)}`);
       }
