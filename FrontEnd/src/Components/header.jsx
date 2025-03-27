@@ -17,6 +17,7 @@ function Header({
   const { translations, changeLanguage } = useTranslation(); // Using translation context
   const [selectedLanguage, setSelectedLanguage] = useState("en"); // Default language is English
   const { selectedCurrency, changeCurrency } = useCurrency(); // Using currency context
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
 
   const fetchUserCart = async () => {
     try {
@@ -48,9 +49,15 @@ function Header({
     const newCurrency = event.target.value;
     changeCurrency(newCurrency);
   };
+  useEffect(() => {
+    const handleStorageChange = () => {
+      setIsLoggedIn(!!localStorage.getItem("token"));
+    };
 
-  // Simulate login state (replace this with actual login state logic)
-  const isLoggedIn = localStorage.getItem("token"); // You can check a token or user data here
+    window.addEventListener("storage", handleStorageChange);
+    return () => window.removeEventListener("storage", handleStorageChange);
+  }, []);
+
   const handleClick = () => {
     if (isLoggedIn) {
       navigate("/profile"); // Navigate to profile if logged in
@@ -58,6 +65,13 @@ function Header({
       navigate("/register"); // Navigate to register if not logged in
     }
   };
+  useEffect(() => {
+    if (isLoggedIn) {
+      fetchUserCart(); // Fetch cart only if user is logged in
+    } else {
+      setCart([]); // Clear cart when user logs out
+    }
+  }, [isLoggedIn]);
   // Handle Logout
   const handleLogout = () => {
     localStorage.removeItem("token"); // Clear token

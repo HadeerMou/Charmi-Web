@@ -91,77 +91,84 @@ export default function Cart({
   );
 
   return (
-    <div className={`cart-tab ${isCartVisible ? "show" : ""}`}>
-      <div className="cart-header">
-        <button onClick={toggleCartVisibility}>X</button>
-        <div className="cart-total">
-          <span>
-            {translations.totalItems}:{totalQuantity}
-          </span>
-          <span>
-            {translations.totalPrice}:{`${totalPrice}`}
-          </span>
+    <>
+      {isCartVisible && (
+        <div className="cart-overlay" onClick={toggleCartVisibility}></div>
+      )}
+      <div className={`cart-tab ${isCartVisible ? "show" : ""}`}>
+        <div className="cart-header">
+          <button onClick={toggleCartVisibility}>X</button>
+          <div className="cart-total">
+            <span>
+              {translations.totalItems}:{totalQuantity}
+            </span>
+            <span>
+              {translations.totalPrice}:{`${totalPrice}`}
+            </span>
+          </div>
+        </div>
+        <div className="cart-items">
+          {cart && cart.length > 0 ? (
+            cart.map((item) => {
+              const productInfo = getProductInfo(item.productId); // Get product details
+              const convertedPrice = convertAmount(productInfo?.price || 0); // Convert price
+
+              return (
+                <div key={item.id} className="cart-item">
+                  <img
+                    src={`https://${productInfo?.image}`}
+                    alt={productInfo?.name || "Product"}
+                  />
+                  <div className="name">
+                    {language === "ar"
+                      ? productInfo?.nameAr
+                      : productInfo?.nameEn}
+                  </div>
+                  <div className="total-price">
+                    {selectedCurrency === "egp" ? `${translations.egp}` : "$"}
+                    {(convertedPrice * (item.quantity || 0)).toFixed(2)}
+                  </div>
+                  <div className="quantity">
+                    <button
+                      onClick={() =>
+                        updateQuantityInCart(item.productId, "minus")
+                      }
+                    >
+                      -
+                    </button>
+                    <span className="m-2">{item.quantity}</span>
+                    <button
+                      onClick={() =>
+                        updateQuantityInCart(item.productId, "plus")
+                      }
+                    >
+                      +
+                    </button>
+                  </div>
+                  <button
+                    className="delete"
+                    onClick={() => removeFromCart(item.productId)}
+                  >
+                    {translations.remove}
+                  </button>
+                </div>
+              );
+            })
+          ) : (
+            <p>Your cart is empty</p>
+          )}
+        </div>
+        <div className="cart-footer">
+          <button
+            onClick={() => {
+              handleCheckout();
+              toggleCartVisibility();
+            }}
+          >
+            {translations.checkout}
+          </button>
         </div>
       </div>
-      <div className="cart-items">
-        {cart && cart.length > 0 ? (
-          cart.map((item) => {
-            const productInfo = getProductInfo(item.productId); // Get product details
-            const convertedPrice = convertAmount(productInfo?.price || 0); // Convert price
-
-            return (
-              <div key={item.id} className="cart-item">
-                <img
-                  src={`https://${productInfo?.image}`}
-                  alt={productInfo?.name || "Product"}
-                />
-                <div className="name">
-                  {language === "ar"
-                    ? productInfo?.nameAr
-                    : productInfo?.nameEn}
-                </div>
-                <div className="total-price">
-                  {selectedCurrency === "egp" ? `${translations.egp}` : "$"}
-                  {(convertedPrice * (item.quantity || 0)).toFixed(2)}
-                </div>
-                <div className="quantity">
-                  <button
-                    onClick={() =>
-                      updateQuantityInCart(item.productId, "minus")
-                    }
-                  >
-                    -
-                  </button>
-                  <span className="m-2">{item.quantity}</span>
-                  <button
-                    onClick={() => updateQuantityInCart(item.productId, "plus")}
-                  >
-                    +
-                  </button>
-                </div>
-                <button
-                  className="delete"
-                  onClick={() => removeFromCart(item.productId)}
-                >
-                  {translations.remove}
-                </button>
-              </div>
-            );
-          })
-        ) : (
-          <p>Your cart is empty</p>
-        )}
-      </div>
-      <div className="cart-footer">
-        <button
-          onClick={() => {
-            handleCheckout();
-            toggleCartVisibility();
-          }}
-        >
-          {translations.checkout}
-        </button>
-      </div>
-    </div>
+    </>
   );
 }
