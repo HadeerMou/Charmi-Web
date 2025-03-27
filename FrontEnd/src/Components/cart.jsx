@@ -90,6 +90,12 @@ export default function Cart({
     calculateTotalPrice(cart, getProductInfo, convertAmount)
   );
 
+  const handleLogout = () => {
+    localStorage.removeItem("token"); // Remove token
+    fetchUserCart([]); // Clear cart state in React
+    navigate("/user-login"); // Redirect to login
+  };
+
   return (
     <div className={`cart-tab ${isCartVisible ? "show" : ""}`}>
       <div className="cart-header">
