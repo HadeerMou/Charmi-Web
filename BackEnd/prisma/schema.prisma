@@ -15,7 +15,7 @@ model Users {
   password      String
   phone         String          @unique
   deletedAt     DateTime?
-  carts         Carts?
+  carts         Carts?          
   orders        Orders[]
   UserAddresses UserAddresses[]
   isVerified    Boolean         @default(false)
@@ -208,7 +208,7 @@ model Orders {
   total      Int
   status     OrderStatus  @default(PENDING)
   address    Address      @relation(fields: [addressId], references: [id])
-  user       Users        @relation(fields: [userId], references: [id])
+  user       Users        @relation(fields: [userId], references: [id], onDelete: Cascade)
   orderItems orderItems[]
 
   @@index([addressId], map: "Orders_addressId_fkey")
