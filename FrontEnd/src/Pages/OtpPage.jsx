@@ -108,7 +108,7 @@ function OtpPage() {
           alert("User created successfully! Please log in.");
           navigate("/user-login");
         } catch (signupError) {
-          // 🔹 If "Email already exists", redirect to login instead of showing an error
+          // ✅ If user already exists, just redirect to login
           if (
             signupError.response?.data?.message.includes("Email already exists")
           ) {

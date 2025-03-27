@@ -102,7 +102,7 @@ function EmailInput() {
       </div>
       {error && <p className="error">{error}</p>}
       <div className="loginbutton">
-        <button onClick={handleInput} disabled={loading}>
+        <button className="logbutton" onClick={handleInput} disabled={loading}>
           {loading ? `${translations.sending}` : `${translations.sendcode}`}
         </button>
       </div>

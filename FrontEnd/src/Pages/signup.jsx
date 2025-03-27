@@ -38,18 +38,6 @@ function Signup({ handleVerifyOtp }) {
       // Store form data in localStorage/sessionStorage
       localStorage.setItem("signupData", JSON.stringify(formData));
 
-      const response = await axios.post(
-        `${API_BASE_URL}/auth/signUp`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            accept: "*/*",
-            userType: "USER",
-          },
-        }
-      );
-      // If signup is successful, send OTP automatically
       await axios.post(
         `${API_BASE_URL}/auth/sendotp`, // ✅ OTP API endpoint
         { input: formData.email }, // ✅ Send email as input
@@ -64,14 +52,9 @@ function Signup({ handleVerifyOtp }) {
       // Navigate to OTP verification page with email
       navigate(`/otp?input=${encodeURIComponent(formData.email)}&from=signup`);
     } catch (err) {
-      console.error("Signup error:", err.response?.data || err.message);
-      if (err.response?.data?.message === "Email is not verified") {
-        navigate(
-          `/email-verification?email=${encodeURIComponent(formData.email)}`
-        );
-      }
+      console.error("OTP send error:", err.response?.data || err.message);
       setError(
-        err.response?.data?.message || "Signup failed. Please try again."
+        err.response?.data?.message || "Failed to send OTP. Please try again."
       );
     } finally {
       setLoading(false);
