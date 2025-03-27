@@ -142,34 +142,35 @@ function OtpPage() {
         </p>
         <p>{translations.junk}</p>
       </div>
+      <div className="inputs">
+        <div className="codeRow">
+          {otp.map((digit, index) => (
+            <input
+              key={index}
+              type="text"
+              inputMode="numeric"
+              pattern="\d*"
+              maxLength="1"
+              value={digit}
+              ref={(el) => (inputsRef.current[index] = el)}
+              onChange={(e) => handleChange(e, index)}
+              onKeyDown={(e) => handleKeyDown(e, index)}
+              className="otpInput"
+            />
+          ))}
+        </div>
 
-      <div className="codeRow">
-        {otp.map((digit, index) => (
-          <input
-            key={index}
-            type="text"
-            inputMode="numeric"
-            pattern="\d*"
-            maxLength="1"
-            value={digit}
-            ref={(el) => (inputsRef.current[index] = el)}
-            onChange={(e) => handleChange(e, index)}
-            onKeyDown={(e) => handleKeyDown(e, index)}
-            className="otpInput"
-          />
-        ))}
-      </div>
+        <div className="navigateto">
+          <button onClick={handleResendOtp} className="resendOtpButton">
+            Send Again
+          </button>
+        </div>
 
-      <div className="navigateto">
-        <button onClick={handleResendOtp} className="resendOtpButton">
-          Send Again
-        </button>
-      </div>
-
-      <div className="loginbutton">
-        <button className="logbutton" onClick={handleVerifyOtp}>
-          Continue
-        </button>
+        <div className="loginbutton">
+          <button className="logbutton" onClick={handleVerifyOtp}>
+            Continue
+          </button>
+        </div>
       </div>
     </div>
   );

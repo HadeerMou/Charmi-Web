@@ -99,13 +99,14 @@ function EmailInput() {
           onChange={(e) => setInput(e.target.value)}
           required
         />
-      </div>
-      {error && <p className="error">{error}</p>}
+        {error && <p className="error">{error}</p>}
       <div className="loginbutton">
         <button className="logbutton" onClick={handleInput} disabled={loading}>
           {loading ? `${translations.sending}` : `${translations.sendcode}`}
         </button>
       </div>
+      </div>
+      
     </div>
   );
 }

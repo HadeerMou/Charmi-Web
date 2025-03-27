@@ -83,18 +83,17 @@ function ResetPass() {
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
+        {error && <p className="error">{error}</p>}
+        <div className="loginbutton">
+          <button
+            className="logbutton"
+            onClick={handleResetPassword}
+            disabled={loading}
+          >
+            {loading ? `${translations.updating}` : `${translations.update}`}
+          </button>
+        </div>
       </div>
-      {error && <p className="error">{error}</p>}
-      <div className="loginbutton">
-        <button
-          className="logbutton"
-          onClick={handleResetPassword}
-          disabled={loading}
-        >
-          {loading ? `${translations.updating}` : `${translations.update}`}
-        </button>
-      </div>
-      <br />
     </div>
   );
 }
