@@ -54,11 +54,14 @@ function App() {
     setIsCartVisible((prev) => !prev);
   };
 
-  // Fetch products and user cart when component mounts
+  // Fetch user cart when the component mounts
   useEffect(() => {
-    fetchProducts();
-    const token = localStorage.getItem("token");
-    if (token) fetchUserCart();
+    const fetchData = async () => {
+      fetchUserCart();
+      fetchProducts();
+    };
+
+    fetchData();
   }, []);
 
   const fetchProducts = async () => {
@@ -66,9 +69,9 @@ function App() {
       setIsLoading(true);
       const response = await axios.get(`${API_BASE_URL}/products`);
       setProducts(response.data);
+      setIsLoading(false);
     } catch (error) {
       console.error("❌ Error fetching products:", error);
-    } finally {
       setIsLoading(false);
     }
   };
@@ -98,17 +101,7 @@ function App() {
         { headers: { Authorization: `Bearer ${token}` } }
       );
       if (response.data) {
-        setCart((prevCart) => {
-          const existingItem = prevCart.find((item) => item.id === product.id);
-          if (existingItem) {
-            return prevCart.map((item) =>
-              item.id === product.id
-                ? { ...item, quantity: item.quantity + 1 }
-                : item
-            );
-          }
-          return [...prevCart, { ...product, quantity: 1 }];
-        });
+        fetchUserCart(); // Fetch updated cart from backend
       }
     } catch (error) {
       console.error("Error adding to cart:", error);
@@ -119,6 +112,21 @@ function App() {
   const toggleProductsVisibility = () => {
     setShowProducts((prevState) => !prevState); // Toggle visibility
   };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token"); // Remove token
+    setCart([]); // Clear cart state in React
+    navigate("/user-login"); // Redirect to login
+  };
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      fetchUserCart();
+    } else {
+      setCart([]); // Ensure cart is empty if no user is logged in
+    }
+  }, []);
 
   return (
     <CurrencyProvider>
