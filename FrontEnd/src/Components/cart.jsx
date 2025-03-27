@@ -48,13 +48,13 @@ export default function Cart({
         action === "plus" ? item.quantity + 1 : item.quantity - 1;
       if (newQuantity < 1) newQuantity = 1; // Prevent negative or zero quantity
 
-      const response = await axios.put(
+      await axios.put(
         `${API_BASE_URL}/cart-items`,
         { product_id: productId, quantity: newQuantity },
 
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      fetchUserCart(); // Refresh cart
+      await fetchUserCart(); // Refresh cart
     } catch (error) {
       console.error("Error updating quantity:", error);
     }

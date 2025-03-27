@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import "../App.css";
 import Categories from "../Components/categories";
 import Footer from "../Components/footer";
@@ -13,6 +14,10 @@ function Home({
   addToCart,
   totalQuantity,
 }) {
+  useEffect(() => {
+    document.activeElement.blur();
+    window.scrollTo(0, 0);
+  }, []); // Runs only on first render
 
   return (
     <>
