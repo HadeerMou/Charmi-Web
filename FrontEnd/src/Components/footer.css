@@ -19,11 +19,14 @@
     justify-content: center;
     align-items: center;
   }
+  .col-md-4 {
+    margin-bottom: 1rem;
+  }
   .list-unstyled li,
   .list-inline {
     display: flex;
     flex-direction: row;
-    max-width: 200px;
+    max-width: 300px;
     flex-wrap: wrap;
     font-size: 12px;
   }

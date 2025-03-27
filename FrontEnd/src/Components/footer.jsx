@@ -9,19 +9,19 @@ export default function Footer() {
   return (
     <>
       <footer class="bg-light mt-5 p-5">
-        <div class="footer py-4 p-5">
+        <div class="footer py-4">
           <div class="row p-5">
             <div class="col-md-4">
               <h5 class="contInfo">{translations.contInfo}</h5>
               <ul class="list-unstyled">
-                <li>
+                <li className="flex">
                   <i class="bi bi-telephone-fill me-2"></i>
                   <a href="tel:+20 10 09252297" class="text-dark">
                     +20 10 09252297
                   </a>
                 </li>
-                <li>
-                  <i class="bi bi-envelope-fill me-2 "></i>
+                <li className="flex">
+                  <i class="bi bi-envelope-fill me-2"></i>
                   <a
                     href="mailto:charmicompany4wi@gmail.com"
                     class="email text-dark"
