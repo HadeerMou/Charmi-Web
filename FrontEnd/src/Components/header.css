@@ -46,18 +46,24 @@ a {
   position: relative;
   cursor: pointer;
 }
-.icon-cart span {
+.cart-quantity {
   position: absolute;
-  background-color: red;
-  width: 30px;
-  height: 30px;
+  top: 12px;
+  right: -8px; /* Default position */
+  background: red;
+  color: white;
+  font-size: 12px;
+  width: 22px;
+  height: 22px;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   border-radius: 50%;
-  color: #fff;
-  top: 45%;
-  right: -16px;
+  font-weight: bold;
+}
+.cart-quantity.ar {
+  right: auto; /* Remove default */
+  left: -5px; /* Move to the left for Arabic */
 }
 .links {
   list-style: none;

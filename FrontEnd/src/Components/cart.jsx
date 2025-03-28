@@ -95,7 +95,11 @@ export default function Cart({
       {isCartVisible && (
         <div className="cart-overlay" onClick={toggleCartVisibility}></div>
       )}
-      <div className={`cart-tab ${isCartVisible ? "show" : ""}`}>
+      <div
+        className={`cart-tab ${isCartVisible ? "show" : ""} ${
+          language === "ar" ? "cart-left" : ""
+        }`}
+      >
         <div className="cart-header">
           <button onClick={toggleCartVisibility}>X</button>
           <div className="cart-total">
@@ -155,7 +159,7 @@ export default function Cart({
               );
             })
           ) : (
-            <p>Your cart is empty</p>
+            <p>{translations.emptycart}</p>
           )}
         </div>
         <div className="cart-footer">

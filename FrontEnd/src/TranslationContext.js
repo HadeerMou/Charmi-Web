@@ -235,6 +235,7 @@ const translations = {
     verifyemail: "Verify your Email Address",
     nologged: "You're not logged!",
     whatsuits: "Choose what suits you to see your account",
+    emptycart: "Your cart is empty",
   },
   ar: {
     english: "إنجليزي",
@@ -467,6 +468,7 @@ const translations = {
     verifyemail: "التحقق من عنوان بريدك الإلكتروني",
     nologged: "!لم يتم تسجيل دخولك",
     whatsuits: "اختر ما يناسبك لرؤية حسابك",
+    emptycart: "سلة التسوق الخاصة بك فارغة",
   },
 };
 
@@ -475,8 +477,9 @@ const TranslationContext = createContext();
 
 export const TranslationProvider = ({ children }) => {
   const savedLanguage = localStorage.getItem("language") || "en";
-
   const [language, setLanguage] = useState(savedLanguage); // Default language is English
+  const direction = language === "ar" ? "rtl" : "ltr";
+
   // Load the saved language from localStorage or default to English
 
   const changeLanguage = (newLanguage) => {
@@ -486,9 +489,14 @@ export const TranslationProvider = ({ children }) => {
 
   return (
     <TranslationContext.Provider
-      value={{ translations: translations[language], language, changeLanguage }}
+      value={{
+        translations: translations[language],
+        language,
+        changeLanguage,
+        direction,
+      }}
     >
-      {children}
+      <div dir={direction}>{children}</div>
     </TranslationContext.Provider>
   );
 };

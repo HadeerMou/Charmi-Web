@@ -24,6 +24,11 @@
   transition: transform 0.3s ease-in-out;
   z-index: 999;
 }
+.cart-tab.cart-left {
+  right: auto;
+  left: 0; /* Move to left side when Arabic is selected */
+  transform: translateX(-100%); /* Move out of view on left side */
+}
 
 .cart-tab.show {
   transform: translateX(0);
