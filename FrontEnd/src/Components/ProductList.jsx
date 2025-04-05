@@ -25,19 +25,32 @@ function ProductList({ addToCart }) {
     routeCategoryId !== undefined ? routeCategoryId : storedCategoryId;
 
   useEffect(() => {
-    if (categoryId) {
-      axios
-        .get(`${API_BASE_URL}/category/${categoryId}`)
-        .then((response) => {
+    if (routeCategoryId !== undefined) {
+      // new category came from navigation
+      if (routeCategoryId === null) {
+        localStorage.removeItem("categoryId");
+        setCategoryName(translations.allProducts);
+      } else {
+        localStorage.setItem("categoryId", routeCategoryId);
+        axios
+          .get(`${API_BASE_URL}/category/${routeCategoryId}`)
+          .then((response) => {
+            setCategoryName(
+              language === "ar" ? response.data.nameAr : response.data.nameEn
+            );
+          });
+      }
+    } else {
+      // nothing new passed in, load name from localStorage
+      if (categoryId) {
+        axios.get(`${API_BASE_URL}/category/${categoryId}`).then((response) => {
           setCategoryName(
             language === "ar" ? response.data.nameAr : response.data.nameEn
           );
-        })
-        .catch((error) =>
-          console.error("Error fetching category name:", error)
-        );
-    } else {
-      setCategoryName(translations.allProducts);
+        });
+      } else {
+        setCategoryName(translations.allProducts);
+      }
     }
 
     const fetchProducts = async () => {

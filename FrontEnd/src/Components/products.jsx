@@ -35,7 +35,8 @@ export default function Products({ showProducts }) {
                   <a className="text-decoration-none text-dark">
                     <div
                       className="box"
-                      onClick={() =>
+                      onClick={() => {
+                        localStorage.setItem("categoryId", category.id);
                         navigate("/categoryPage", {
                           state: {
                             categoryId: category.id,
@@ -44,8 +45,8 @@ export default function Products({ showProducts }) {
                                 ? category.nameAr
                                 : category.nameEn,
                           },
-                        })
-                      }
+                        });
+                      }}
                     >
                       <div className="boximg">
                         {category.imagePath ? (
