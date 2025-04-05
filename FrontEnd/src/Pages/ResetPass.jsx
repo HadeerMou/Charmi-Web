@@ -4,6 +4,7 @@ import logo from "../logo.png";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import { useTranslation } from "../TranslationContext";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 function ResetPass() {
   const API_BASE_URL = process.env.REACT_APP_API_URL;
