@@ -229,4 +229,13 @@
     white-space: nowrap;
     max-width: 100%;
   }
+  .ordersinfo .ordersContainer {
+    gap: 2rem;
+    margin-bottom: 6px;
+  }
+  .ordersContainer .orderno,
+  .ordersContainer .orderprice,
+  .ordersContainer .status {
+    font-size: 11px;
+  }
 }
