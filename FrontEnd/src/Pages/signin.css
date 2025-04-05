@@ -112,11 +112,13 @@
 
 [dir="ltr"] .password-icon {
   right: 15px;
+  left: auto; /* Ensure no conflicting left property */
 }
 
 /* For RTL languages like Arabic */
 [dir="rtl"] .password-icon {
   left: 15px;
+  right: auto; /* Ensure no conflicting left property */
 }
 [dir="ltr"] .passinput {
   padding: 12px 40px 12px 12px;
