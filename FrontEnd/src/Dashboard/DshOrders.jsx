@@ -16,7 +16,7 @@ function DshOrders() {
   const OpenSidebar = () => {
     setOpenSidebarToggle(!openSidebarToggle);
   };
-  const { translations } = useTranslation();
+  const { translations, language } = useTranslation();
   const [showCreateForm, setShowCreateForm] = useState(false); // Toggle form
   const [orders, setOrders] = useState([]); // State to store orders
   const [users, setUsers] = useState({});
@@ -53,7 +53,6 @@ function DshOrders() {
           (order) => users[order.userId]
         );
         setOrders(validOrders); // Ensure correct data is set
-        console.log("Orders data:", orders);
       } else {
         console.log("No orders found in response");
       }
@@ -104,7 +103,6 @@ function DshOrders() {
       });
 
       setProducts(response.data);
-      console.log("Products data:", products);
     } catch (error) {
       console.error("Error fetching products:", error);
       setProducts([]);
@@ -184,9 +182,6 @@ function DshOrders() {
       console.error("Error confirming order:", error);
     }
   };
-  if (products.length === 0) {
-    return <div>Loading products...</div>;
-  }
 
   return (
     <>
@@ -304,11 +299,6 @@ function DshOrders() {
                           </div>
                         </div>
                         {order.orderItems?.map((item, index) => {
-                          if (!item.productId) {
-                            console.log(
-                              `Missing productId for item at index ${index}`
-                            );
-                          }
                           const product =
                             products.find((p) => p.id === item.productId) || {};
                           let imageUrl =
@@ -333,7 +323,10 @@ function DshOrders() {
                               </div>
                               <div className="left">
                                 <h3 className="prodname">
-                                  {product.name || "Unknown Product"}
+                                  <strong>{translations.product}:</strong>{" "}
+                                  {language === "ar"
+                                    ? product?.nameAr
+                                    : product?.nameEn || "Unknown"}{" "}
                                 </h3>
                                 <p className="price">
                                   {product.price
