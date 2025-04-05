@@ -17,8 +17,12 @@ function ProductList({ addToCart }) {
   const [categoryName, setCategoryName] = useState("All Products");
 
   // Retrieve category info from state or localStorage
+  const routeCategoryId = location.state?.categoryId;
+  const storedCategoryId = localStorage.getItem("categoryId");
+
+  // If location.state is explicitly undefined, don’t override with stored one
   const categoryId =
-    location.state?.categoryId || localStorage.getItem("categoryId") || null;
+    routeCategoryId !== undefined ? routeCategoryId : storedCategoryId;
 
   useEffect(() => {
     if (categoryId) {
