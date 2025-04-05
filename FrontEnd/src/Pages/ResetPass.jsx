@@ -18,6 +18,11 @@ function ResetPass() {
   // Extract email or token from URL query (backend should provide a token in the email link)
   const queryParams = new URLSearchParams(location.search);
   const email = queryParams.get("email");
+  const [showPassword, setShowPassword] = useState(false); // 👀 State for password visibility
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   const handleResetPassword = async () => {
     setError(""); // Reset errors
@@ -68,21 +73,31 @@ function ResetPass() {
         <p>{translations.enterpass}</p>
       </div>
       <div className="inputs">
-        <input
-          className="input"
-          type="password"
-          placeholder={translations.newpass}
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <br />
-        <input
-          className="input"
-          type="password"
-          placeholder={translations.confirmnewpass}
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-        />
+        <div className="password-wrapper">
+          <input
+            className="passinput"
+            type={showPassword ? "" : "password"}
+            placeholder={translations.newpass}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <span className="password-icon" onClick={togglePasswordVisibility}>
+            {showPassword ? <FaEyeSlash /> : <FaEye />}
+          </span>
+        </div>
+        <div className="password-wrapper">
+          <input
+            className="passinput"
+            type={showPassword ? "" : "password"}
+            placeholder={translations.confirmnewpass}
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
+          <span className="password-icon" onClick={togglePasswordVisibility}>
+            {showPassword ? <FaEyeSlash /> : <FaEye />}
+          </span>
+        </div>
+
         {error && <p className="error">{error}</p>}
         <div className="loginbutton">
           <button
