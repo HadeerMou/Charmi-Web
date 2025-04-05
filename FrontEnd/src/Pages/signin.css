@@ -98,11 +98,19 @@
 
 .password-icon {
   position: absolute;
-  right: 15px; /* Ensures proper alignment */
   top: 20%;
   cursor: pointer;
   font-size: 1.2rem;
   color: #555;
+}
+
+[dir="ltr"] .password-icon {
+  right: 15px;
+}
+
+/* For RTL languages like Arabic */
+[dir="rtl"] .password-icon {
+  left: 15px;
 }
 
 .password-icon:hover {
@@ -158,9 +166,16 @@
     margin-top: 0px;
   }
   .password-icon {
-    right: 10px; /* Ensures proper alignment */
     top: 15%;
     font-size: 1rem;
+  }
+  [dir="ltr"] .password-icon {
+    right: 10px;
+  }
+
+  /* For RTL languages like Arabic */
+  [dir="rtl"] .password-icon {
+    left: 10px;
   }
   .navigateto {
     margin: 20px 0px 0px 40px;
