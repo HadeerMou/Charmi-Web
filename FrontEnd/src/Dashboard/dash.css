@@ -117,7 +117,7 @@ small {
 .theme-toggler {
   position: absolute;
   top: 20px;
-  right: 20px;
+  inset-inline-start: 20px; /* Use start in LTR, end in RTL */
   cursor: pointer;
 }
 

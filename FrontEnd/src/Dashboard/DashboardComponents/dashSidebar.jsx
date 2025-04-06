@@ -66,40 +66,29 @@ function DashSidebar({ openSidebarToggle, OpenSidebar }) {
             <h3 className="ordersname">{translations.ordersname}</h3>
           </a>
         </li>
-        <li className="sidebar-list-item">
+        <li
+          className="sidebar-list-item"
+          onClick={() => navigate("/dashboard/countries")}
+        >
           <a class="option" id="op1">
             <span>
               <i class="fa-solid fa-globe"></i>
             </span>
-            <h3 className="" onClick={() => navigate("/dashboard/countries")}>
-              {translations.countries}
-            </h3>
+            <h3 className="">{translations.countries}</h3>
           </a>
         </li>
 
-        <li className="sidebar-list-item">
+        <li
+          className="sidebar-list-item"
+          onClick={() => navigate("/dashboard/cities")}
+        >
           <a class="option" id="op1">
             <span>
               <i class="fa-solid fa-city"></i>
             </span>
-            <h3 className="" onClick={() => navigate("/dashboard/cities")}>
-              {translations.cities}
-            </h3>
+            <h3 className="">{translations.cities}</h3>
           </a>
         </li>
-        {/* <li className="sidebar-list-item">
-          <a
-            class="option"
-            id="op1"
-            onClick={() => navigate("/dashboard/messages")}
-          >
-            <span>
-              <i class="fa-regular fa-envelope"></i>
-            </span>
-            <h3 className="messagesname">{translations.messagesname}</h3>
-            <span class="message-count">20</span>
-          </a>
-        </li> */}
         <li className="sidebar-list-item">
           <a
             class="option"
@@ -124,25 +113,22 @@ function DashSidebar({ openSidebarToggle, OpenSidebar }) {
             <h3 className="productsname">{translations.categories}</h3>
           </a>
         </li>
-        <li className="sidebar-list-item">
+        <li
+          className="sidebar-list-item"
+          onClick={() => navigate("/dashboard/shippingfees")}
+        >
           <a class="option" id="op1">
             <span>
               <i class="fa-solid fa-dollar-sign"></i>
             </span>
-            <h3
-              className=""
-              onClick={() => navigate("/dashboard/shippingfees")}
-            >
-              {translations.shippingfees}
-            </h3>
+            <h3 className="">{translations.shippingfees}</h3>
           </a>
         </li>
-        <li className="sidebar-list-item">
-          <a
-            class="option"
-            id="op1"
-            onClick={() => navigate("/dashboard/admins")}
-          >
+        <li
+          className="sidebar-list-item"
+          onClick={() => navigate("/dashboard/admins")}
+        >
+          <a class="option" id="op1">
             <span>
               <i class="fa-solid fa-lock"></i>
             </span>
