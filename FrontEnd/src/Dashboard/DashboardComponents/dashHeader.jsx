@@ -50,6 +50,16 @@ function DASHHeader({ OpenSidebar }) {
       document.body.classList.add("dark-theme-variables");
       localStorage.setItem("theme", "dark");
     }
+    // Dynamically adjust theme toggler position for RTL/LTR
+    if (document.documentElement.dir === "rtl") {
+      // RTL-specific styles if needed
+      document.querySelector(".theme-toggler").style.insetInlineEnd = "20px";
+      document.querySelector(".theme-toggler").style.insetInlineStart = "";
+    } else {
+      // LTR-specific styles if needed
+      document.querySelector(".theme-toggler").style.insetInlineStart = "20px";
+      document.querySelector(".theme-toggler").style.insetInlineEnd = "";
+    }
   };
   return (
     <header className="header">
