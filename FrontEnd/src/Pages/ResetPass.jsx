@@ -86,6 +86,7 @@ function ResetPass() {
             {showPassword ? <FaEyeSlash /> : <FaEye />}
           </span>
         </div>
+        <br />
         <div className="password-wrapper">
           <input
             className="passinput"
