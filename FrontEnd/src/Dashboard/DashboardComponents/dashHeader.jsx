@@ -99,10 +99,10 @@ function DASHHeader({ OpenSidebar }) {
             <option value="ar">{translations.arabic}</option>
           </select>
         </div>
-        <div class="theme-toggler" onClick={toggleTheme}>
+        {/* <div class="theme-toggler" onClick={toggleTheme}>
           <i class="fa-solid fa-sun active"></i>
           <i class="fa-solid fa-moon"></i>
-        </div>
+        </div> */}
       </div>
     </header>
   );
