@@ -8,9 +8,9 @@ import Products from "../Components/products";
 import { useCurrency } from "../CurrencyContext";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Environment, useGLTF } from "@react-three/drei";
-const ProductModel = ({ modelPath }) => {
+/* import { Canvas } from "@react-three/fiber";
+import { OrbitControls, Environment, useGLTF } from "@react-three/drei"; */
+/* const ProductModel = ({ modelPath }) => {
   const { scene } = useGLTF(modelPath); // ✅ Call useGLTF directly, not inside try-catch
 
   if (!modelPath) {
@@ -19,7 +19,7 @@ const ProductModel = ({ modelPath }) => {
   }
   console.log("Attempting to load model from:", modelPath);
   return <primitive object={scene} scale={2} />;
-};
+}; */
 
 function ProductView({
   toggleCartVisibility,
@@ -250,7 +250,7 @@ function ProductView({
       setBigImage(productImages[currentIndex - 1]);
     }
   };
-  useEffect(() => {
+  /* useEffect(() => {
     if (product) {
       console.log("Full Product Data:", product);
       if (product.productModel) {
@@ -268,7 +268,7 @@ function ProductView({
         console.log("No productModel found in product data");
       }
     }
-  }, [product]);
+  }, [product]); */
 
   if (isLoading) return <p>Loading...</p>;
   if (!product) return <p>Product not found</p>;
@@ -292,7 +292,7 @@ function ProductView({
               onClick={() => setBigImage(img)}
             />
           ))}
-          {product?.productModel?.modelPath && (
+          {/* {product?.productModel?.modelPath && (
             <div className="model-container">
               <Canvas camera={{ position: [0, 0, 5] }}>
                 <ambientLight intensity={0.5} />
@@ -304,7 +304,7 @@ function ProductView({
                 />
               </Canvas>
             </div>
-          )}
+          )} */}
         </div>
         <div
           class="bigImg"
