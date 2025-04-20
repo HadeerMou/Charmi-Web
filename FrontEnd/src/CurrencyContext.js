@@ -3,7 +3,7 @@ import React, { createContext, useState, useContext } from "react";
 // Define conversion rates (example values)
 const conversionRates = {
   egp: 1, // Base currency
-  dollar: 1 / 30, // 1 EGP = 0.032 USD (example rate)
+  dollar: 1 / 51.13, // 1 EGP = 0.032 USD (example rate)
 };
 
 // Create CurrencyContext

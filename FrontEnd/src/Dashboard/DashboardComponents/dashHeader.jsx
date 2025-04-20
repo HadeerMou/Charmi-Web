@@ -14,6 +14,7 @@ function DASHHeader({ OpenSidebar }) {
   const { translations, changeLanguage } = useTranslation(); // Using translation context
   const [selectedLanguage, setSelectedLanguage] = useState("en"); // Default language is English
   const { selectedCurrency, changeCurrency } = useCurrency(); // Using currency context
+  
   const handleCurrencyChange = (event) => {
     const newCurrency = event.target.value;
     changeCurrency(newCurrency); // Update Currency in context
