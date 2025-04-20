@@ -83,8 +83,9 @@ function ProductView({
                 : product.descriptionEn}
             </p>
             <p className="price">
-              {selectedCurrency === "egp" ? `${translations.egp}` : "$"}
-              {convertAmount(product.price).toFixed(2)}
+              {selectedCurrency === "egp"
+                ? `${translations.egp} ${product.priceEgp}`
+                : `$ ${product.priceUsd}`}
             </p>
             <div className="productIcon">
               <i
@@ -323,8 +324,9 @@ function ProductView({
             {language === "ar" ? product.descriptionAr : product.descriptionEn}
           </p>
           <p class="price">
-            {selectedCurrency === "egp" ? `${translations.egp}` : "$"}
-            {convertAmount(product.price).toFixed(2)}
+            {selectedCurrency === "egp"
+              ? `${translations.egp} ${product.priceEgp}`
+              : `$ ${product.priceUsd}`}
           </p>
           <div class="productviewbuttom">
             <button className="addtocart" onClick={() => addToCart(product)}>

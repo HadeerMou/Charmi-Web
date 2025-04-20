@@ -122,7 +122,8 @@ const translations = {
     categoryname: "Category",
     stock: "Stock",
     sold: "Sold",
-    price: "Price",
+    priceEgp: "Price in EGP",
+    priceUsd: "Price in USD",
     action: "Actions",
     previous: "Previous",
     next: "Next",
@@ -347,6 +348,7 @@ const translations = {
     showmore: "عرض المزيد",
     totalpayment: "مجموع المدفوعات",
     orderdetail: "تفاصيل الطلب",
+    price: "السعر",
     //dashboard messages
     allmessages: "كل الرسائل",
     //dashboard products
@@ -354,7 +356,8 @@ const translations = {
     categoryname: "الفئة",
     stock: "مخزون",
     sold: "مُباع",
-    price: "السعر",
+    priceEgp: "السعر بالمصري",
+    priceUsd: "السعر بالدولار",
     action: "الإجراءات",
     previous: "السابق",
     next: "التالي",

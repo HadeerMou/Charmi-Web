@@ -19,6 +19,15 @@ export default function Cart({
   const { translations, language } = useTranslation();
   const API_BASE_URL = process.env.REACT_APP_API_URL;
 
+  const calculateTotalPrice = (cart, getProductInfo) => {
+    return cart.reduce((acc, item) => {
+      const product = getProductInfo(item.productId);
+      return acc + selectedCurrency === "Egp"
+        ? product?.priceEgp * (item.quantity || 0)
+        : product?.priceUsd * (item.quantity || 0);
+    }, 0);
+  };
+
   const handleCheckout = () => {
     const cartWithDetails = cart.map((item) => {
       const productInfo = getProductInfo(item.productId); // Fetch product details
@@ -26,7 +35,8 @@ export default function Cart({
         ...item,
         name: productInfo.name,
         image: `https://${productInfo.image}`, // Ensure full image URL
-        price: productInfo.price,
+        priceEgp: productInfo.priceEgp,
+        priceUsd: productInfo.priceUsd,
       };
     });
 
@@ -77,7 +87,12 @@ export default function Cart({
 
     const product = products.find((product) => product.id === productId);
     if (!product)
-      return { name: "Unknown", image: "/placeholder.png", price: 0 };
+      return {
+        name: "Unknown",
+        image: "/placeholder.png",
+        priceEgp: 0,
+        priceUsd: 0,
+      };
     // Extract image from productImages array (assuming the first one is default)
     const imagePath =
       product.productImages?.length > 0
@@ -115,7 +130,10 @@ export default function Cart({
           {cart && cart.length > 0 ? (
             cart.map((item) => {
               const productInfo = getProductInfo(item.productId); // Get product details
-              const convertedPrice = convertAmount(productInfo?.price || 0); // Convert price
+              const convertedPrice =
+                selectedCurrency === "egp"
+                  ? productInfo?.priceEgp
+                  : productInfo?.priceUsd; // Convert price
 
               return (
                 <div key={item.id} className="cart-item">

@@ -127,10 +127,9 @@ function ProductList({ addToCart }) {
               <div className="content">
                 <h3>{language === "ar" ? product.nameAr : product.nameEn}</h3>
                 <p>
-                  {selectedCurrency === "egp" ? `${translations.egp}` : "$"}
-                  {product.price && !isNaN(product.price)
-                    ? convertAmount(Number(product.price)).toFixed(2)
-                    : "N/A"}
+                  {selectedCurrency === "egp"
+                    ? `${translations.egp} ${product.priceEgp}`
+                    : `$ ${product.priceUsd}`}
                 </p>
                 <h4 className="text-success">{translations.prodOndm}</h4>
                 <div className="bottom">

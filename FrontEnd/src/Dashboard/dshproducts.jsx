@@ -21,7 +21,8 @@ function Dshproducts() {
     nameAr: "",
     descriptionEn: "",
     descriptionAr: "",
-    price: "",
+    priceEgp: "",
+    priceUsd: "",
     quantity: "",
     categoryId: "",
     imageFile: null, // New field for image
@@ -32,7 +33,8 @@ function Dshproducts() {
     nameAr: "",
     descriptionEn: "",
     descriptionAr: "",
-    price: "",
+    priceEgp: "",
+    priceUsd: "",
     quantity: "",
   });
 
@@ -101,7 +103,8 @@ function Dshproducts() {
           nameAr: newProduct.nameAr,
           descriptionEn: newProduct.descriptionEn,
           descriptionAr: newProduct.descriptionAr,
-          price: newProduct.price,
+          priceEgp: newProduct.priceEgp,
+          priceUsd: newProduct.priceUsd,
           quantity: newProduct.quantity,
           categoryId: newProduct.categoryId,
         },
@@ -157,7 +160,8 @@ function Dshproducts() {
         nameAr: "",
         descriptionEn: "",
         descriptionAr: "",
-        price: "",
+        priceEgp: "",
+        priceUsd: "",
         quantity: "",
         categoryId: "",
         imageFile: null,
@@ -192,7 +196,8 @@ function Dshproducts() {
       nameAr: product.nameAr,
       descriptionEn: product.descriptionEn,
       descriptionAr: product.descriptionAr,
-      price: product.price,
+      priceEgp: product.priceEgp,
+      priceUsd: product.priceUsd,
       quantity: product.quantity,
       categoryId: product.categoryId,
     });
@@ -211,7 +216,8 @@ function Dshproducts() {
         nameAr: updatedProduct.nameAr,
         descriptionEn: updatedProduct.descriptionEn,
         descriptionAr: updatedProduct.descriptionAr,
-        price: updatedProduct.price,
+        priceEgp: updatedProduct.priceEgp,
+        priceUsd: updatedProduct.priceUsd,
         quantity: updatedProduct.quantity,
         categoryId: updatedProduct.categoryId
           ? parseInt(updatedProduct.categoryId)
@@ -274,7 +280,8 @@ function Dshproducts() {
                     <th className="prodname">{translations.prodname}</th>
                     <th className="desc">{translations.description}</th>
                     <th className="desc">{translations.description}</th>
-                    <th className="price">{translations.price}</th>
+                    <th className="price">{translations.priceEgp}</th>
+                    <th className="price">{translations.priceUsd}</th>
                     <th className="">{translations.quantity}</th>
                     <th className="categoryid">{translations.categoryId}</th>
                     <th>{translations.productmodel}</th>
@@ -306,7 +313,8 @@ function Dshproducts() {
                       <td>{products.nameAr}</td>
                       <td>{products.descriptionEn}</td>
                       <td>{products.descriptionAr}</td>
-                      <td>{products.price}</td>
+                      <td>{products.priceEgp}</td>
+                      <td>{products.priceUsd}</td>
                       <td>{products.quantity}</td>
                       <td>{products.categoryId}</td>
                       <td>
@@ -421,10 +429,18 @@ function Dshproducts() {
                 />
                 <input
                   type="text"
-                  placeholder="Price"
-                  value={newProduct.price}
+                  placeholder={translations.priceEgp}
+                  value={newProduct.priceEgp}
                   onChange={(e) =>
-                    setNewProduct({ ...newProduct, price: e.target.value })
+                    setNewProduct({ ...newProduct, priceEgp: e.target.value })
+                  }
+                />
+                <input
+                  type="text"
+                  placeholder={translations.priceUsd}
+                  value={newProduct.priceUsd}
+                  onChange={(e) =>
+                    setNewProduct({ ...newProduct, priceUsd: e.target.value })
                   }
                 />
                 <input
@@ -516,12 +532,23 @@ function Dshproducts() {
                 />
                 <input
                   type="text"
-                  placeholder="Price"
-                  value={updatedProduct.price}
+                  placeholder={translations.priceEgp}
+                  value={updatedProduct.priceEgp}
                   onChange={(e) =>
                     setUpdatedProduct({
                       ...updatedProduct,
-                      price: e.target.value,
+                      priceEgp: e.target.value,
+                    })
+                  }
+                />
+                <input
+                  type="text"
+                  placeholder={translations.priceUsd}
+                  value={updatedProduct.priceUsd}
+                  onChange={(e) =>
+                    setUpdatedProduct({
+                      ...updatedProduct,
+                      priceUsd: e.target.value,
                     })
                   }
                 />
