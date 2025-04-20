@@ -156,7 +156,8 @@ export default function Checkout() {
         orderItems: cart.map((item) => ({
           productId: item.productId,
           quantity: item.quantity,
-          price: parseInt(item.price, 10),
+          priceEgp: parseInt(item.priceEgp, 10),
+          priceUsd: parseInt(item.priceusd, 10),
         })),
       };
 
@@ -298,8 +299,11 @@ export default function Checkout() {
                 <span className="price">
                   {language === "ar" ? item.nameAr : item.nameEn} x{" "}
                   {item.quantity} -{" "}
-                  {selectedCurrency === "egp" ? `${translations.egp}` : "$"}
-                  {convertAmount(item.price).toFixed(2)} * {item.quantity}
+                  {selectedCurrency === "egp"
+                    ? `${translations.egp} ${(
+                        item.priceEgp * item.quantity
+                      ).toFixed(2)}`
+                    : `$ ${(item.priceUsd * item.quantity).toFixed(2)}`}
                 </span>
               </p>
             ))}

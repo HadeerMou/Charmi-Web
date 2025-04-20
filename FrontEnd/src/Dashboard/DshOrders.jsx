@@ -4,15 +4,12 @@ import DASHHeader from "./DashboardComponents/dashHeader";
 import DashSidebar from "./DashboardComponents/dashSidebar";
 import { useTranslation } from "../TranslationContext";
 import axios from "axios";
-import { calculateTotalPrice, convertAmount } from "../Utils/CartUtils";
 import { useCurrency } from "../CurrencyContext";
 
 function DshOrders() {
   const API_BASE_URL = process.env.REACT_APP_API_URL;
-
   const [openSidebarToggle, setOpenSidebarToggle] = useState(false);
   const { selectedCurrency, convertAmount } = useCurrency();
-
   const OpenSidebar = () => {
     setOpenSidebarToggle(!openSidebarToggle);
   };
@@ -28,6 +25,15 @@ function DshOrders() {
   const DeliverdOrders = orders.filter((order) => order.status === "DELIVERED");
   const pendingOrders = orders.filter((order) => order.status === "PENDING");
   const [filterType, setFilterType] = useState("ALL");
+
+  const calculateTotalPrice = (cart, getProductInfo) => {
+    return cart.reduce((acc, item) => {
+      const product = getProductInfo(item.productId);
+      return acc + selectedCurrency === "Egp"
+        ? product?.priceEgp * (item.quantity || 0)
+        : product?.priceUsd * (item.quantity || 0);
+    }, 0);
+  };
 
   const handleFilterClick = (type) => {
     setFilterType(type);

@@ -8,7 +8,6 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import useOrders from "../Hooks/useOrders";
 import useProducts from "../Hooks/useProducts";
-import { calculateTotalPrice } from "../Utils/CartUtils";
 import { useCurrency } from "../CurrencyContext";
 
 function Profile({
@@ -19,7 +18,6 @@ function Profile({
   totalQuantity,
 }) {
   const API_BASE_URL = process.env.REACT_APP_API_URL;
-
   const { translations, language } = useTranslation();
   const [visibleDiv, setVisibleDiv] = useState("first"); // "first" or "second"
   const [userData, setUserData] = useState(null);
@@ -36,6 +34,15 @@ function Profile({
     district: "",
     country: "",
   });
+
+  const calculateTotalPrice = (cart, getProductInfo) => {
+    return cart.reduce((acc, item) => {
+      const product = getProductInfo(item.productId);
+      return acc + selectedCurrency === "Egp"
+        ? product?.priceEgp * (item.quantity || 0)
+        : product?.priceUsd * (item.quantity || 0);
+    }, 0);
+  };
 
   useEffect(() => {
     const fetchLocationNames = async () => {
@@ -313,12 +320,15 @@ function Profile({
             <p>{translations.noOrd}</p>
           ) : (
             orders.map((order) => {
-              const totalOrderPrice = convertAmount(
-                order.orderItems.reduce(
-                  (sum, item) => sum + item.price * item.quantity,
-                  0
-                )
-              );
+              const totalOrderPrice = order.orderItems.reduce((sum, item) => {
+                return (
+                  sum +
+                  (selectedCurrency === "egp"
+                    ? item.priceEgp * item.quantity
+                    : item.priceUsd * item.quantity)
+                );
+              }, 0);
+
               return (
                 <div
                   key={order.id}
@@ -383,12 +393,16 @@ function Profile({
               <p>
                 <strong>{translations.totalPrice}:</strong>{" "}
                 {selectedCurrency === "egp" ? `${translations.egp}` : "$"}
-                {convertAmount(
+                {(
                   selectedOrder?.orderItems?.reduce(
                     (sum, item) =>
-                      sum + (item.price || 0) * (item.quantity || 0),
+                      sum +
+                      ((selectedCurrency === "egp"
+                        ? item.priceEgp
+                        : item.priceUsd) || 0) *
+                        (item.quantity || 0),
                     0
-                  )
+                  ) || 0
                 ).toFixed(2)}
               </p>
               <p>
@@ -423,9 +437,8 @@ function Profile({
                       <p>
                         <strong>{translations.price}:</strong>{" "}
                         {selectedCurrency === "egp"
-                          ? `${translations.egp}`
-                          : "$"}{" "}
-                        {convertAmount(item.price).toFixed(2)}
+                          ? `${translations.egp} ${item.priceEgp}`
+                          : `$ ${item.priceUsd}`}
                       </p>
                     </div>
                   </div>

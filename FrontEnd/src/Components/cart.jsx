@@ -3,7 +3,6 @@ import "./cart.css";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { calculateTotalPrice } from "../Utils/CartUtils";
 import { useTranslation } from "../TranslationContext";
 
 export default function Cart({
