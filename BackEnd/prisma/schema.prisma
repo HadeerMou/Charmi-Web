@@ -121,7 +121,8 @@ model Products {
   nameAr        String?
   descriptionEn String?
   descriptionAr String?
-  price         Decimal         @db.Decimal(10, 2)
+  priceEgp         Decimal?         @db.Decimal(10, 2)
+  priceUsd         Decimal?         @db.Decimal(10, 2)
   quantity      Int
   categoryId    Int
   status        productStatus   @default(ACTIVE)

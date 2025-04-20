@@ -15,7 +15,10 @@ export class updateProductDto {
   descriptionAr: string;
 
   @ApiProperty()
-  price: string;
+  priceEgp: string;
+
+  @ApiProperty()
+  priceUsd: string;
 
   @ApiProperty()
   quantity: number;
@@ -29,7 +32,8 @@ export const updateProductSchema = Joi.object<updateProductDto>({
   nameAr: Joi.string().required(),
   descriptionEn: Joi.string().required(),
   descriptionAr: Joi.string().required(),
-  price: Joi.number().required(),
+  priceEgp: Joi.number().required(),
+  priceUsd: Joi.number().required(),
   quantity: Joi.number().required(),
   categoryId: Joi.number().required(),
 });
