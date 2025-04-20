@@ -5,6 +5,7 @@ import DashSidebar from "./DashboardComponents/dashSidebar";
 import { useTranslation } from "../TranslationContext";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { useCurrency } from "../CurrencyContext";
 
 function ProductDetails() {
   const API_BASE_URL = process.env.REACT_APP_API_URL;
@@ -14,11 +15,12 @@ function ProductDetails() {
   const [products, setProducts] = useState([]);
   const [editingProduct, setEditingProduct] = useState(null);
   const { productId } = useParams();
-
+  const { selectedCurrency } = useCurrency();
   const [newProduct, setNewProduct] = useState({
     name: "",
     description: "",
-    price: "",
+    priceEgp: "",
+    priceUsd: "",
     quantity: "",
     categoryId: "",
     imageFile: null, // New field for image
@@ -28,7 +30,8 @@ function ProductDetails() {
   const [updatedProduct, setUpdatedProduct] = useState({
     name: "",
     description: "",
-    price: "",
+    priceEgp: "",
+    priceUsd: "",
     quantity: "",
     imageFile: null, // New field for image
     modelFile: null,
@@ -275,7 +278,7 @@ function ProductDetails() {
                     <hr />
                     <div class="total">
                       <h3 class="totalpayment">{translations.totalepayment}</h3>
-                      <h3>{products.price} Egp</h3>
+                      <h3>{selec}</h3>
                     </div>
                   </div>
                 ))}

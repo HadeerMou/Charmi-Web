@@ -130,9 +130,12 @@ function DshOrders() {
   const totalPrice = filteredOrders.reduce((acc, order) => {
     const orderTotal = order.orderItems.reduce((orderAcc, item) => {
       const product = getProductInfo(item.productId);
-      if (!product || !product.price) return orderAcc; // Skip if product data is missing
-      const convertedPrice = convertAmount(product.price, selectedCurrency);
-      return orderAcc + convertedPrice * item.quantity;
+      if (!product || (!product.priceEgp && !product.priceUsd)) return orderAcc; // Skip if product data is missing
+      const price =
+        selectedCurrency === "egp"
+          ? Number(product.priceEgp || 0)
+          : Number(product.priceUsd || 0);
+      return orderAcc + price * item.quantity;
     }, 0);
     return acc + orderTotal;
   }, 0);
@@ -335,9 +338,11 @@ function DshOrders() {
                                     : product?.nameEn || "Unknown"}{" "}
                                 </h3>
                                 <p className="price">
-                                  {product.price
-                                    ? `${product.price} EGP`
-                                    : "N/A"}
+                                  {selectedCurrency === "egp"
+                                    ? `${product.priceEgp || "N/A"} ${
+                                        translations.egp
+                                      }`
+                                    : `$ ${product.priceUsd || "N/A"}`}
                                 </p>
                               </div>
                               <div className="right">
@@ -359,14 +364,13 @@ function DshOrders() {
                             {parseInt(
                               order.orderItems.reduce((orderTotal, item) => {
                                 const product = getProductInfo(item.productId);
-                                if (!product || !product.price)
-                                  return orderTotal; // Skip missing products
-                                const convertedPrice = convertAmount(
-                                  product.price,
-                                  selectedCurrency
-                                );
+                                if (!product) return orderTotal; // Skip missing products
+                                const price =
+                                  selectedCurrency === "egp"
+                                    ? product.priceEgp
+                                    : product.priceUsd;
                                 return (
-                                  orderTotal + convertedPrice * item.quantity
+                                  orderTotal + (price || 0) * item.quantity
                                 );
                               }, 0)
                             )}

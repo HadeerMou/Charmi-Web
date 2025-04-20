@@ -5,7 +5,6 @@ import { useTranslation } from "../TranslationContext";
 import { useCurrency } from "../CurrencyContext";
 function DashHome() {
   const API_BASE_URL = process.env.REACT_APP_API_URL;
-
   const { translations } = useTranslation();
   const [orders, setOrders] = useState([]);
   const [stats, setStats] = useState({
@@ -15,7 +14,7 @@ function DashHome() {
     cancelled: 0,
   });
   const [users, setUsers] = useState({});
-  const { selectedCurrency, convertAmount } = useCurrency();
+  const { selectedCurrency } = useCurrency();
   const [products, setProducts] = useState([]);
 
   const fetchProducts = async () => {
@@ -104,12 +103,15 @@ function DashHome() {
     .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
     .slice(0, 5);
 
-  const calculateTotalPrice = (orderItems, getProductById, convertAmount) => {
+  const calculateTotalPrice = (orderItems, getProductById) => {
     return orderItems.reduce((total, item) => {
       const product = getProductById(item.productId);
-      const price = product?.price ? Number(product.price) : 0; // Ensure price is a number
+      const price =
+        selectedCurrency === "egp"
+          ? Number(product?.priceEgp || 0)
+          : Number(product?.priceUsd || 0);
       const quantity = item.quantity || 1;
-      return total + convertAmount(price * quantity);
+      return total + price * quantity;
     }, 0);
   };
   const recentUpdates = [...recentOrders]
