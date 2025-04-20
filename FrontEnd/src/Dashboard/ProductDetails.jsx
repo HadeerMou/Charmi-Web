@@ -278,7 +278,11 @@ function ProductDetails() {
                     <hr />
                     <div class="total">
                       <h3 class="totalpayment">{translations.totalepayment}</h3>
-                      <h3>{selec}</h3>
+                      <h3>
+                        {selectedCurrency === "ar"
+                          ? products.priceEgp
+                          : products.priceUsd}
+                      </h3>
                     </div>
                   </div>
                 ))}

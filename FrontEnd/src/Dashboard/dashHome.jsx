@@ -103,7 +103,11 @@ function DashHome() {
     .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
     .slice(0, 5);
 
-  const calculateTotalPrice = (orderItems, getProductById) => {
+  const calculateTotalPrice = (
+    orderItems,
+    getProductById,
+    selectedCurrency
+  ) => {
     return orderItems.reduce((total, item) => {
       const product = getProductById(item.productId);
       const price =
@@ -254,7 +258,7 @@ function DashHome() {
                       order.orderItems,
                       (productId) =>
                         products.find((p) => p.id === productId) || {}, // Use products instead of orders
-                      convertAmount
+                      selectedCurrency
                     );
 
                     return (
