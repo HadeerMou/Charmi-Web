@@ -11,6 +11,7 @@ export class ProductsService {
         deletedAt: null,
       },
       include: {
+        discount: true,
         productImages: true,
         productModel: true,
       },
@@ -20,6 +21,7 @@ export class ProductsService {
   async findOne(id: number) {
     const product = await prisma.products.findUnique({
       include: {
+        discount: true,
         productImages: true,
         productModel: true,
       },

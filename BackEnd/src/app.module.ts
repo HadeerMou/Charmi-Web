@@ -21,6 +21,7 @@ import { AdminsModule } from './admins/admins.module';
 import { ShippingFeesModule } from './shipping-fees/shipping-fees.module';
 import { DistrictModule } from './district/district.module';
 import { Product3DModule } from './product-threeD/product-threeD.module';
+import { DiscountModule } from './discount/discount.module';
 
 @Module({
   imports: [
@@ -43,6 +44,7 @@ import { Product3DModule } from './product-threeD/product-threeD.module';
     AdminsModule,
     ShippingFeesModule,
     DistrictModule,
+    DiscountModule,
   ],
   controllers: [AppController, CartController, ProductsController],
   providers: [AppService, CartService, ProductsService],

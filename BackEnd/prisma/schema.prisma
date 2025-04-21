@@ -131,11 +131,23 @@ model Products {
   category      Category        @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   cartItems     cartItems[]
   orderItems    orderItems[]
+  discount      Discount?       @relation(fields: [discountId], references: [id])
+  discountId  Int?
   productImages productImages[]
   productModel  productModel?   @relation("ProductsModel")
 
   @@index([categoryId], map: "Products_categoryId_fkey")
 }
+
+model Discount {
+  id         Int        @id @default(autoincrement())
+  percentage Float
+  startDate  DateTime
+  endDate    DateTime
+  isActive   Boolean
+  products   Products[]
+}
+
 
 model productImages {
   id        Int       @id @default(autoincrement())
