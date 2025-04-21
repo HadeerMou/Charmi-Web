@@ -18,12 +18,14 @@ function Discount({ openSidebarToggle, OpenSidebar }) {
     startDate: "",
     endDate: "",
     isActive: false,
+    productIds: [],
   });
   const [updatedDiscount, setUpdatedDiscount] = useState({
     percentage: "",
     startDate: "",
     endDate: "",
     isActive: false,
+    productIds: [],
   });
 
   useEffect(() => {
@@ -44,6 +46,7 @@ function Discount({ openSidebarToggle, OpenSidebar }) {
           startDate: "",
           endDate: "",
           isActive: false,
+          productIds: [],
         });
       })
       .catch((error) => {
@@ -58,6 +61,7 @@ function Discount({ openSidebarToggle, OpenSidebar }) {
       startDate: discount.startDate,
       endDate: discount.endDate,
       isActive: discount.isActive,
+      productIds: discount.productIds || [],
     });
     setTimeout(() => {
       editModalRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -79,6 +83,7 @@ function Discount({ openSidebarToggle, OpenSidebar }) {
           startDate: "",
           endDate: "",
           isActive: false,
+          productIds: [],
         });
       })
       .catch((error) => {
@@ -136,7 +141,7 @@ function Discount({ openSidebarToggle, OpenSidebar }) {
                           className="edit"
                           onClick={(e) => {
                             e.stopPropagation();
-                            handleEditClick(discounts);
+                            handleEditClick(d);
                           }}
                         >
                           {translations.edit}
@@ -145,7 +150,7 @@ function Discount({ openSidebarToggle, OpenSidebar }) {
                           className="delete"
                           onClick={(e) => {
                             e.stopPropagation();
-                            handleDelete(discounts.id);
+                            handleDelete(d.id);
                           }}
                         >
                           {translations.delete}
@@ -211,6 +216,20 @@ function Discount({ openSidebarToggle, OpenSidebar }) {
                     }
                   />
                 </label>
+                <input
+                  type="text"
+                  placeholder="Product IDs (comma separated)"
+                  value={newDiscount.productIds.join(", ")}
+                  onChange={(e) =>
+                    setNewDiscount({
+                      ...newDiscount,
+                      productIds: e.target.value
+                        .split(",")
+                        .map((id) => id.trim())
+                        .filter(Boolean),
+                    })
+                  }
+                />
                 <button onClick={handleCreate}>
                   {translations.createDiscount}
                 </button>
@@ -264,6 +283,20 @@ function Discount({ openSidebarToggle, OpenSidebar }) {
                     }
                   />
                 </label>
+                <input
+                  type="text"
+                  placeholder="Product IDs (comma separated)"
+                  value={updatedDiscount.productIds.join(", ")}
+                  onChange={(e) =>
+                    setUpdatedDiscount({
+                      ...updatedDiscount,
+                      productIds: e.target.value
+                        .split(",")
+                        .map((id) => id.trim())
+                        .filter(Boolean),
+                    })
+                  }
+                />
                 <button onClick={handleUpdate}>
                   {translations.updateDiscount}
                 </button>
