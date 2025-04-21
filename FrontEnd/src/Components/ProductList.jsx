@@ -126,6 +126,34 @@ function ProductList({ addToCart }) {
               </div>
               <div className="content">
                 <h3>{language === "ar" ? product.nameAr : product.nameEn}</h3>
+                <p className="text-base">
+                  {product.discount ? (
+                    <>
+                      <span className="line-through text-gray-500 mr-2">
+                        {selectedCurrency === "egp"
+                          ? `${translations.egp} ${product.priceEgp}`
+                          : `$ ${product.priceUsd}`}
+                      </span>
+                      <span className="text-red-500 font-bold">
+                        {selectedCurrency === "egp"
+                          ? `${translations.egp} ${(
+                              product.priceEgp *
+                              (1 - product.discount.percentage / 100)
+                            ).toFixed(2)}`
+                          : `$ ${(
+                              product.priceUsd *
+                              (1 - product.discount.percentage / 100)
+                            ).toFixed(2)}`}
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      {selectedCurrency === "egp"
+                        ? `${translations.egp} ${product.priceEgp}`
+                        : `$ ${product.priceUsd}`}
+                    </>
+                  )}
+                </p>
                 <p>
                   {selectedCurrency === "egp"
                     ? `${translations.egp} ${product.priceEgp}`
