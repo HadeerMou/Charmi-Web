@@ -28,7 +28,14 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('swagger', app, document);
 
-  app.enableCors();
+  app.enableCors({
+    origin: [
+      'http://localhost:3001',
+      'https://charmi-web.vercel.app',
+      'https://charmi.shop',
+    ],
+    credentials: true,
+  });
 
   app.enableShutdownHooks();
 
