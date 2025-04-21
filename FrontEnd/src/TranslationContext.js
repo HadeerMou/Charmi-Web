@@ -127,6 +127,11 @@ const translations = {
     action: "Actions",
     previous: "Previous",
     next: "Next",
+    //disocunt
+    discount: "Discount",
+    addDiscount: "Add Discount",
+    createDiscount: "Create Discount",
+    updateDiscount: "Update Dicount",
     //dashboard chat
     send: "Send",
     // dashboard admins
@@ -361,6 +366,11 @@ const translations = {
     action: "الإجراءات",
     previous: "السابق",
     next: "التالي",
+    //disocunt
+    discount: "خصم",
+    addDiscount: "إضافة خصم",
+    createDiscount: "إنشاء خصم",
+    updateDiscount: "تحديث الخصم",
     //dashboard chat
     send: "أرسل",
     //dashboard admins

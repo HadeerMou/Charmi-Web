@@ -34,6 +34,7 @@ import ProductDetails from "./Dashboard/ProductDetails";
 import CategoryPage from "./Pages/categoryPage";
 import OrderSuccess from "./Pages/OrderSuccess";
 import UserAddresses from "./Pages/userAddresses";
+import Discount from "./Dashboard/Discount";
 
 <FontAwesomeIcon icon="fa-brands fa-cc-visa" />;
 
@@ -216,6 +217,7 @@ function App() {
           <Route path="/dashboard/products" element={<Dshproducts />} />
           <Route path="/dashboard/users" element={<DshUsers />} />
           <Route path="/dashboard/orders" element={<DshOrders cart={cart} />} />
+          <Route path="/dashboard/discount" element={<Discount />} />
           <Route path="/register" element={<NoAccount />} />
           <Route path="/user-login" element={<Signin userType="USER" />} />
           <Route path="/admin-login" element={<Signin userType="ADMIN" />} />

@@ -15,6 +15,7 @@ function Dshproducts() {
   const [showCreateProduct, setShowCreateProduct] = useState(false);
   const navigate = useNavigate();
   const editModalRef = useRef(null);
+  const [discounts, setDiscounts] = useState([]);
   const [newProduct, setNewProduct] = useState({
     nameEn: "",
     nameAr: "",
@@ -106,6 +107,7 @@ function Dshproducts() {
           priceUsd: newProduct.priceUsd,
           quantity: newProduct.quantity,
           categoryId: newProduct.categoryId,
+          discountId: newProduct.discountId,
         },
         {
           headers: {
@@ -221,6 +223,7 @@ function Dshproducts() {
         categoryId: updatedProduct.categoryId
           ? parseInt(updatedProduct.categoryId)
           : null,
+        discountId: updatedProduct.discountId,
       };
 
       // Step 1: Update Product (map imageFile to image)
@@ -242,18 +245,19 @@ function Dshproducts() {
     }
   };
 
-  const handleDeleteModel = async (productId) => {
-    try {
-      const token = localStorage.getItem("token");
-      await axios.delete(`${API_BASE_URL}/product-model/${productId}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+  // Fetch all discounts
+  useEffect(() => {
+    const fetchDiscounts = async () => {
+      try {
+        const response = await axios.get(`${API_BASE_URL}/discounts`);
+        setDiscounts(response.data);
+      } catch (error) {
+        console.error("Error fetching discounts:", error);
+      }
+    };
 
-      fetchProducts(); // Refresh
-    } catch (error) {
-      console.error("Error deleting model:", error);
-    }
-  };
+    fetchDiscounts();
+  }, []);
 
   return (
     <>
@@ -283,6 +287,7 @@ function Dshproducts() {
                     <th className="price">{translations.priceUsd}</th>
                     <th className="">{translations.quantity}</th>
                     <th className="categoryid">{translations.categoryId}</th>
+                    <th>{translations.discount}</th>
                     <th>{translations.productmodel}</th>
                     <th>{translations.action}</th>
                   </tr>
@@ -316,6 +321,14 @@ function Dshproducts() {
                       <td>{products.priceUsd}</td>
                       <td>{products.quantity}</td>
                       <td>{products.categoryId}</td>
+                      <td>
+                        {products.discountId
+                          ? discounts.find(
+                              (discount) => discount.id === products.discountId
+                            )?.percentage + "%"
+                          : "No Discount"}
+                      </td>
+
                       <td>
                         {products.modelUrl ? (
                           <model-viewer
@@ -464,6 +477,21 @@ function Dshproducts() {
                     })
                   }
                 />
+                <select
+                  value={newProduct.discountId || ""}
+                  onChange={(e) =>
+                    setNewProduct({ ...newProduct, discountId: e.target.value })
+                  }
+                >
+                  <option value="">Select Discount</option>
+                  {discounts.map((discount) => (
+                    <option key={discount.id} value={discount.id}>
+                      {discount.percentage}% -{" "}
+                      {discount.isActive ? "Active" : "Inactive"}
+                    </option>
+                  ))}
+                </select>
+
                 <button onClick={handleCreateProduct}>
                   {translations.creatProd}
                 </button>
@@ -573,6 +601,24 @@ function Dshproducts() {
                     })
                   }
                 />
+                <select
+                  value={updatedProduct.discountId || ""}
+                  onChange={(e) =>
+                    setUpdatedProduct({
+                      ...updatedProduct,
+                      discountId: e.target.value,
+                    })
+                  }
+                >
+                  <option value="">Select Discount</option>
+                  {discounts.map((discount) => (
+                    <option key={discount.id} value={discount.id}>
+                      {discount.percentage}% -{" "}
+                      {discount.isActive ? "Active" : "Inactive"}
+                    </option>
+                  ))}
+                </select>
+
                 <button className="addprod" onClick={handleUpdate}>
                   {translations.update}
                 </button>

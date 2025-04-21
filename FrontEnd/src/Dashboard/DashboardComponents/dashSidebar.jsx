@@ -93,18 +93,6 @@ function DashSidebar({ openSidebarToggle, OpenSidebar }) {
           <a
             class="option"
             id="op1"
-            onClick={() => navigate("/dashboard/products")}
-          >
-            <span>
-              <i class="fa-solid fa-bag-shopping"></i>
-            </span>
-            <h3 className="productsname">{translations.productsname}</h3>
-          </a>
-        </li>
-        <li className="sidebar-list-item">
-          <a
-            class="option"
-            id="op1"
             onClick={() => navigate("/dashboard/categories")}
           >
             <span>
@@ -113,6 +101,32 @@ function DashSidebar({ openSidebarToggle, OpenSidebar }) {
             <h3 className="productsname">{translations.categories}</h3>
           </a>
         </li>
+        <li className="sidebar-list-item">
+          <a
+            class="option"
+            id="op1"
+            onClick={() => navigate("/dashboard/products")}
+          >
+            <span>
+              <i class="fa-solid fa-bag-shopping"></i>
+            </span>
+            <h3 className="productsname">{translations.productsname}</h3>
+          </a>
+        </li>
+        <li
+          className="sidebar-list-item"
+          onClick={() => navigate("/dashboard/discount")}
+        >
+          <a className="option" id="op1">
+            <span>
+              <i className="fa-solid fa-percent"></i>
+            </span>
+            <h3 className="discountname">
+              {translations.discountname || "Discounts"}
+            </h3>
+          </a>
+        </li>
+
         <li
           className="sidebar-list-item"
           onClick={() => navigate("/dashboard/shippingfees")}
