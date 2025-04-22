@@ -5,8 +5,9 @@ import DASHHeader from "./DashboardComponents/dashHeader";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-function Discount({ openSidebarToggle, OpenSidebar }) {
+function Discount() {
   const API_BASE_URL = process.env.REACT_APP_API_URL;
+  const [openSidebarToggle, setOpenSidebarToggle] = useState(false);
   const { translations } = useTranslation();
   const [discounts, setDiscounts] = useState([]);
   const [showCreateForm, setShowCreateForm] = useState(false);
@@ -31,14 +32,22 @@ function Discount({ openSidebarToggle, OpenSidebar }) {
   useEffect(() => {
     axios
       .get(`${API_BASE_URL}/discounts`)
-      .then((res) => setDiscounts(res.data));
+      .then((res) => {
+        console.log("Fetched discounts:", res.data); // Debug: Log fetched discounts
+        setDiscounts(res.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching discounts:", error); // Debug: Log error if fetching fails
+      });
     console.log(`${API_BASE_URL}/discounts`);
   }, []);
 
   const handleCreate = () => {
+    console.log("Creating discount with data:", newDiscount);
     axios
       .post(`${API_BASE_URL}/discounts`, newDiscount)
       .then((res) => {
+        console.log("Discount created:", res.data);
         setDiscounts((prevDiscounts) => [...prevDiscounts, res.data]);
         setShowCreateForm(false);
         setNewDiscount({
@@ -55,6 +64,7 @@ function Discount({ openSidebarToggle, OpenSidebar }) {
   };
   // Open Edit Modal
   const handleEditClick = (discount) => {
+    console.log("Editing discount:", discount);
     setEditingDiscount(discount);
     setUpdatedDiscount({
       percentage: discount.percentage,
@@ -69,9 +79,11 @@ function Discount({ openSidebarToggle, OpenSidebar }) {
   };
 
   const handleUpdate = () => {
+    console.log("Updating discount with data:", updatedDiscount);
     axios
-      .put(`${API_BASE_URL}/discounts/${editingDiscount.id}`, updatedDiscount)
+      .patch(`${API_BASE_URL}/discounts/${editingDiscount.id}`, updatedDiscount)
       .then((res) => {
+        console.log("Discount updated:", res.data);
         setDiscounts((prevDiscounts) =>
           prevDiscounts.map((d) =>
             d.id === res.data.id ? { ...d, ...res.data } : d
@@ -91,9 +103,11 @@ function Discount({ openSidebarToggle, OpenSidebar }) {
       });
   };
   const handleDelete = (id) => {
+    console.log("Deleting discount with ID:", id);
     axios
       .delete(`${API_BASE_URL}/discounts/${id}`)
       .then(() => {
+        console.log("Discount deleted:", id);
         setDiscounts((prevDiscounts) =>
           prevDiscounts.filter((discount) => discount.id !== id)
         );
@@ -107,11 +121,13 @@ function Discount({ openSidebarToggle, OpenSidebar }) {
     <>
       <div className="wrap-container">
         <DashSidebar
+          OpenSidebar={() => setOpenSidebarToggle(!openSidebarToggle)}
           openSidebarToggle={openSidebarToggle}
-          OpenSidebar={OpenSidebar}
         />
         <div className="middle-container">
-          <DASHHeader OpenSidebar={OpenSidebar} />
+          <DASHHeader
+            OpenSidebar={() => setOpenSidebarToggle(!openSidebarToggle)}
+          />
           <main className="productSection">
             <div className="head">
               <h1>{translations.discounts}</h1>
@@ -218,18 +234,22 @@ function Discount({ openSidebarToggle, OpenSidebar }) {
                 </label>
                 <input
                   type="text"
-                  placeholder="Product IDs (comma separated)"
-                  value={newDiscount.productIds.join(", ")}
-                  onChange={(e) =>
+                  placeholder="Product IDs (comma-separated)"
+                  value={newDiscount.productIds} // This keeps the display as comma-separated values
+                  onChange={(e) => {
+                    const inputValue = e.target.value;
+                    // Allow typing of commas and numbers
                     setNewDiscount({
                       ...newDiscount,
-                      productIds: e.target.value
+                      productIds: inputValue
                         .split(",")
-                        .map((id) => id.trim())
-                        .filter(Boolean),
-                    })
-                  }
+                        .map((id) => id.trim()) // Trim spaces around IDs
+                        .filter((id) => id === "" || !isNaN(id)) // Allow empty entries or valid numbers
+                        .map((id) => (id === "" ? "" : parseInt(id))), // Parse numbers, but keep empty strings if there was a trailing comma
+                    });
+                  }}
                 />
+
                 <button onClick={handleCreate}>
                   {translations.createDiscount}
                 </button>
@@ -244,7 +264,7 @@ function Discount({ openSidebarToggle, OpenSidebar }) {
                   placeholder="Discount %"
                   value={updatedDiscount.percentage}
                   onChange={(e) =>
-                    setNewDiscount({
+                    setUpdatedDiscount({
                       ...updatedDiscount,
                       percentage: parseFloat(e.target.value),
                     })
@@ -254,7 +274,7 @@ function Discount({ openSidebarToggle, OpenSidebar }) {
                   type="date"
                   value={updatedDiscount.startDate}
                   onChange={(e) =>
-                    setNewDiscount({
+                    setUpdatedDiscount({
                       ...updatedDiscount,
                       startDate: e.target.value,
                     })
@@ -264,7 +284,7 @@ function Discount({ openSidebarToggle, OpenSidebar }) {
                   type="date"
                   value={updatedDiscount.endDate}
                   onChange={(e) =>
-                    setNewDiscount({
+                    setUpdatedDiscount({
                       ...updatedDiscount,
                       endDate: e.target.value,
                     })
@@ -276,7 +296,7 @@ function Discount({ openSidebarToggle, OpenSidebar }) {
                     type="checkbox"
                     checked={updatedDiscount.isActive}
                     onChange={(e) =>
-                      setNewDiscount({
+                      setUpdatedDiscount({
                         ...updatedDiscount,
                         isActive: e.target.checked,
                       })
@@ -285,17 +305,19 @@ function Discount({ openSidebarToggle, OpenSidebar }) {
                 </label>
                 <input
                   type="text"
-                  placeholder="Product IDs (comma separated)"
-                  value={updatedDiscount.productIds.join(", ")}
-                  onChange={(e) =>
+                  placeholder="Product IDs (comma-separated)"
+                  value={updatedDiscount.productIds}
+                  onChange={(e) => {
+                    const inputValue = e.target.value;
                     setUpdatedDiscount({
                       ...updatedDiscount,
-                      productIds: e.target.value
+                      productIds: inputValue
                         .split(",")
-                        .map((id) => id.trim())
-                        .filter(Boolean),
-                    })
-                  }
+                        .map((id) => id.trim()) // Trim spaces around IDs
+                        .filter((id) => id === "" || !isNaN(id)) // Allow empty entries or valid numbers
+                        .map((id) => (id === "" ? "" : parseInt(id))),
+                    });
+                  }}
                 />
                 <button onClick={handleUpdate}>
                   {translations.updateDiscount}

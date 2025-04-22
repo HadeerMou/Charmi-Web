@@ -104,10 +104,33 @@ function Categories({ addToCart }) {
                       <h3>
                         {language === "ar" ? product.nameAr : product.nameEn}
                       </h3>
-                      <p>
-                        {selectedCurrency === "egp"
-                          ? `${translations.egp} ${product.priceEgp}`
-                          : `$ ${product.priceUsd}`}
+                      <p className="text-base">
+                        {product.discount ? (
+                          <>
+                            <span className="text-muted text-decoration-line-through d-block mr-2">
+                              {selectedCurrency === "egp"
+                                ? `${translations.egp} ${product.priceEgp}`
+                                : `$ ${product.priceUsd}`}
+                            </span>
+                            <span className="text-danger font-weight-bold">
+                              {selectedCurrency === "egp"
+                                ? `${translations.egp} ${(
+                                    product.priceEgp *
+                                    (1 - product.discount.percentage / 100)
+                                  ).toFixed(2)}`
+                                : `$ ${(
+                                    product.priceUsd *
+                                    (1 - product.discount.percentage / 100)
+                                  ).toFixed(2)}`}
+                            </span>
+                          </>
+                        ) : (
+                          <>
+                            {selectedCurrency === "egp"
+                              ? `${translations.egp} ${product.priceEgp}`
+                              : `$ ${product.priceUsd}`}
+                          </>
+                        )}
                       </p>
                       <h4 className="text-success">{translations.prodOndm}</h4>
                       <div className="bottom">

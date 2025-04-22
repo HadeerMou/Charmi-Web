@@ -82,10 +82,33 @@ function ProductView({
                 ? product.descriptionAr
                 : product.descriptionEn}
             </p>
-            <p className="price">
-              {selectedCurrency === "egp"
-                ? `${translations.egp} ${product.priceEgp}`
-                : `$ ${product.priceUsd}`}
+            <p className="text-base">
+              {product.discount ? (
+                <>
+                  <span className="text-muted text-decoration-line-through d-block mr-2">
+                    {selectedCurrency === "egp"
+                      ? `${translations.egp} ${product.priceEgp}`
+                      : `$ ${product.priceUsd}`}
+                  </span>
+                  <span className="text-danger font-weight-bold">
+                    {selectedCurrency === "egp"
+                      ? `${translations.egp} ${(
+                          product.priceEgp *
+                          (1 - product.discount.percentage / 100)
+                        ).toFixed(2)}`
+                      : `$ ${(
+                          product.priceUsd *
+                          (1 - product.discount.percentage / 100)
+                        ).toFixed(2)}`}
+                  </span>
+                </>
+              ) : (
+                <span className="text-danger font-weight-bold">
+                  {selectedCurrency === "egp"
+                    ? `${translations.egp} ${product.priceEgp}`
+                    : `$ ${product.priceUsd}`}
+                </span>
+              )}
             </p>
             <div className="productIcon">
               <i
@@ -323,10 +346,33 @@ function ProductView({
           <p className="prdes">
             {language === "ar" ? product.descriptionAr : product.descriptionEn}
           </p>
-          <p class="price">
-            {selectedCurrency === "egp"
-              ? `${translations.egp} ${product.priceEgp}`
-              : `$ ${product.priceUsd}`}
+          <p className="text-base">
+            {product.discount ? (
+              <>
+                <span className="text-muted text-decoration-line-through d-block mr-2">
+                  {selectedCurrency === "egp"
+                    ? `${translations.egp} ${product.priceEgp}`
+                    : `$ ${product.priceUsd}`}
+                </span>
+                <span className="text-danger font-weight-bold">
+                  {selectedCurrency === "egp"
+                    ? `${translations.egp} ${(
+                        product.priceEgp *
+                        (1 - product.discount.percentage / 100)
+                      ).toFixed(2)}`
+                    : `$ ${(
+                        product.priceUsd *
+                        (1 - product.discount.percentage / 100)
+                      ).toFixed(2)}`}
+                </span>
+              </>
+            ) : (
+              <span className="text-danger font-weight-bold">
+                {selectedCurrency === "egp"
+                  ? `${translations.egp} ${product.priceEgp}`
+                  : `$ ${product.priceUsd}`}
+              </span>
+            )}
           </p>
           <div class="productviewbuttom">
             <button className="addtocart" onClick={() => addToCart(product)}>

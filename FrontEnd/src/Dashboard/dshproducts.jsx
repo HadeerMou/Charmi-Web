@@ -25,6 +25,7 @@ function Dshproducts() {
     priceUsd: "",
     quantity: "",
     categoryId: "",
+    discountId: "",
     imageFile: null, // New field for image
   });
 
@@ -36,6 +37,7 @@ function Dshproducts() {
     priceEgp: "",
     priceUsd: "",
     quantity: "",
+    discountId: "",
   });
 
   const OpenSidebar = () => {
@@ -62,7 +64,7 @@ function Dshproducts() {
             : "/path/to/default/image.jpg";
           const modelUrl =
             productModel.length > 0 ? productModel.modelPath : null;
-          console.log("Product Model Data:", productModel);
+          console.log("Product img:", imageUrl);
 
           return {
             ...product,
@@ -107,7 +109,9 @@ function Dshproducts() {
           priceUsd: newProduct.priceUsd,
           quantity: newProduct.quantity,
           categoryId: newProduct.categoryId,
-          discountId: newProduct.discountId,
+          discountId: newProduct.discountId
+            ? parseInt(newProduct.discountId)
+            : null,
         },
         {
           headers: {
@@ -200,7 +204,7 @@ function Dshproducts() {
       priceEgp: product.priceEgp,
       priceUsd: product.priceUsd,
       quantity: product.quantity,
-      categoryId: product.categoryId,
+      categoryId: product.categoryId || null,
     });
     setTimeout(() => {
       editModalRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -223,7 +227,9 @@ function Dshproducts() {
         categoryId: updatedProduct.categoryId
           ? parseInt(updatedProduct.categoryId)
           : null,
-        discountId: updatedProduct.discountId,
+        discountId: updatedProduct.discountId
+          ? parseInt(updatedProduct.discountId)
+          : null,
       };
 
       // Step 1: Update Product (map imageFile to image)
@@ -315,8 +321,8 @@ function Dshproducts() {
                       </td>
                       <td>{products.nameEn}</td>
                       <td>{products.nameAr}</td>
-                      <td>{products.descriptionEn}</td>
-                      <td>{products.descriptionAr}</td>
+                      <td>{products.descriptionEn.slice(0, 50)}</td>
+                      <td>{products.descriptionAr.slice(0, 50)}</td>
                       <td>{products.priceEgp}</td>
                       <td>{products.priceUsd}</td>
                       <td>{products.quantity}</td>
@@ -477,20 +483,6 @@ function Dshproducts() {
                     })
                   }
                 />
-                <select
-                  value={newProduct.discountId || ""}
-                  onChange={(e) =>
-                    setNewProduct({ ...newProduct, discountId: e.target.value })
-                  }
-                >
-                  <option value="">Select Discount</option>
-                  {discounts.map((discount) => (
-                    <option key={discount.id} value={discount.id}>
-                      {discount.percentage}% -{" "}
-                      {discount.isActive ? "Active" : "Inactive"}
-                    </option>
-                  ))}
-                </select>
 
                 <button onClick={handleCreateProduct}>
                   {translations.creatProd}
@@ -503,13 +495,11 @@ function Dshproducts() {
                 <h3>{translations.editProd}</h3>
                 <input
                   type="file"
-                  accept=".glb,.gltf"
-                  placeholder="product Model"
-                  value={updatedProduct.modelFile}
+                  placeholder="product Image"
                   onChange={(e) =>
                     setUpdatedProduct({
                       ...updatedProduct,
-                      modelFile: e.target.value,
+                      imageFile: e.target.files[0],
                     })
                   }
                 />
@@ -601,24 +591,6 @@ function Dshproducts() {
                     })
                   }
                 />
-                <select
-                  value={updatedProduct.discountId || ""}
-                  onChange={(e) =>
-                    setUpdatedProduct({
-                      ...updatedProduct,
-                      discountId: e.target.value,
-                    })
-                  }
-                >
-                  <option value="">Select Discount</option>
-                  {discounts.map((discount) => (
-                    <option key={discount.id} value={discount.id}>
-                      {discount.percentage}% -{" "}
-                      {discount.isActive ? "Active" : "Inactive"}
-                    </option>
-                  ))}
-                </select>
-
                 <button className="addprod" onClick={handleUpdate}>
                   {translations.update}
                 </button>

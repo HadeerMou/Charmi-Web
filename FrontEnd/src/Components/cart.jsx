@@ -18,24 +18,32 @@ export default function Cart({
   const { translations, language } = useTranslation();
   const API_BASE_URL = process.env.REACT_APP_API_URL;
 
-  const calculateTotalPrice = (cart, getProductInfo) => {
+  const calculateTotalPrice = (cart, getProductInfo, selectedCurrency) => {
     return cart.reduce((acc, item) => {
       const product = getProductInfo(item.productId);
-      return acc + selectedCurrency === "Egp"
-        ? product?.priceEgp * (item.quantity || 0)
-        : product?.priceUsd * (item.quantity || 0);
+      const basePrice =
+        selectedCurrency === "egp" ? product.priceEgp : product.priceUsd;
+
+      const discountPercentage = product?.discount?.percentage || 0;
+      const discountedPrice = basePrice * (1 - discountPercentage / 100);
+
+      const quantity = item.quantity || 0;
+      return acc + discountedPrice * quantity;
     }, 0);
   };
 
   const handleCheckout = () => {
+    const totalPrice = calculateTotalPrice(
+      cart,
+      getProductInfo,
+      selectedCurrency
+    );
+
     const cartWithDetails = cart.map((item) => {
       const productInfo = getProductInfo(item.productId); // Fetch product details
       return {
         ...item,
-        name: productInfo.name,
-        image: `https://${productInfo.image}`, // Ensure full image URL
-        priceEgp: productInfo.priceEgp,
-        priceUsd: productInfo.priceUsd,
+        productInfo,
       };
     });
 
@@ -100,8 +108,10 @@ export default function Cart({
 
     return { ...product, image: imagePath };
   };
-  const totalPrice = parseInt(
-    calculateTotalPrice(cart, getProductInfo, convertAmount)
+  const totalPrice = calculateTotalPrice(
+    cart,
+    getProductInfo,
+    selectedCurrency
   );
 
   return (
@@ -118,10 +128,12 @@ export default function Cart({
           <button onClick={toggleCartVisibility}>X</button>
           <div className="cart-total">
             <span>
-              {translations.totalItems}:{totalQuantity}
+              {translations.totalItems}: {totalQuantity}
             </span>
             <span>
-              {translations.totalPrice}:{`${totalPrice}`}
+              {translations.totalPrice}:{" "}
+              {selectedCurrency === "egp" ? `${translations.egp}` : "$"}
+              {totalPrice.toFixed(2)} {/* Display with 2 decimals */}
             </span>
           </div>
         </div>
@@ -133,6 +145,15 @@ export default function Cart({
                 selectedCurrency === "egp"
                   ? productInfo?.priceEgp
                   : productInfo?.priceUsd; // Convert price
+              const discountAmount = productInfo.discount
+                ? selectedCurrency === "egp"
+                  ? productInfo.priceEgp *
+                    (productInfo.discount.percentage / 100)
+                  : productInfo.priceUsd *
+                    (productInfo.discount.percentage / 100)
+                : 0;
+
+              const discountedPrice = convertedPrice - discountAmount;
 
               return (
                 <div key={item.id} className="cart-item">
@@ -146,8 +167,11 @@ export default function Cart({
                       : productInfo?.nameEn}
                   </div>
                   <div className="total-price">
-                    {selectedCurrency === "egp" ? `${translations.egp}` : "$"}
-                    {(convertedPrice * (item.quantity || 0)).toFixed(2)}
+                    {selectedCurrency === "egp" ? `${translations.egp}` : "$"}{" "}
+                    {productInfo.discount
+                      ? (discountedPrice * (item.quantity || 0)).toFixed(2) // Total after discount
+                      : (convertedPrice * (item.quantity || 0)).toFixed(2)}{" "}
+                    {/* Total without discount */}
                   </div>
                   <div className="quantity">
                     <button

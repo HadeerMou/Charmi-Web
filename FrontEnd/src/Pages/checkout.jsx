@@ -293,28 +293,94 @@ export default function Checkout() {
               </h4>
             </div>
 
-            {cart.map((item) => (
-              <p className="prodOrd" key={item.productId}>
-                <img src={item.image} alt={item.name} />{" "}
-                <span className="price">
-                  {language === "ar" ? item.nameAr : item.nameEn} x{" "}
-                  {item.quantity} -{" "}
-                  {selectedCurrency === "egp"
-                    ? `${translations.egp} ${(
-                        item.priceEgp * item.quantity
-                      ).toFixed(2)}`
-                    : `$ ${(item.priceUsd * item.quantity).toFixed(2)}`}
-                </span>
-              </p>
-            ))}
+            {cart.map((item) => {
+              console.log(item);
+
+              const convertedPrice =
+                selectedCurrency === "egp"
+                  ? item.productInfo?.priceEgp
+                  : item.productInfo?.priceUsd;
+              const discountAmount = item.productInfo.discount
+                ? selectedCurrency === "egp"
+                  ? item.productInfo.priceEgp *
+                    (item.productInfo.discount.percentage / 100)
+                  : item.productInfo.priceUsd *
+                    (item.productInfo.discount.percentage / 100)
+                : 0;
+              const discountedPrice = convertedPrice - discountAmount;
+
+              return (
+                <div
+                  className="prodOrd"
+                  key={item.productId}
+                >
+                  <img
+                    src={`https://${item.productInfo.image}`}
+                    alt={item.name}
+                  />{" "}
+                  <p>
+                    {language === "ar"
+                      ? item.productInfo.nameAr
+                      : item.productInfo.nameEn}
+                  </p>
+                  <span className="price">
+                    x {item.quantity}
+                    {item.productInfo.discount ? (
+                      <>
+                        <span
+                          className="d-block"
+                          style={{
+                            textDecoration: "line-through",
+                            color: "gray",
+                          }}
+                        >
+                          {selectedCurrency === "egp"
+                            ? `${translations.egp} ${(
+                                item.productInfo.priceEgp * item.quantity
+                              ).toFixed(2)}`
+                            : `$ ${(
+                                item.productInfo.priceUsd * item.quantity
+                              ).toFixed(2)}`}
+                        </span>{" "}
+                        <span
+                          className="d-block"
+                          style={{ color: "green", fontWeight: "bold" }}
+                        >
+                          {selectedCurrency === "egp"
+                            ? `${translations.egp} ${(
+                                discountedPrice * item.quantity
+                              ).toFixed(2)}`
+                            : `$ ${(discountedPrice * item.quantity).toFixed(
+                                2
+                              )}`}
+                        </span>
+                      </>
+                    ) : (
+                      <span>
+                        {selectedCurrency === "egp"
+                          ? `${translations.egp} ${(
+                              item.productInfo.priceEgp * item.quantity
+                            ).toFixed(2)}`
+                          : `$ ${(
+                              item.productInfo.priceUsd * item.quantity
+                            ).toFixed(2)}`}
+                      </span>
+                    )}
+                  </span>
+                </div>
+              );
+            })}
 
             <hr className="checkhr" />
-            <p>
-              {translations.totalPrice}{" "}
+            <div className="total d-flex justify-content-between">
+              <p>{translations.totalPrice} </p>
               <span className="price">
-                <b>${totalPrice.toFixed(2)}</b>
+                <b>
+                  {selectedCurrency === "egp" ? `${translations.egp}` : `$`}{" "}
+                  {totalPrice.toFixed(2)}
+                </b>
               </span>
-            </p>
+            </div>
           </div>
         </div>
       </div>

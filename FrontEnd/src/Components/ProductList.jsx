@@ -129,12 +129,12 @@ function ProductList({ addToCart }) {
                 <p className="text-base">
                   {product.discount ? (
                     <>
-                      <span className="line-through text-gray-500 mr-2">
+                      <span className="text-muted text-decoration-line-through d-block mr-2">
                         {selectedCurrency === "egp"
                           ? `${translations.egp} ${product.priceEgp}`
                           : `$ ${product.priceUsd}`}
                       </span>
-                      <span className="text-red-500 font-bold">
+                      <span className="text-danger font-weight-bold">
                         {selectedCurrency === "egp"
                           ? `${translations.egp} ${(
                               product.priceEgp *
@@ -153,11 +153,6 @@ function ProductList({ addToCart }) {
                         : `$ ${product.priceUsd}`}
                     </>
                   )}
-                </p>
-                <p>
-                  {selectedCurrency === "egp"
-                    ? `${translations.egp} ${product.priceEgp}`
-                    : `$ ${product.priceUsd}`}
                 </p>
                 <h4 className="text-success">{translations.prodOndm}</h4>
                 <div className="bottom">
