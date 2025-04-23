@@ -344,7 +344,7 @@ function Profile({
                     <p className="text-muted">
                       {translations.totalPrice}:{" "}
                       {selectedCurrency === "egp" ? `${translations.egp}` : "$"}{" "}
-                      {totalOrderPrice.toFixed(2)}
+                      {Math.round(totalOrderPrice)}
                     </p>
                   </div>
                   <div className="no">

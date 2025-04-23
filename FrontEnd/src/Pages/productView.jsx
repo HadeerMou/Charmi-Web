@@ -95,14 +95,14 @@ function ProductView({
                   </span>
                   <span className="text-danger font-weight-bold">
                     {selectedCurrency === "egp"
-                      ? `${translations.egp} ${(
+                      ? `${translations.egp} ${Math.round(
                           product.priceEgp *
-                          (1 - product.discount.percentage / 100)
-                        ).toFixed(2)}`
-                      : `$ ${(
+                            (1 - product.discount.percentage / 100)
+                        )}`
+                      : `$ ${Math.round(
                           product.priceUsd *
-                          (1 - product.discount.percentage / 100)
-                        ).toFixed(2)}`}
+                            (1 - product.discount.percentage / 100)
+                        )}`}
                   </span>
                   <small className="text-danger d-block">
                     {translations.discountends} {timeLeft}
@@ -362,14 +362,14 @@ function ProductView({
                 </span>
                 <span className="text-danger font-weight-bold">
                   {selectedCurrency === "egp"
-                    ? `${translations.egp} ${(
+                    ? `${translations.egp} ${Math.round(
                         product.priceEgp *
-                        (1 - product.discount.percentage / 100)
-                      ).toFixed(2)}`
-                    : `$ ${(
+                          (1 - product.discount.percentage / 100)
+                      )}`
+                    : `$ ${Math.round(
                         product.priceUsd *
-                        (1 - product.discount.percentage / 100)
-                      ).toFixed(2)}`}
+                          (1 - product.discount.percentage / 100)
+                      )}`}
                 </span>
                 <small className="text-danger d-block">
                   {translations.discountends} {timeLeft}

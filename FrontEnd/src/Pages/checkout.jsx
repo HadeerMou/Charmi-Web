@@ -310,10 +310,7 @@ export default function Checkout() {
               const discountedPrice = convertedPrice - discountAmount;
 
               return (
-                <div
-                  className="prodOrd"
-                  key={item.productId}
-                >
+                <div className="prodOrd" key={item.productId}>
                   <img
                     src={`https://${item.productInfo.image}`}
                     alt={item.name}
@@ -335,35 +332,35 @@ export default function Checkout() {
                           }}
                         >
                           {selectedCurrency === "egp"
-                            ? `${translations.egp} ${(
+                            ? `${translations.egp} ${Math.round(
                                 item.productInfo.priceEgp * item.quantity
-                              ).toFixed(2)}`
-                            : `$ ${(
+                              )}`
+                            : `$ ${Math.round(
                                 item.productInfo.priceUsd * item.quantity
-                              ).toFixed(2)}`}
+                              )}`}
                         </span>{" "}
                         <span
                           className="d-block"
                           style={{ color: "green", fontWeight: "bold" }}
                         >
                           {selectedCurrency === "egp"
-                            ? `${translations.egp} ${(
+                            ? `${translations.egp} ${Math.round(
                                 discountedPrice * item.quantity
-                              ).toFixed(2)}`
-                            : `$ ${(discountedPrice * item.quantity).toFixed(
-                                2
+                              )}`
+                            : `$ ${Math.round(
+                                discountedPrice * item.quantity
                               )}`}
                         </span>
                       </>
                     ) : (
                       <span>
                         {selectedCurrency === "egp"
-                          ? `${translations.egp} ${(
+                          ? `${translations.egp} ${Math.round(
                               item.productInfo.priceEgp * item.quantity
-                            ).toFixed(2)}`
-                          : `$ ${(
+                            )}`
+                          : `$ ${Math.round(
                               item.productInfo.priceUsd * item.quantity
-                            ).toFixed(2)}`}
+                            )}`}
                       </span>
                     )}
                   </span>
@@ -377,7 +374,7 @@ export default function Checkout() {
               <span className="price">
                 <b>
                   {selectedCurrency === "egp" ? `${translations.egp}` : `$`}{" "}
-                  {totalPrice.toFixed(2)}
+                  {Math.round(totalPrice)}
                 </b>
               </span>
             </div>

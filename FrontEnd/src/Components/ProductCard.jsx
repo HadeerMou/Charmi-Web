@@ -45,14 +45,12 @@ function ProductCard({
               </span>
               <span className="text-danger font-weight-bold">
                 {selectedCurrency === "egp"
-                  ? `${translations.egp} ${(
-                      product.priceEgp *
-                      (1 - discount.percentage / 100)
-                    ).toFixed(2)}`
-                  : `$ ${(
-                      product.priceUsd *
-                      (1 - discount.percentage / 100)
-                    ).toFixed(2)}`}
+                  ? `${translations.egp} ${Math.round(
+                      product.priceEgp * (1 - discount.percentage / 100)
+                    )}`
+                  : `$ ${Math.round(
+                      product.priceUsd * (1 - discount.percentage / 100)
+                    )}`}
               </span>
               <small className="text-danger d-block">
                 {translations.discountends} {timeLeft}

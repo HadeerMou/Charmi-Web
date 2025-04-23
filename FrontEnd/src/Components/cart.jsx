@@ -133,7 +133,7 @@ export default function Cart({
             <span>
               {translations.totalPrice}:{" "}
               {selectedCurrency === "egp" ? `${translations.egp}` : "$"}
-              {totalPrice.toFixed(2)} {/* Display with 2 decimals */}
+              {Math.round(totalPrice)} {/* Display with 2 decimals */}
             </span>
           </div>
         </div>
@@ -169,8 +169,8 @@ export default function Cart({
                   <div className="total-price">
                     {selectedCurrency === "egp" ? `${translations.egp}` : "$"}{" "}
                     {productInfo.discount
-                      ? (discountedPrice * (item.quantity || 0)).toFixed(2) // Total after discount
-                      : (convertedPrice * (item.quantity || 0)).toFixed(2)}{" "}
+                      ? Math.round(discountedPrice * (item.quantity || 0)) // Total after discount
+                      : Math.round(convertedPrice * (item.quantity || 0))}
                     {/* Total without discount */}
                   </div>
                   <div className="quantity">
