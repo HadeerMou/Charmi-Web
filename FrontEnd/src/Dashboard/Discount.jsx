@@ -141,6 +141,7 @@ function Discount() {
                     <th>Start Date</th>
                     <th>End Date</th>
                     <th>Active</th>
+                    <th>Products Id</th>
                     <th>Actions</th>
                   </tr>
                 </thead>
@@ -149,9 +150,12 @@ function Discount() {
                     <tr key={d.id}>
                       <td>{d.id}</td>
                       <td>{d.percentage}%</td>
-                      <td>{new Date(d.startDate).toLocaleDateString()}</td>
-                      <td>{new Date(d.endDate).toLocaleDateString()}</td>
+                      <td>
+                        {new Date(d.startDate).toLocaleDateString("en-GB")}
+                      </td>
+                      <td>{new Date(d.endDate).toLocaleDateString("en-GB")}</td>
                       <td>{d.isActive ? "Yes" : "No"}</td>
+                      <td>{d.products?.map((p) => p.id).join(", ")}</td>
                       <td>
                         <button
                           className="edit"
@@ -202,26 +206,38 @@ function Discount() {
                     })
                   }
                 />
-                <input
-                  type="date"
-                  value={newDiscount.startDate}
-                  onChange={(e) =>
-                    setNewDiscount({
-                      ...newDiscount,
-                      startDate: e.target.value,
-                    })
-                  }
-                />
-                <input
-                  type="date"
-                  value={newDiscount.endDate}
-                  onChange={(e) =>
-                    setNewDiscount({ ...newDiscount, endDate: e.target.value })
-                  }
-                />
-                <label>
+                <label className="d-flex">
+                  Start Date
+                  <input
+                    className="d-flex"
+                    type="date"
+                    value={newDiscount.startDate?.slice(0, 10)}
+                    onChange={(e) =>
+                      setNewDiscount({
+                        ...newDiscount,
+                        startDate: e.target.value,
+                      })
+                    }
+                  />
+                </label>
+                <label className="d-flex">
+                  End Date
+                  <input
+                    type="date"
+                    className="d-flex"
+                    value={newDiscount.endDate?.slice(0, 10)}
+                    onChange={(e) =>
+                      setNewDiscount({
+                        ...newDiscount,
+                        endDate: e.target.value,
+                      })
+                    }
+                  />
+                </label>
+                <label className="d-flex gap-2">
                   Active:
                   <input
+                    className="d-flex align-items-center"
                     type="checkbox"
                     checked={newDiscount.isActive}
                     onChange={(e) =>
@@ -257,9 +273,10 @@ function Discount() {
             )}
 
             {editingDiscount && (
-              <div className="edit-user-modal">
+              <div className="edit-user-modal ">
                 <h3>{translations.updateDiscount}</h3>
                 <input
+                  className="d-block"
                   type="number"
                   placeholder="Discount %"
                   value={updatedDiscount.percentage}
@@ -270,29 +287,39 @@ function Discount() {
                     })
                   }
                 />
-                <input
-                  type="date"
-                  value={updatedDiscount.startDate}
-                  onChange={(e) =>
-                    setUpdatedDiscount({
-                      ...updatedDiscount,
-                      startDate: e.target.value,
-                    })
-                  }
-                />
-                <input
-                  type="date"
-                  value={updatedDiscount.endDate}
-                  onChange={(e) =>
-                    setUpdatedDiscount({
-                      ...updatedDiscount,
-                      endDate: e.target.value,
-                    })
-                  }
-                />
-                <label>
+                <label className="d-flex">
+                  Start Date
+                  <input
+                    className="d-flex"
+                    type="date"
+                    value={updatedDiscount.startDate?.slice(0, 10)}
+                    onChange={(e) =>
+                      setUpdatedDiscount({
+                        ...updatedDiscount,
+                        startDate: e.target.value,
+                      })
+                    }
+                  />
+                </label>
+                <label className="d-flex">
+                  End Date
+                  <input
+                    type="date"
+                    className="d-flex"
+                    value={updatedDiscount.endDate?.slice(0, 10)}
+                    onChange={(e) =>
+                      setUpdatedDiscount({
+                        ...updatedDiscount,
+                        endDate: e.target.value,
+                      })
+                    }
+                  />
+                </label>
+
+                <label className="d-flex gap-2">
                   Active:
                   <input
+                    className="d-flex align-items-center"
                     type="checkbox"
                     checked={updatedDiscount.isActive}
                     onChange={(e) =>

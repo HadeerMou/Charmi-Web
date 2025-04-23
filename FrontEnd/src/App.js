@@ -36,8 +36,6 @@ import OrderSuccess from "./Pages/OrderSuccess";
 import UserAddresses from "./Pages/userAddresses";
 import Discount from "./Dashboard/Discount";
 
-<FontAwesomeIcon icon="fa-brands fa-cc-visa" />;
-
 function App() {
   const API_BASE_URL = process.env.REACT_APP_API_URL;
   const [products, setProducts] = useState([]);

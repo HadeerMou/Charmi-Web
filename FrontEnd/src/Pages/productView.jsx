@@ -8,6 +8,7 @@ import Products from "../Components/products";
 import { useCurrency } from "../CurrencyContext";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useCountdown } from "../Hooks/useCountdown";
 /* import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Environment, useGLTF } from "@react-three/drei"; */
 /* const ProductModel = ({ modelPath }) => {
@@ -42,10 +43,12 @@ function ProductView({
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
   const [hoveredProduct, setHoveredProduct] = useState(null); // Track hovered product ID
-
   // State for tracking touch start and end positions
   const [touchStartX, setTouchStartX] = useState(0);
   const [touchEndX, setTouchEndX] = useState(0);
+
+  const discount = product?.discount;
+  const timeLeft = useCountdown(discount?.endDate);
 
   // Function to render product cards
   const renderProductCard = (product) => {
@@ -101,6 +104,9 @@ function ProductView({
                           (1 - product.discount.percentage / 100)
                         ).toFixed(2)}`}
                   </span>
+                  <small className="text-danger d-block">
+                    Ends in: {timeLeft}
+                  </small>
                 </>
               ) : (
                 <span className="text-danger font-weight-bold">
@@ -365,6 +371,9 @@ function ProductView({
                         (1 - product.discount.percentage / 100)
                       ).toFixed(2)}`}
                 </span>
+                <small className="text-danger d-block">
+                  Ends in: {timeLeft}
+                </small>
               </>
             ) : (
               <span className="text-danger font-weight-bold">

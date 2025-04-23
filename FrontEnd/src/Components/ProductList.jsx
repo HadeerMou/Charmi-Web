@@ -4,6 +4,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { useCurrency } from "../CurrencyContext";
 import axios from "axios";
+import { useCountdown } from "../Hooks/useCountdown";
+import ProductCard from "./ProductCard";
 
 function ProductList({ addToCart }) {
   const { translations, language } = useTranslation();
@@ -15,7 +17,8 @@ function ProductList({ addToCart }) {
   const API_BASE_URL = process.env.REACT_APP_API_URL;
   const [hoveredProduct, setHoveredProduct] = useState(null); // Track hovered product ID
   const [categoryName, setCategoryName] = useState("All Products");
-
+  const discount = product?.discount;
+  const timeLeft = useCountdown(discount?.endDate);
   // Retrieve category info from state or localStorage
   const routeCategoryId = location.state?.categoryId;
   const storedCategoryId = localStorage.getItem("categoryId");
@@ -106,69 +109,18 @@ function ProductList({ addToCart }) {
         <h1 className="DesignTitle">{categoryName}</h1>
       </div>
       <div className="webs">
-        {product.map((product) => {
-          return (
-            <div key={product.id} className="product">
-              <div className="img">
-                <img
-                  src={
-                    hoveredProduct === product.id && product.images.length > 1
-                      ? product.images[1]
-                      : product.images[0]
-                  }
-                  alt={product.name}
-                  onMouseEnter={() => setHoveredProduct(product.id)}
-                  onMouseLeave={() => setHoveredProduct(null)}
-                  onClick={() =>
-                    navigate(`/product/${product.id}`, { state: { product } })
-                  }
-                />
-              </div>
-              <div className="content">
-                <h3>{language === "ar" ? product.nameAr : product.nameEn}</h3>
-                <p className="text-base">
-                  {product.discount ? (
-                    <>
-                      <span className="text-muted text-decoration-line-through d-block mr-2">
-                        {selectedCurrency === "egp"
-                          ? `${translations.egp} ${product.priceEgp}`
-                          : `$ ${product.priceUsd}`}
-                      </span>
-                      <span className="text-danger font-weight-bold">
-                        {selectedCurrency === "egp"
-                          ? `${translations.egp} ${(
-                              product.priceEgp *
-                              (1 - product.discount.percentage / 100)
-                            ).toFixed(2)}`
-                          : `$ ${(
-                              product.priceUsd *
-                              (1 - product.discount.percentage / 100)
-                            ).toFixed(2)}`}
-                      </span>
-                    </>
-                  ) : (
-                    <>
-                      {selectedCurrency === "egp"
-                        ? `${translations.egp} ${product.priceEgp}`
-                        : `$ ${product.priceUsd}`}
-                    </>
-                  )}
-                </p>
-                <h4 className="text-success">{translations.prodOndm}</h4>
-                <div className="bottom">
-                  <button
-                    className="addtocart"
-                    onClick={() => {
-                      addToCart(product);
-                    }}
-                  >
-                    {translations.addtocart}
-                  </button>
-                </div>
-              </div>
-            </div>
-          );
-        })}
+        {product.map((product) => (
+          <ProductCard
+            key={product.id}
+            product={product}
+            language={language}
+            translations={translations}
+            selectedCurrency={selectedCurrency}
+            addToCart={addToCart}
+            hoveredProduct={hoveredProduct}
+            setHoveredProduct={setHoveredProduct}
+          />
+        ))}
       </div>
     </div>
   );

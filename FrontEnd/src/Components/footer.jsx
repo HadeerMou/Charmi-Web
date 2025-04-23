@@ -61,7 +61,7 @@ export default function Footer() {
             </div>
             <div class="col-md-4">
               <h5 class="follow">{translations.follow}</h5>
-              <ul class="list-inline">
+              <ul class="list-inline gap-1">
                 <li class="list-inline-item">
                   <a
                     href="https://www.facebook.com/people/%D8%AA%D8%B4%D8%A7%D8%B1%D9%85%D9%8A-%D9%84%D9%84%D9%85%D8%B7%D8%A7%D8%A8%D8%AE-%D9%88%D8%A7%D9%84%D8%A7%D8%AB%D8%A7%D8%AB-%D8%A7%D9%84%D9%85%D9%86%D8%B2%D9%84%D9%8A/100064863465749/?mibextid=ZbWKwL"

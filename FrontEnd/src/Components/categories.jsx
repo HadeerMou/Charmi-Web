@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { useCurrency } from "../CurrencyContext";
 import axios from "axios";
+import ProductCard from "./ProductCard";
 
 function Categories({ addToCart }) {
   const { translations, language } = useTranslation();
@@ -81,68 +82,16 @@ function Categories({ addToCart }) {
             <div className="scroll-container">
               <div className="webs">
                 {productsByCategory[category.id]?.map((product) => (
-                  <div key={product.id} className="product">
-                    <div className="img">
-                      <img
-                        src={
-                          hoveredProduct === product.id &&
-                          product.images.length > 1
-                            ? product.images[1]
-                            : product.images[0]
-                        }
-                        alt={product.name}
-                        onMouseEnter={() => setHoveredProduct(product.id)}
-                        onMouseLeave={() => setHoveredProduct(null)}
-                        onClick={() =>
-                          navigate(`/product/${product.id}`, {
-                            state: { product },
-                          })
-                        }
-                      />
-                    </div>
-                    <div className="content">
-                      <h3>
-                        {language === "ar" ? product.nameAr : product.nameEn}
-                      </h3>
-                      <p className="text-base">
-                        {product.discount ? (
-                          <>
-                            <span className="text-muted text-decoration-line-through d-block mr-2">
-                              {selectedCurrency === "egp"
-                                ? `${translations.egp} ${product.priceEgp}`
-                                : `$ ${product.priceUsd}`}
-                            </span>
-                            <span className="text-danger font-weight-bold">
-                              {selectedCurrency === "egp"
-                                ? `${translations.egp} ${(
-                                    product.priceEgp *
-                                    (1 - product.discount.percentage / 100)
-                                  ).toFixed(2)}`
-                                : `$ ${(
-                                    product.priceUsd *
-                                    (1 - product.discount.percentage / 100)
-                                  ).toFixed(2)}`}
-                            </span>
-                          </>
-                        ) : (
-                          <>
-                            {selectedCurrency === "egp"
-                              ? `${translations.egp} ${product.priceEgp}`
-                              : `$ ${product.priceUsd}`}
-                          </>
-                        )}
-                      </p>
-                      <h4 className="text-success">{translations.prodOndm}</h4>
-                      <div className="bottom">
-                        <button
-                          className="addtocart"
-                          onClick={() => addToCart(product)}
-                        >
-                          {translations.addtocart}
-                        </button>
-                      </div>
-                    </div>
-                  </div>
+                  <ProductCard
+                    key={product.id}
+                    product={product}
+                    language={language}
+                    translations={translations}
+                    selectedCurrency={selectedCurrency}
+                    addToCart={addToCart}
+                    hoveredProduct={hoveredProduct}
+                    setHoveredProduct={setHoveredProduct}
+                  />
                 ))}
               </div>
             </div>
