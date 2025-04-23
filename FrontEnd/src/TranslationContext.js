@@ -242,6 +242,7 @@ const translations = {
     nologged: "You're not logged!",
     whatsuits: "Choose what suits you to see your account",
     emptycart: "Your cart is empty",
+    discountends: "Discount Ends in:",
   },
   ar: {
     english: "إنجليزي",
@@ -482,6 +483,7 @@ const translations = {
     nologged: "!لم يتم تسجيل دخولك",
     whatsuits: "اختر ما يناسبك لرؤية حسابك",
     emptycart: "سلة التسوق الخاصة بك فارغة",
+    discountends: "ينتهي الخصم في:",
   },
 };
 

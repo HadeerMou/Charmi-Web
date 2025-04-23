@@ -54,7 +54,9 @@ function ProductCard({
                       (1 - discount.percentage / 100)
                     ).toFixed(2)}`}
               </span>
-              <small className="text-danger d-block">Ends in: {timeLeft}</small>
+              <small className="text-danger d-block">
+                {translations.discountends} {timeLeft}
+              </small>
             </>
           ) : (
             <>

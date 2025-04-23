@@ -483,6 +483,19 @@ function Dshproducts() {
                     })
                   }
                 />
+                <select
+                  value={newProduct.discountId}
+                  onChange={(e) =>
+                    setNewProduct({ ...newProduct, discountId: e.target.value })
+                  }
+                >
+                  <option value="">Select Discount</option>
+                  {discounts.map((discount) => (
+                    <option key={discount.id} value={discount.id}>
+                      {discount.percentage}% - {discount.name}
+                    </option>
+                  ))}
+                </select>
 
                 <button onClick={handleCreateProduct}>
                   {translations.creatProd}
@@ -591,6 +604,23 @@ function Dshproducts() {
                     })
                   }
                 />
+                <select
+                  value={updatedProduct.discountId}
+                  onChange={(e) =>
+                    setUpdatedProduct({
+                      ...updatedProduct,
+                      discountId: e.target.value,
+                    })
+                  }
+                >
+                  <option value="">Select Discount</option>
+                  {discounts.map((discount) => (
+                    <option key={discount.id} value={discount.id}>
+                      {discount.percentage}% - {discount.name}
+                    </option>
+                  ))}
+                </select>
+
                 <button className="addprod" onClick={handleUpdate}>
                   {translations.update}
                 </button>

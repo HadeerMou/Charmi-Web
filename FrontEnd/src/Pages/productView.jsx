@@ -105,7 +105,7 @@ function ProductView({
                         ).toFixed(2)}`}
                   </span>
                   <small className="text-danger d-block">
-                    Ends in: {timeLeft}
+                    {translations.discountends} {timeLeft}
                   </small>
                 </>
               ) : (
@@ -372,7 +372,7 @@ function ProductView({
                       ).toFixed(2)}`}
                 </span>
                 <small className="text-danger d-block">
-                  Ends in: {timeLeft}
+                  {translations.discountends} {timeLeft}
                 </small>
               </>
             ) : (
