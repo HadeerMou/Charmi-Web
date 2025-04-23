@@ -136,13 +136,13 @@ function Discount() {
               <table>
                 <thead>
                   <tr>
-                    <th>ID</th>
-                    <th>Percentage</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
-                    <th>Active</th>
-                    <th>Products Id</th>
-                    <th>Actions</th>
+                    <th>{translations.id}</th>
+                    <th>{translations.percentage}</th>
+                    <th>{translations.startDate}</th>
+                    <th>{translations.endDate}</th>
+                    <th>{translations.active}</th>
+                    <th>{translations.productsId}</th>
+                    <th>{translations.actions}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -197,7 +197,7 @@ function Discount() {
 
                 <input
                   type="number"
-                  placeholder="Discount %"
+                  placeholder={`${translations.discount} % `}
                   value={newDiscount.percentage}
                   onChange={(e) =>
                     setNewDiscount({
@@ -207,7 +207,7 @@ function Discount() {
                   }
                 />
                 <label className="d-flex">
-                  Start Date
+                  {translations.startDate}
                   <input
                     className="d-flex"
                     type="date"
@@ -221,7 +221,7 @@ function Discount() {
                   />
                 </label>
                 <label className="d-flex">
-                  End Date
+                  {translations.endDate}
                   <input
                     type="date"
                     className="d-flex"
@@ -235,7 +235,7 @@ function Discount() {
                   />
                 </label>
                 <label className="d-flex gap-2">
-                  Active:
+                  {translations.active}
                   <input
                     className="d-flex align-items-center"
                     type="checkbox"
@@ -250,7 +250,7 @@ function Discount() {
                 </label>
                 <input
                   type="text"
-                  placeholder="Product IDs (comma-separated)"
+                  placeholder={translations.productsIds}
                   value={newDiscount.productIds} // This keeps the display as comma-separated values
                   onChange={(e) => {
                     const inputValue = e.target.value;
@@ -265,7 +265,6 @@ function Discount() {
                     });
                   }}
                 />
-
                 <button onClick={handleCreate}>
                   {translations.createDiscount}
                 </button>
@@ -278,7 +277,7 @@ function Discount() {
                 <input
                   className="d-block"
                   type="number"
-                  placeholder="Discount %"
+                  placeholder={`${translations.discount} % `}
                   value={updatedDiscount.percentage}
                   onChange={(e) =>
                     setUpdatedDiscount({
@@ -288,7 +287,7 @@ function Discount() {
                   }
                 />
                 <label className="d-flex">
-                  Start Date
+                  {translations.startDate}
                   <input
                     className="d-flex"
                     type="date"
@@ -302,7 +301,7 @@ function Discount() {
                   />
                 </label>
                 <label className="d-flex">
-                  End Date
+                  {translations.endDate}
                   <input
                     type="date"
                     className="d-flex"
@@ -317,7 +316,7 @@ function Discount() {
                 </label>
 
                 <label className="d-flex gap-2">
-                  Active:
+                  {translations.active}
                   <input
                     className="d-flex align-items-center"
                     type="checkbox"
@@ -332,7 +331,7 @@ function Discount() {
                 </label>
                 <input
                   type="text"
-                  placeholder="Product IDs (comma-separated)"
+                  placeholder={translations.productsIds}
                   value={updatedDiscount.productIds}
                   onChange={(e) => {
                     const inputValue = e.target.value;
@@ -346,7 +345,13 @@ function Discount() {
                     });
                   }}
                 />
-                <button onClick={handleUpdate}>
+                <button
+                  className="addprod"
+                  onClick={() => setEditingDiscount(null)}
+                >
+                  {translations.cancel}
+                </button>
+                <button className="addprod" onClick={handleUpdate}>
                   {translations.updateDiscount}
                 </button>
               </div>

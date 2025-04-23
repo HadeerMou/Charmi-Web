@@ -132,6 +132,13 @@ const translations = {
     addDiscount: "Add Discount",
     createDiscount: "Create Discount",
     updateDiscount: "Update Dicount",
+    startDate: "Start Date",
+    endDate: "End Date",
+    active: "Active:",
+    productsIds: "Product IDs (comma-separated)",
+    percentage: "Percentage",
+    productsId: "Products Id",
+    id: "ID",
     //dashboard chat
     send: "Send",
     // dashboard admins
@@ -372,6 +379,13 @@ const translations = {
     addDiscount: "إضافة خصم",
     createDiscount: "إنشاء خصم",
     updateDiscount: "تحديث الخصم",
+    startDate: "تاريخ البدء",
+    endDate: "تاريخ الانتهاء",
+    active: "نشط:",
+    productsIds: "معرفات المنتجات (مفصولة بفواصل)",
+    percentage: "النسبة المئوية",
+    productsId: "معرف المنتج",
+    id: "المعرف",
     //dashboard chat
     send: "أرسل",
     //dashboard admins
