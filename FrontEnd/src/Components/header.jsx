@@ -45,10 +45,10 @@ function Header({
     changeLanguage(newLanguage);
   };
 
-  const handleCurrencyChange = (event) => {
+  /*   const handleCurrencyChange = (event) => {
     const newCurrency = event.target.value;
     changeCurrency(newCurrency);
-  };
+  }; */
   useEffect(() => {
     const handleStorageChange = () => {
       setIsLoggedIn(!!localStorage.getItem("token"));
@@ -86,7 +86,7 @@ function Header({
             <img src={logo} alt="Logo" className="logo img-fluid" />
           </Link>
           <div className="d-flex align-items-center">
-            <div className="curr">
+            {/*   <div className="curr">
               <select
                 className="sel"
                 name="curr"
@@ -97,7 +97,7 @@ function Header({
                 <option value="egp">{translations.egp}</option>
                 <option value="dollar">{translations.dollar}</option>
               </select>
-            </div>
+            </div> */}
             <div className="lang">
               <select
                 name="language"

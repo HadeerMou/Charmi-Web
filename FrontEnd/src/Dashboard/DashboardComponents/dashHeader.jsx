@@ -13,12 +13,12 @@ import { useCurrency } from "../../CurrencyContext";
 function DASHHeader({ OpenSidebar }) {
   const { translations, changeLanguage } = useTranslation(); // Using translation context
   const [selectedLanguage, setSelectedLanguage] = useState("en"); // Default language is English
-  const { selectedCurrency, changeCurrency } = useCurrency(); // Using currency context
-  
-  const handleCurrencyChange = (event) => {
+  const { selectedCurrency } = useCurrency(); // Using currency context
+
+  /*   const handleCurrencyChange = (event) => {
     const newCurrency = event.target.value;
     changeCurrency(newCurrency); // Update Currency in context
-  };
+  }; */
 
   useEffect(() => {
     setSelectedLanguage(localStorage.getItem("language") || "en");
@@ -78,7 +78,7 @@ function DASHHeader({ OpenSidebar }) {
         </div>
       </div>
       <div className="header-right">
-        <div className="curr">
+        {/*  <div className="curr">
           <select
             name="curr"
             id="sel"
@@ -88,7 +88,7 @@ function DASHHeader({ OpenSidebar }) {
             <option value="egp">{translations.egp}</option>
             <option value="dollar">{translations.dollar}</option>
           </select>
-        </div>
+        </div> */}
         <div className="lang">
           <select
             name="language"

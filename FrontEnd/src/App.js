@@ -5,7 +5,13 @@ import Cart from "./Components/cart";
 import "./App.css";
 import { TranslationProvider } from "./TranslationContext";
 import About from "./Pages/About";
-import { Routes, Route, useNavigation, useNavigate } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  useNavigation,
+  useNavigate,
+  Navigate,
+} from "react-router-dom";
 import Home from "./Pages/Home";
 import Contact from "./Pages/contact";
 import Checkout from "./Pages/checkout";
@@ -35,6 +41,7 @@ import CategoryPage from "./Pages/categoryPage";
 import OrderSuccess from "./Pages/OrderSuccess";
 import UserAddresses from "./Pages/userAddresses";
 import Discount from "./Dashboard/Discount";
+import AdminRoute from "./AdminRoute";
 
 function App() {
   const API_BASE_URL = process.env.REACT_APP_API_URL;
@@ -210,15 +217,30 @@ function App() {
               />
             }
           />
+          <Route path="/admin-login" element={<Signin userType="ADMIN" />} />
 
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/dashboard/products" element={<Dshproducts />} />
-          <Route path="/dashboard/users" element={<DshUsers />} />
-          <Route path="/dashboard/orders" element={<DshOrders cart={cart} />} />
-          <Route path="/dashboard/discount" element={<Discount />} />
+          <Route element={<AdminRoute />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/dashboard/products" element={<Dshproducts />} />
+            <Route path="/dashboard/users" element={<DshUsers />} />
+            <Route
+              path="/dashboard/orders"
+              element={<DshOrders cart={cart} />}
+            />
+            <Route path="/dashboard/discount" element={<Discount />} />
+            <Route path="/dashboard/cities" element={<DshCities />} />
+            <Route path="/dashboard/countries" element={<DshCountries />} />
+            <Route path="/dashboard/categories" element={<DshCategories />} />
+            <Route path="/dashboard/admins" element={<AdminPage />} />
+            <Route path="/dashboard/shippingfees" element={<ShippingFees />} />
+            <Route
+              path="/dashboard/products/productdetails/:productId"
+              element={<ProductDetails />}
+            />
+          </Route>
+
           <Route path="/register" element={<NoAccount />} />
           <Route path="/user-login" element={<Signin userType="USER" />} />
-          <Route path="/admin-login" element={<Signin userType="ADMIN" />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/otp" element={<OtpPage />} />
           <Route path="/email-verification" element={<EmailInput />} />
@@ -237,15 +259,7 @@ function App() {
               />
             }
           />
-          <Route path="/dashboard/cities" element={<DshCities />} />
-          <Route path="/dashboard/countries" element={<DshCountries />} />
-          <Route path="/dashboard/categories" element={<DshCategories />} />
-          <Route path="/dashboard/admins" element={<AdminPage />} />
-          <Route path="/dashboard/shippingfees" element={<ShippingFees />} />
-          <Route
-            path="/dashboard/products/productdetails/:productId"
-            element={<ProductDetails />}
-          />
+
           <Route path="/order-success" element={<OrderSuccess />} />
           <Route
             path="/productlist"
@@ -257,6 +271,7 @@ function App() {
               />
             }
           />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
 
         {/* Conditionally render Cart only when products are loaded */}

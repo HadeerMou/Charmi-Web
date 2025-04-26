@@ -16,6 +16,12 @@ function ProductCard({
   const discount = product.discount;
   const timeLeft = useCountdown(discount?.endDate);
 
+  const formatPrice = (selectedCurrency, priceEgp, priceUsd) => {
+    return selectedCurrency === "egp"
+      ? `${translations.egp} ${priceEgp}`
+      : `$ ${priceUsd}`;
+  };
+
   return (
     <div key={product.id} className="product">
       <div className="img">
@@ -39,29 +45,27 @@ function ProductCard({
           {discount ? (
             <>
               <span className="text-muted text-decoration-line-through d-block mr-2">
-                {selectedCurrency === "egp"
-                  ? `${translations.egp} ${product.priceEgp}`
-                  : `$ ${product.priceUsd}`}
+                {formatPrice(
+                  selectedCurrency,
+                  product.priceEgp,
+                  product.priceUsd
+                )}
               </span>
               <span className="text-danger font-weight-bold">
-                {selectedCurrency === "egp"
-                  ? `${translations.egp} ${Math.round(
-                      product.priceEgp * (1 - discount.percentage / 100)
-                    )}`
-                  : `$ ${Math.round(
-                      product.priceUsd * (1 - discount.percentage / 100)
-                    )}`}
+                {formatPrice(
+                  selectedCurrency,
+                  Math.round(
+                    product.priceEgp * (1 - discount.percentage / 100)
+                  ),
+                  Math.round(product.priceUsd * (1 - discount.percentage / 100))
+                )}
               </span>
               <small className="text-danger d-block">
                 {translations.discountends} {timeLeft}
               </small>
             </>
           ) : (
-            <>
-              {selectedCurrency === "egp"
-                ? `${translations.egp} ${product.priceEgp}`
-                : `$ ${product.priceUsd}`}
-            </>
+            formatPrice(selectedCurrency, product.priceEgp, product.priceUsd)
           )}
         </p>
         <h4 className="text-success">{translations.prodOndm}</h4>
