@@ -80,7 +80,7 @@ function Categories({ addToCart }) {
   return (
     <>
       <div className="home-page">
-        {categories.map((category) => (
+        {Array.isArray(categories).map((category) => (
           <div key={category.id} className="category-section">
             <div className="sc1">
               <h1 className="DesignTitle">
@@ -89,18 +89,20 @@ function Categories({ addToCart }) {
             </div>
             <div className="scroll-container">
               <div className="webs">
-                {productsByCategory[category.id]?.map((product) => (
-                  <ProductCard
-                    key={product.id}
-                    product={product}
-                    language={language}
-                    translations={translations}
-                    selectedCurrency={selectedCurrency}
-                    addToCart={addToCart}
-                    hoveredProduct={hoveredProduct}
-                    setHoveredProduct={setHoveredProduct}
-                  />
-                ))}
+                {Array.isArray(productsByCategory[category.id])?.map(
+                  (product) => (
+                    <ProductCard
+                      key={product.id}
+                      product={product}
+                      language={language}
+                      translations={translations}
+                      selectedCurrency={selectedCurrency}
+                      addToCart={addToCart}
+                      hoveredProduct={hoveredProduct}
+                      setHoveredProduct={setHoveredProduct}
+                    />
+                  )
+                )}
               </div>
             </div>
 
