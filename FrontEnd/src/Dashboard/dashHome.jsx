@@ -151,9 +151,8 @@ function DashHome() {
       <main className="main-container">
         <div className="main">
           <div className="main-title">
-            <h3 className="dashtitle">{translations.dashtitle}</h3>
+            <h3 className="dashtitle p-2">{translations.dashtitle}</h3>
           </div>
-
           <div className="main-cards">
             <div className="card">
               <div class="sales">

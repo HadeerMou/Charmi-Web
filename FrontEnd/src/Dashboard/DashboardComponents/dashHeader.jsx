@@ -69,12 +69,9 @@ function DASHHeader({ OpenSidebar }) {
       </div>
       <div className="header-left">
         <div class="admin">
-          <div class="admin-name">
-            <p>
-              Hey, <b>Admin</b>
-            </p>
-            <small>Admin</small>
-          </div>
+          <p>
+            Hey, <b>Admin</b>
+          </p>
         </div>
       </div>
       <div className="header-right">

@@ -13,7 +13,7 @@ function DashSidebar({ openSidebarToggle, OpenSidebar }) {
       id="sidebar"
       className={openSidebarToggle ? "sidebar-responsive" : ""}
     >
-      <div className="sidebar-top">
+      <div className="sidebar-top justify-content-between">
         <div className="sidebar-brand">
           <img
             onClick={() => navigate("/")}
@@ -122,7 +122,7 @@ function DashSidebar({ openSidebarToggle, OpenSidebar }) {
               <i className="fa-solid fa-percent"></i>
             </span>
             <h3 className="discountname">
-              {translations.discountname || "Discounts"}
+              {translations.discount || "Discounts"}
             </h3>
           </a>
         </li>
