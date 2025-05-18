@@ -80,49 +80,50 @@ function Categories({ addToCart }) {
   return (
     <>
       <div className="home-page">
-        {Array.isArray(categories).map((category) => (
-          <div key={category.id} className="category-section">
-            <div className="sc1">
-              <h1 className="DesignTitle">
-                {language === "ar" ? category.nameAr : category.nameEn}
-              </h1>
-            </div>
-            <div className="scroll-container">
-              <div className="webs">
-                {Array.isArray(productsByCategory[category.id])?.map(
-                  (product) => (
-                    <ProductCard
-                      key={product.id}
-                      product={product}
-                      language={language}
-                      translations={translations}
-                      selectedCurrency={selectedCurrency}
-                      addToCart={addToCart}
-                      hoveredProduct={hoveredProduct}
-                      setHoveredProduct={setHoveredProduct}
-                    />
-                  )
-                )}
-              </div>
-            </div>
+        {Array.isArray(categories)
+          ? categories.map((category) => (
+              <div key={category.id} className="category-section">
+                <div className="sc1">
+                  <h1 className="DesignTitle">
+                    {language === "ar" ? category.nameAr : category.nameEn}
+                  </h1>
+                </div>
+                <div className="scroll-container">
+                  <div className="webs">
+                    {Array.isArray(productsByCategory[category.id]) &&
+                      productsByCategory[category.id].map((product) => (
+                        <ProductCard
+                          key={product.id}
+                          product={product}
+                          language={language}
+                          translations={translations}
+                          selectedCurrency={selectedCurrency}
+                          addToCart={addToCart}
+                          hoveredProduct={hoveredProduct}
+                          setHoveredProduct={setHoveredProduct}
+                        />
+                      ))}
+                  </div>
+                </div>
 
-            <div className="more">
-              <a
-                onClick={() =>
-                  navigate("/categorypage", {
-                    state: {
-                      categoryId: category.id,
-                      categoryName: category.name,
-                    },
-                  })
-                }
-              >
-                <h3 className="showmore">{translations.showmore}</h3>
-                <i className="bi bi-arrow-right-circle-fill arrow ms-2"></i>
-              </a>
-            </div>
-          </div>
-        ))}
+                <div className="more">
+                  <a
+                    onClick={() =>
+                      navigate("/categorypage", {
+                        state: {
+                          categoryId: category.id,
+                          categoryName: category.name,
+                        },
+                      })
+                    }
+                  >
+                    <h3 className="showmore">{translations.showmore}</h3>
+                    <i className="bi bi-arrow-right-circle-fill arrow ms-2"></i>
+                  </a>
+                </div>
+              </div>
+            ))
+          : null}
       </div>
     </>
   );
