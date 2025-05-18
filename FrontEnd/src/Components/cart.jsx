@@ -19,7 +19,8 @@ export default function Cart({
   const API_BASE_URL = process.env.REACT_APP_API_URL;
 
   const calculateTotalPrice = (cart, getProductInfo, selectedCurrency) => {
-    return cart.reduce((acc, item) => {
+    const list = Array.isArray(cartItems) ? cartItems : []; // ← guard
+    return list.reduce((acc, item) => {
       const product = getProductInfo(item.productId);
       const basePrice =
         selectedCurrency === "egp" ? product.priceEgp : product.priceUsd;
@@ -138,7 +139,7 @@ export default function Cart({
           </div>
         </div>
         <div className="cart-items">
-          {cart && cart.length > 0 ? (
+          {Array.isArray(cart) && cart.length > 0 ? (
             cart.map((item) => {
               const productInfo = getProductInfo(item.productId); // Get product details
               const convertedPrice =
