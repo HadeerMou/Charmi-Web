@@ -19,7 +19,7 @@ export default function Cart({
   const API_BASE_URL = process.env.REACT_APP_API_URL;
 
   const calculateTotalPrice = (cart, getProductInfo, selectedCurrency) => {
-    const list = Array.isArray(cartItems) ? cartItems : []; // ← guard
+    const list = Array.isArray(cart) ? cart : []; // ← guard
     return list.reduce((acc, item) => {
       const product = getProductInfo(item.productId);
       const basePrice =

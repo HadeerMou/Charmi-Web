@@ -17,13 +17,6 @@ function Categories({ addToCart }) {
   const [hoveredProduct, setHoveredProduct] = useState(null); // Track hovered product ID
 
   useEffect(() => {
-    const products = Array.isArray(productResponse.data) // old Railway style
-      ? productResponse.data
-      : Array.isArray(productResponse.data.data) // new Nest style  ✨
-      ? productResponse.data.data
-      : Array.isArray(productResponse.data.items) // if you used “items”
-      ? productResponse.data.items
-      : [];
     const fetchCategoriesAndProducts = async () => {
       try {
         const categoryResponse = await axios.get(`${API_BASE_URL}/category`);
@@ -35,6 +28,13 @@ function Categories({ addToCart }) {
           let categoryProducts = {};
           for (const category of categoryResponse.data) {
             // Get first 4 products for each category
+            const products = Array.isArray(productResponse.data) // old Railway style
+              ? productResponse.data
+              : Array.isArray(productResponse.data.data) // new Nest style  ✨
+              ? productResponse.data.data
+              : Array.isArray(productResponse.data.items) // if you used “items”
+              ? productResponse.data.items
+              : [];
 
             const filteredProducts = products
               .filter((p) => p.categoryId === category.id)
