@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import helmet from 'helmet'; // ← extra security headers
 import * as express from 'express';
 import { join } from 'path';
 
@@ -9,6 +10,9 @@ async function bootstrap() {
     logger: ['error', 'warn', 'log', 'debug', 'verbose'],
   });
   const port = process.env.PORT || 3000;
+
+  // security
+  app.use(helmet());
 
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
@@ -20,15 +24,27 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('Charmi API')
     .setDescription('The Charmi API description')
-    .addServer(`http://localhost:${port}`)
-    .addServer('https://api.charmi-eg.com')
-    .addServer('https://charmi.awsapprunner.com')
+    .addServer(
+      process.env.NODE_ENV === 'production'
+        ? 'https://api.charmi.shop'
+        : `http://localhost:${port}`,
+    )
     .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('swagger', app, document);
 
-  app.enableCors();
+  app.enableCors({
+    origin: [
+      'https://charmi-web.vercel.app', // production frontend on Vercel
+      'https://charmi.shop', // root domain if you serve frontend here
+      'https://www.charmi.shop',
+      'http://localhost:3001', // local dev
+    ],
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    allowedHeaders: 'Content-Type,Authorization',
+    credentials: true,
+  });
 
   app.enableShutdownHooks();
 
