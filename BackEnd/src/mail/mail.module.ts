@@ -3,35 +3,43 @@ import { MailController } from './mail.controller';
 import { MailService } from './mail.service';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { join } from 'path';
+
 @Module({
   imports: [
-    MailerModule.forRoot({
-      transport: {
-        host: process.env.MAIL_HOST,
-        port: parseInt(process.env.MAIL_PORT || '', 10),
-        secure: false,
-        auth: {
-          user: process.env.MAIL_USER,
-          pass: process.env.MAIL_PASSWORD,
+    ConfigModule, // Ensure it's available
+    MailerModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => ({
+        transport: {
+          host: config.get<string>('MAIL_HOST'),
+          port: config.get<number>('MAIL_PORT'),
+          secure: false,
+          auth: {
+            user: config.get<string>('MAIL_USER'),
+            pass: config.get<string>('MAIL_PASSWORD'),
+          },
+          tls: {
+            rejectUnauthorized: false,
+          },
         },
-        tls: {
-          rejectUnauthorized: false,
+        defaults: {
+          from: config.get<string>('MAIL_FROM'),
         },
-      },
-      defaults: {
-        from: process.env.MAIL_FROM,
-      },
-      template: {
-        dir: join(__dirname, 'templates'),
-        adapter: new PugAdapter(),
-        options: {
-          strict: true,
+        template: {
+          dir: join(__dirname, 'templates'),
+          adapter: new PugAdapter(),
+          options: {
+            strict: true,
+          },
         },
-      },
+      }),
     }),
   ],
   controllers: [MailController],
   providers: [MailService],
+  exports: [MailService],
 })
 export class MailModule {}
