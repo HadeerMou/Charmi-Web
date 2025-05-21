@@ -15,7 +15,7 @@ import { join } from 'path';
       useFactory: (config: ConfigService) => ({
         transport: {
           host: config.get<string>('MAIL_HOST'),
-          port: config.get<number>('MAIL_PORT'),
+          port: parseInt(config.get<string>('MAIL_PORT') || '587', 10),
           secure: false,
           auth: {
             user: config.get<string>('MAIL_USER'),
